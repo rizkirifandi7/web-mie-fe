@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,100..900;1,100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--radius: 0.5rem;
+	}
+}
+
+* {
+	/* font-family: "Advent Pro", sans-serif; */
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+}
+
+.font-advent {
+	font-family: "Advent Pro", sans-serif;
+}
+
+.bg-image {
+	background-image: url("/bg.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
