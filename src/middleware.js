@@ -3,17 +3,20 @@ import { getCookie } from "./actions/cookies";
 import jwt from "jsonwebtoken";
 
 export async function middleware(request) {
-	const cookies = getCookie("auth_session");
+	// const cookies = getCookie("auth_session");
+	// const token = jwt.decode(cookies);
 
-	const token = jwt.decode(cookies);
+	// if (!token && request.nextUrl.pathname.startsWith("/admin")) {
+	// 	return NextResponse.rewrite(new URL("/auth/signin", request.url));
+	// }
 
-	if (!token || token.role !== "admin") {
-		return NextResponse.redirect("http://localhost:3000/auth/signin");
-	}
+	// if (request.nextUrl.pathname.startsWith("/auth")) {
+	// 	return NextResponse.rewrite(new URL("/auth/signin", request.url));
+	// }
 
 	return NextResponse.next();
 }
 
-export const config = {
-	matcher: "/admin/:path*",
-};
+// export const config = {
+// 	matcher: ["/admin/:path*", "/auth/:path*"],
+// };

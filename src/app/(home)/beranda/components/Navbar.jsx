@@ -1,18 +1,53 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import LogoBrand from "@/assets/logo.svg";
 import { Menu, X } from "lucide-react";
 
-const Navbar = () => {
+const NavbarLink = ({ href, label, activeLink, setActiveLink }) => (
+	<Link
+		href={href}
+		onClick={() => setActiveLink(label.toLowerCase())}
+		className={`${
+			activeLink === label.toLowerCase()
+				? "border-b-2 border-black font-bold"
+				: ""
+		}`}
+	>
+		{label}
+	</Link>
+);
+
+const Navbar = React.memo(function Navbar() {
 	const [activeLink, setActiveLink] = useState("beranda");
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
 	const toggleMobileMenu = () => {
 		setIsMobileMenuOpen(!isMobileMenuOpen);
 	};
+
+	// useEffect to handle screen resize
+	useEffect(() => {
+		const handleResize = () => {
+			if (window.innerWidth >= 768) {
+				setIsMobileMenuOpen(false);
+			}
+		};
+
+		window.addEventListener("resize", handleResize);
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, []);
+
+	const links = [
+		{ href: "/beranda", label: "Beranda" },
+		{ href: "/menu", label: "Menu" },
+		{ href: "/beranda/#tentang", label: "Tentang" },
+		{ href: "/beranda/#kontak", label: "Kontak" },
+	];
 
 	return (
 		<nav className="w-full fixed z-50">
@@ -22,7 +57,12 @@ const Navbar = () => {
 						<Image src={LogoBrand} width="32" height="32" alt="demihan Logo" />
 						<span className="text-2xl font-bold">D&apos;emiehan</span>
 					</Link>
-					<button onClick={toggleMobileMenu} className="text-2xl">
+					<button
+						onClick={toggleMobileMenu}
+						className="text-2xl"
+						aria-label="Toggle mobile menu"
+						aria-expanded={isMobileMenuOpen}
+					>
 						{isMobileMenuOpen ? <X /> : <Menu />}
 					</button>
 				</div>
@@ -32,55 +72,25 @@ const Navbar = () => {
 					} md:flex justify-between items-center md:gap-16 font-semibold tracking-widest uppercase`}
 					id="navbar-default"
 				>
-					<Link
-						href="/beranda"
-						onClick={() => setActiveLink("beranda")}
-						className={`${
-							activeLink === "beranda"
-								? "border-b-2 border-black font-bold"
-								: ""
-						}`}
-					>
-						Beranda
-					</Link>
-					<Link
-						href="/menu"
-						onClick={() => setActiveLink("menu")}
-						className={`${
-							activeLink === "menu" ? "border-b-2 border-black font-bold" : ""
-						}`}
-					>
-						Menu
-					</Link>
 					<Link href="/" className="hidden md:flex items-center gap-2">
 						<Image src={LogoBrand} width="32" height="32" alt="demihan Logo" />
 						<span className="text-2xl font-extrabold">D&apos;emiehan</span>
 					</Link>
-					<Link
-						href="/beranda/#tentang"
-						onClick={() => setActiveLink("tentang")}
-						className={`${
-							activeLink === "tentang"
-								? "border-b-2 border-black font-bold"
-								: ""
-						}`}
-					>
-						Tentang
-					</Link>
-					<Link
-						href="/beranda/#kontak"
-						onClick={() => setActiveLink("kontak")}
-						className={`${
-							activeLink === "kontak" ? "border-b-2 border-black font-bold" : ""
-						}`}
-					>
-						Kontak
-					</Link>
+					<div className="flex flex-col md:flex-row gap-10 text-center">
+						{links.map((link) => (
+							<NavbarLink
+								key={link.href}
+								href={link.href}
+								label={link.label}
+								activeLink={activeLink}
+								setActiveLink={setActiveLink}
+							/>
+						))}
+					</div>
 				</div>
 			</div>
 		</nav>
 	);
-	2;
-};
+});
 
 export default Navbar;

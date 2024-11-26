@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import { setCookie } from "@/actions/cookies";
+import Image from "next/image";
 
 const FormSchema = z.object({
 	email: z
@@ -65,8 +66,8 @@ const SignIn = () => {
 	};
 
 	return (
-		<div className="flex justify-center items-center min-h-screen w-full">
-			<Card className="md:w-1/4">
+		<div className="flex justify-center items-center min-h-screen w-full bg-[#f5f5f5]">
+			<Card className="md:w-1/4 g">
 				<CardHeader>
 					<CardTitle>Login</CardTitle>
 					<CardDescription>

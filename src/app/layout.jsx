@@ -4,6 +4,9 @@ import "./globals.css";
 export const metadata = {
 	title: "Dmiehan",
 	description: "Dmiehan",
+	icons: {
+		icon: "logobrand.png",
+	},
 };
 
 const RootLayout = ({ children }) => {
@@ -18,4 +21,3 @@ const RootLayout = ({ children }) => {
 };
 
 export default RootLayout;
-

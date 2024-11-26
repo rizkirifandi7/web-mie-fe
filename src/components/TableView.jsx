@@ -1,6 +1,6 @@
-"use client";
+import React from "react";
+import Image from "next/image";
 
-import React, { useEffect, useState, useCallback } from "react";
 import {
 	flexRender,
 	getCoreRowModel,
@@ -10,6 +10,12 @@ import {
 	useReactTable,
 } from "@tanstack/react-table";
 import {
+	DropdownMenu,
+	DropdownMenuCheckboxItem,
+	DropdownMenuContent,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
 	Table,
 	TableBody,
 	TableCell,
@@ -17,116 +23,25 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ArrowUpDown, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ChevronDownIcon } from "lucide-react";
 
-import { TambahData } from "./TambahData";
-import { getAllMenu } from "@/services/api/menu";
-import { UpdateData } from "./UpdateData";
-import { toast } from "sonner";
-import Image from "next/image";
-import DeleteData from "./DeleteData";
-
-export function DashboardTable() {
-	const [menuData, setMenuData] = useState([]);
-	const [sorting, setSorting] = useState([]);
-	const [columnFilters, setColumnFilters] = useState([]);
-	const [columnVisibility, setColumnVisibility] = useState({});
-	const [rowSelection, setRowSelection] = useState({});
-
-	const fetchData = useCallback(async () => {
-		try {
-			const data = await getAllMenu();
-			setMenuData(data);
-		} catch (error) {
-			console.error("Error fetching menu data:", error);
-			toast.error("Gagal mengambil data menu.");
-		}
-	}, []);
-
-	useEffect(() => {
-		fetchData();
-	}, [fetchData]);
-
-	const columns = [
-		{
-			accessorKey: "nama",
-			header: "Nama",
-		},
-		{
-			accessorKey: "harga",
-			header: "Harga",
-			cell: ({ row }) => {
-				const harga = row.original.harga;
-				return (
-					<>
-						<p>Rp {Intl.NumberFormat("id-ID").format(harga)}</p>
-					</>
-				);
-			},
-		},
-		{
-			accessorKey: "deskripsi",
-			header: "Deskripsi",
-		},
-		{
-			accessorKey: "gambar",
-			header: "Gambar",
-			cell: ({ row }) => {
-				const filename = row.original.gambar;
-				const imageUrl = `http://localhost:8000/view/${filename}`;
-				return (
-					<>
-						<Image
-							src={imageUrl}
-							alt={filename}
-							width={100}
-							height={100}
-							className="rounded-md"
-						/>
-					</>
-				);
-			},
-		},
-		{
-			accessorKey: "kategori",
-			header: ({ column }) => {
-				return (
-					<Button
-						variant="ghost"
-						onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-					>
-						Kategori
-						<ArrowUpDown className="ml-2 h-4 w-4" />
-					</Button>
-				);
-			},
-		},
-		{
-			id: "actions",
-			enableHiding: false,
-			cell: ({ row }) => {
-				const id = row.original.id;
-				const rowData = row.original;
-				return (
-					<div className="flex flex-row gap-2">
-						<UpdateData menuId={id} rowData={rowData} fetchData={fetchData} />
-						<DeleteData menuId={id} fetchData={fetchData} />
-					</div>
-				);
-			},
-		},
-	];
+const TableView = ({
+	columns,
+	data,
+	title,
+	search,
+	TambahComponent,
+	pageSize,
+}) => {
+	const [sorting, setSorting] = React.useState([]);
+	const [columnFilters, setColumnFilters] = React.useState([]);
+	const [columnVisibility, setColumnVisibility] = React.useState({});
+	const [rowSelection, setRowSelection] = React.useState({});
 
 	const table = useReactTable({
-		data: menuData,
+		data: data,
 		columns,
 		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
@@ -144,28 +59,28 @@ export function DashboardTable() {
 		},
 		initialState: {
 			pagination: {
-				pageSize: 5,
+				pageSize: pageSize ?? 10,
 			},
 		},
 	});
 
 	return (
-		<div className="px-10">
-			<h1 className="text-2xl font-bold mt-6">Dashboard</h1>
-			<div className="flex flex-col md:flex-row md:items-center py-4 gap-4">
+		<div className="w-full">
+			<h1 className="font-bold text-2xl">{title}</h1>
+			<div className="flex items-center py-4 gap-2">
 				<Input
-					placeholder="Cari Menu..."
-					value={table.getColumn("nama")?.getFilterValue() ?? ""}
+					placeholder="Cari data..."
+					value={table.getColumn(`${search}`)?.getFilterValue() ?? ""}
 					onChange={(event) =>
-						table.getColumn("nama")?.setFilterValue(event.target.value)
+						table.getColumn(`${search}`)?.setFilterValue(event.target.value)
 					}
 					className="max-w-sm"
 				/>
-				<TambahData fetchData={fetchData} />
+				{TambahComponent && <TambahComponent />}
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<Button variant="outline" className="ml-auto w-full md:w-fit">
-							Columns <ChevronDown className="ml-2 h-4 w-4" />
+						<Button variant="outline" className="ml-auto">
+							Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end">
@@ -265,6 +180,6 @@ export function DashboardTable() {
 			</div>
 		</div>
 	);
-}
+};
 
-export default DashboardTable;
+export default TableView;

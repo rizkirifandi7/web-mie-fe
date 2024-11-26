@@ -12,7 +12,8 @@ const setCookie = (name, value) => {
 };
 
 const getCookie = (name) => {
-	return cookies().get(name).value;
+	const cookie = cookies().get(name);
+	return cookie ? cookie.value : null;
 };
 
 const removeCookie = (name) => {
