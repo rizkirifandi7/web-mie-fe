@@ -13,7 +13,7 @@ const RootLayout = ({ children }) => {
 	return (
 		<html lang="en">
 			<body>
-				<Toaster />
+				<Toaster position="top-center"/>
 				{children}
 			</body>
 		</html>

@@ -55,8 +55,8 @@ const SignIn = () => {
 			const response = await Login({ email, password });
 
 			if (response.role === "admin") {
-				setCookie("auth_session", response.token);
-				router.push("/admin/dashboard");
+				setCookie("auth_token", response.token);
+				router.push("/dashboard/menu");
 			} else {
 				toast.error("Anda tidak memiliki akses.");
 			}
@@ -69,6 +69,10 @@ const SignIn = () => {
 		<div className="flex justify-center items-center min-h-screen w-full bg-[#f5f5f5]">
 			<Card className="md:w-1/4 g">
 				<CardHeader>
+					<div className="flex flex-col gap-2 justify-center items-center mb-10">
+						<Image src="/logo.svg" width="100" height="100" alt="Logo" />
+						<h1 className="font-bold">Dmiehan</h1>
+					</div>
 					<CardTitle>Login</CardTitle>
 					<CardDescription>
 						Masukan email dan password untuk login.

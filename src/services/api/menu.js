@@ -1,4 +1,4 @@
-const getAllMenu = async () => {
+const 	getAllMenu = async () => {
 	const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/menus`);
 	return response.json();
 };

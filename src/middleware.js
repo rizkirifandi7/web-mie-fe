@@ -3,20 +3,19 @@ import { getCookie } from "./actions/cookies";
 import jwt from "jsonwebtoken";
 
 export async function middleware(request) {
-	// const cookies = getCookie("auth_session");
-	// const token = jwt.decode(cookies);
+	const token = getCookie("auth_token");
 
-	// if (!token && request.nextUrl.pathname.startsWith("/admin")) {
-	// 	return NextResponse.rewrite(new URL("/auth/signin", request.url));
-	// }
+	if (!token && request.nextUrl.pathname.startsWith("/dashboard")) {
+		return NextResponse.rewrite(new URL("/auth/signin", request.url));
+	}
 
-	// if (request.nextUrl.pathname.startsWith("/auth")) {
-	// 	return NextResponse.rewrite(new URL("/auth/signin", request.url));
-	// }
+	if (request.nextUrl.pathname.startsWith("/auth")) {
+		return NextResponse.rewrite(new URL("/auth/signin", request.url));
+	}
 
 	return NextResponse.next();
 }
 
-// export const config = {
-// 	matcher: ["/admin/:path*", "/auth/:path*"],
-// };
+export const config = {
+	matcher: ["/dashboard/:path*", "/auth/:path*"],
+};

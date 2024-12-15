@@ -1,6 +1,9 @@
 import React from "react";
-import Navbar from "./beranda/components/Navbar";
-import Footer from "./beranda/components/Footer";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
 	title: "Home Page | Dmiehan",
@@ -12,7 +15,7 @@ export const metadata = {
 
 const HomeLayout = ({ children }) => {
 	return (
-		<div className="font-advent">
+		<div className={inter.className}>
 			<Navbar />
 			{children}
 			<Footer />

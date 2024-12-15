@@ -1,56 +1,89 @@
+"use client"
 import React from "react";
-import Judul from "@/components/common/Judul";
-import BGPattern from "@/assets/pattern.svg";
-import Link from "next/link";
+import Judul from "@/components/Judul";
+import HeroVideoDialog from "@/components/ui/hero-video-dialog";
+import axios from "axios";
 
 const Kontak = () => {
+	const [cabang, setCabang] = React.useState([]);
+
+	const fetchCabang = async () => {
+		const response = await axios.get(
+			`${process.env.NEXT_PUBLIC_BASE_URL}/cabangs`
+		);
+		const data = await response.data;
+		setCabang(data);
+	};
+
+	React.useEffect(() => {
+		fetchCabang();
+	}, []);
+
 	return (
-		<section
-			id="kontak"
-			className="w-full h-full bg-[#D5F022] bg-repeat"
-			style={{ backgroundImage: `url(${BGPattern.src})` }}
-		>
-			<div className="md:max-w-screen-xl mx-auto py-36">
-				<div className="">
-					<Judul
-						mainText="D'EMIEHAN"
-						subText="KONTAK"
-						mainTextColor="text-[#D5F022]"
-						className="text-4xl md:text-7xl"
-					/>
+		<section id="kontak" className="w-full h-full ">
+			<div className="md:max-w-screen-xl mx-auto py-24 px-14">
+				<div className="flex flex-col justify-center items-center">
+					<Judul mainText="D'EMIEHAN" subText="Kontak" />
 				</div>
 
-				<div className="flex flex-col md:flex-row md:justify-between items-center pt-8 md:pt-16 gap-6 md:px-0 px-10">
-					<div className="basis-1/2 ">
-						<div className="flex flex-col justify-center items-center gap-4 p-6 border-2 border-black bg-white">
-							<h1 className="font-bold text-center text-3xl md:text-4xl uppercase">
-								Kerjasama dengan Kami
-							</h1>
-							<p className="font-bold uppercase text-base text-center">
-								Mari berkolaborasi dengan D&apos;emiehan
-							</p>
-							<Link
-								href="https://wa.me/628123456789"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="p-2 bg-[#25D366] text-lg font-bold text-white text-center border-2 border-black uppercase hover:rotate-3"
-							>
-								Hubungi via WhatsApp
-							</Link>
+				<div className="flex flex-col md:flex-row justify-between items-center mt-14 gap-x-10">
+					<div className="basis-1/3 relative">
+						<HeroVideoDialog
+							className="dark:hidden block "
+							animationStyle="from-center"
+							videoSrc="/intro.mp4"
+							thumbnailSrc="/logobrandfull.png"
+							thumbnailAlt="Hero Video"
+						/>
+						<HeroVideoDialog
+							className="hidden dark:block"
+							animationStyle="from-center"
+							videoSrc="/intro.mp4"
+							thumbnailSrc="/logobrandfull.png"
+							thumbnailAlt="Hero Video"
+						/>
+					</div>
+					<div className="basis-1/2 mt-10 md:mt-0">
+						<h1 className="text-2xl font-bold">Hubungi Kami</h1>
+						<p className="text-base text-slate-500">
+							Hubungi kami untuk informasi lebih lanjut atau jika Anda memiliki
+							pertanyaan.
+						</p>
+						<div className="flex flex-col gap-y-4 mt-8">
+							<div className="border-t pt-4">
+								<h1 className="text-lg font-semibold">Email</h1>
+								<p className="text-base">demiehan@gmail.com</p>
+							</div>
+							<div className="border-y py-4">
+								<h1 className="text-lg font-semibold">Telepon</h1>
+								<a href="https://wa.link/dben6b" className="text-base">+62 898-7201-555</a>
+							</div>
+							<div className="border-b pb-4">
+								<h1 className="text-lg font-semibold">Alamat</h1>
+								<p className="text-base">
+									Jl. Pasir Kaliki Barat No.01, RT.10/RW.15, Sadang Serang,
+									Kecamatan Coblong, Kota Bandung, Jawa Barat 40133
+								</p>
+							</div>
 						</div>
 					</div>
-					<div className="basis-1/2">
-						<div className="flex flex-col justify-center text-center items-center gap-4 p-4 border-2 border-black bg-white">
-							<h1 className="text-3xl md:text-5xl font-bold text-outline-white bg-[#FF6141] w-fit p-2 -rotate-2">
-								D&apos;emiehan
-							</h1>
-							<p className="text-2xl font-bold text-outline-white">
-								Jl. Sumur, Bandung, Kota Bandung.
-							</p>
-							<p className="text-2xl font-bold text-outline-white">
-								08123456789
-							</p>
-						</div>
+				</div>
+
+				<div className="flex flex-col md:flex-row gap-4 justify-between items-start border bg-blue-50 h-full w-full p-4 mt-14 rounded-lg">
+					<div className="basis-1/3 p-4">
+						<p className="text-slate-500">Lokasi Kami</p>
+						<h1 className="text-xl font-semibold">Temukan Mitra Kami</h1>
+					</div>
+					<div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
+						{cabang.map((item) => (
+							<div className="" key={item.id}>
+								<h1 className="text-base font-semibold">{item.nama_cabang}</h1>
+								<p className="text-sm text-slate-600 font-medium">
+									{item.alamat}
+								</p>
+							</div>
+						))
+						}
 					</div>
 				</div>
 			</div>
