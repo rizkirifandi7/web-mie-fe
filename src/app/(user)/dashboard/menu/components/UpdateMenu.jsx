@@ -42,6 +42,7 @@ const FormSchema = z.object({
 
 const UpdateMenu = ({ fetchData, id, rowData }) => {
 	const [openTambah, setOpenTambah] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const form = useForm({
 		resolver: zodResolver(FormSchema),
@@ -55,6 +56,7 @@ const UpdateMenu = ({ fetchData, id, rowData }) => {
 	});
 
 	const handleUpdate = async (data) => {
+		setIsLoading(true);
 		try {
 			const formData = new FormData();
 			formData.append("nama", data.nama);
@@ -80,6 +82,9 @@ const UpdateMenu = ({ fetchData, id, rowData }) => {
 		} catch (error) {
 			console.error("Error adding menu:", error);
 			toast.error("Gagal menambahkan menu");
+		}
+		finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -191,8 +196,8 @@ const UpdateMenu = ({ fetchData, id, rowData }) => {
 							/>
 						</div>
 						<DialogFooter>
-							<Button type="submit" className="w-full mt-2">
-								Submit
+							<Button type="submit" className="w-full mt-2" disabled={isLoading}>
+								{isLoading ? "Loading..." : "Update"}
 							</Button>
 						</DialogFooter>
 					</form>

@@ -16,13 +16,17 @@ import { toast } from "sonner";
 const HapusMenu = ({ id, fetchData }) => {
 	const [openHapus, setOpenHapus] = React.useState(false);
 	const [selectedId, setSelectedId] = React.useState(null);
+	const [isLoading, setIsLoading] = React.useState(false);
 
 	const handleDelete = async () => {
+		setIsLoading(true);
 		try {
 			const response = await axios.delete(
 				`${process.env.NEXT_PUBLIC_BASE_URL}/menu/${selectedId}`
 			);
-			if (response.status === 200) {
+
+			console.log("response", response);
+			if (response.status === 204) {
 				toast.success("Menu berhasil dihapus");
 				setOpenHapus(false);
 				fetchData();
@@ -30,6 +34,8 @@ const HapusMenu = ({ id, fetchData }) => {
 		} catch (error) {
 			console.error("Error deleting menu:", error);
 			toast.error("Gagal menghapus menu");
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -60,8 +66,9 @@ const HapusMenu = ({ id, fetchData }) => {
 							variant="destructive"
 							className="w-full"
 							onClick={() => handleDelete()}
+							disabled={isLoading}
 						>
-							Hapus
+							{isLoading ? "Loading..." : "Hapus"}
 						</Button>
 						<div className="w-full" onClick={() => setOpenHapus(false)}>
 							<Button variant="outline" className="w-full">

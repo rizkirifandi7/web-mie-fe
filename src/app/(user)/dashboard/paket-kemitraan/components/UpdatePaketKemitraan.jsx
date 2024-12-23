@@ -42,6 +42,7 @@ const FormSchema = z.object({
 
 const UpdatePaketKemitraan = ({ fetchData, id, rowData }) => {
   const [openTambah, setOpenTambah] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(FormSchema),
@@ -54,6 +55,7 @@ const UpdatePaketKemitraan = ({ fetchData, id, rowData }) => {
   });
 
   const handleUpdate = async (data) => {
+    setIsLoading(true);
     try {
       const formData = new FormData();
       formData.append("jenis_kemitraan", data.jenis_kemitraan);
@@ -78,6 +80,8 @@ const UpdatePaketKemitraan = ({ fetchData, id, rowData }) => {
     } catch (error) {
       console.error("Error adding paket kemitraan:", error);
       toast.error("Gagal menambahkan paket kemitraan");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -161,8 +165,8 @@ const UpdatePaketKemitraan = ({ fetchData, id, rowData }) => {
               />
             </div>
             <DialogFooter>
-              <Button type="submit" className="w-full mt-2">
-                Submit
+              <Button type="submit" className="w-full mt-2" disabled={isLoading}>
+                {isLoading ? "Loading..." : "Submit"}
               </Button>
             </DialogFooter>
           </form>

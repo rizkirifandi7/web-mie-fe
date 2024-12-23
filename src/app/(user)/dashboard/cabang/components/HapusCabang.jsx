@@ -16,8 +16,10 @@ import { toast } from "sonner";
 const HapusCabang = ({ id, fetchData }) => {
 	const [openHapus, setOpenHapus] = React.useState(false);
 	const [selectedId, setSelectedId] = React.useState(null);
+	const [isLoading, setIsLoading] = React.useState(false);
 
 	const handleDelete = async () => {
+		setIsLoading(true);
 		try {
 			const response = await axios.delete(
 				`${process.env.NEXT_PUBLIC_BASE_URL}/cabang/${selectedId}`
@@ -31,6 +33,8 @@ const HapusCabang = ({ id, fetchData }) => {
 		} catch (error) {
 			console.error("Error deleting cabang:", error);
 			toast.error("Gagal menghapus cabang");
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -61,8 +65,9 @@ const HapusCabang = ({ id, fetchData }) => {
 							variant="destructive"
 							className="w-full"
 							onClick={() => handleDelete()}
+							disabled={isLoading}
 						>
-							Hapus
+							{isLoading ? "Loading..." : "Hapus"}
 						</Button>
 						<div className="w-full" onClick={() => setOpenHapus(false)}>
 							<Button variant="outline" className="w-full">

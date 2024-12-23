@@ -91,7 +91,7 @@ const PagePaketKemitraan = () => {
         columns={columns}
         data={data}
         TambahComponent={() => <TambahPaketKemitraan fetchData={fetchData} />}
-        title="Dashboard Menu"
+        title="Dashboard Paket Kemitraan"
         search="jenis_kemitraan"
         pageSize={5}
       />
