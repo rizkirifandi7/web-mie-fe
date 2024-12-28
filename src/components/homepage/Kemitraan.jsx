@@ -14,10 +14,9 @@ const Kemitraan = () => {
 
 	const fetchData = async () => {
 		const response = await axios.get(
-			`${process.env.NEXT_PUBLIC_BASE_URL}/paket-kemitraans`
+			`${process.env.NEXT_PUBLIC_BASE_URL}/paket-kemitraan`
 		);
 		const data = await response.data;
-		console.log(data);
 		setData(data);
 	};
 

@@ -16,9 +16,9 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
+import axios from "axios";
 import { PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -26,54 +26,48 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 const FormSchema = z.object({
-	jenis_kemitraan: z.string().nonempty("Jenis kemitraan harus diisi."),
-	ukuran: z.string().nonempty("Ukuran harus diisi."),
-	gambar: z.any(),
-	harga: z.any(),
+	nama: z.string().nonempty("Nama harus diisi."),
+	link: z.string().nonempty("Link harus diisi."),
 });
 
-const TambahPaketKemitraan = ({ fetchData }) => {
+const TambahMedia = ({ fetchData }) => {
 	const [openTambah, setOpenTambah] = useState(false);
-	const [loading, setLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const form = useForm({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			jenis_kemitraan: "",
-			ukuran: "",
-			gambar: null,
-			harga: "",
+			nama: "",
+			link: "",
 		},
 	});
 
 	const handleTambah = async (data) => {
-		setLoading(true);
+		setIsLoading(true);
 		try {
 			const formData = new FormData();
-			formData.append("jenis_kemitraan", data.jenis_kemitraan);
-			formData.append("ukuran", data.ukuran);
-			formData.append("gambar", data.gambar[0]);
-			formData.append("harga", data.harga);
+			formData.append("nama", data.nama);
+			formData.append("link", data.link);
 
-			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_BASE_URL}/paket-kemitraan`,
+			const response = await axios.post(
+				`${process.env.NEXT_PUBLIC_BASE_URL}/media-sosial`,
 				{
-					method: "POST",
-					body: formData,
+					nama: data.nama,
+					link: data.link,
 				}
 			);
 
 			if (response.status === 201) {
-				toast.success("Paket kemitraan berhasil ditambahkan");
+				toast.success("Media Sosial berhasil ditambahkan");
 				form.reset();
 				setOpenTambah(false);
 				fetchData();
 			}
 		} catch (error) {
-			console.error("Error adding paket kemitraan:", error);
-			toast.error("Gagal menambahkan paket kemitraan");
+			console.error("Error adding media-sosial`,:", error);
+			toast.error("Gagal menambahkan media-sosial`,");
 		} finally {
-			setLoading(false);
+			setIsLoading(false);
 		}
 	};
 
@@ -82,13 +76,13 @@ const TambahPaketKemitraan = ({ fetchData }) => {
 			<DialogTrigger asChild>
 				<Button>
 					<PlusCircle />
-					Tambah Paket Kemitraan
+					Tambah Media Sosial
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
-					<DialogTitle>Tambah Paket Kemitraan</DialogTitle>
-					<DialogDescription>Tambahkan paket kemitraan baru.</DialogDescription>
+					<DialogTitle>Tambah Media Sosial</DialogTitle>
+					<DialogDescription>Tambahkan media sosial baru.</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
 					<form
@@ -97,14 +91,14 @@ const TambahPaketKemitraan = ({ fetchData }) => {
 					>
 						<FormField
 							control={form.control}
-							name="jenis_kemitraan"
+							name="nama"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Jenis Kemitraan</FormLabel>
+									<FormLabel>Nama Aplikasi</FormLabel>
 									<FormControl>
 										<Input
 											className="shadow-none"
-											placeholder="masukkan jenis kemitraan..."
+											placeholder="masukkan nama aplikasi..."
 											{...field}
 											type="text"
 										/>
@@ -115,14 +109,14 @@ const TambahPaketKemitraan = ({ fetchData }) => {
 						/>
 						<FormField
 							control={form.control}
-							name="ukuran"
+							name="link"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Ukuran</FormLabel>
+									<FormLabel>Link Aplikasi</FormLabel>
 									<FormControl>
 										<Input
 											className="shadow-none"
-											placeholder="masukkan ukuran..."
+											placeholder="masukkan link aplikasi..."
 											{...field}
 											type="text"
 										/>
@@ -131,38 +125,13 @@ const TambahPaketKemitraan = ({ fetchData }) => {
 								</FormItem>
 							)}
 						/>
-						<FormField
-							control={form.control}
-							name="harga"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Harga</FormLabel>
-									<FormControl>
-										<Input
-											className="shadow-none"
-											placeholder="masukkan harga..."
-											{...field}
-											type="number"
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<div className="space-y-2">
-							<Label className="">Gambar</Label>
-							<Input
-								type="file"
-								className="shadow-none h-full py-1.5"
-								multiple
-								onChange={(e) =>
-									form.setValue("gambar", Array.from(e.target.files))
-								}
-							/>
-						</div>
 						<DialogFooter>
-							<Button type="submit" className="w-full mt-2" disabled={loading}>
-								{loading ? "Loading..." : "Submit"}
+							<Button
+								type="submit"
+								className="w-full mt-2"
+								disabled={isLoading}
+							>
+								{isLoading ? "Loading..." : "Tambah"}
 							</Button>
 						</DialogFooter>
 					</form>
@@ -172,4 +141,4 @@ const TambahPaketKemitraan = ({ fetchData }) => {
 	);
 };
 
-export default TambahPaketKemitraan;
+export default TambahMedia;

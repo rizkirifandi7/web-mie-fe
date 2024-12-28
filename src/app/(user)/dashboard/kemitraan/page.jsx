@@ -118,7 +118,7 @@ const PageKemitraan = () => {
 
 	const fetchData = async () => {
 		const response = await fetch(
-			`${process.env.NEXT_PUBLIC_BASE_URL}/kemitraans`,
+			`${process.env.NEXT_PUBLIC_BASE_URL}/kemitraan`,
 			{
 				method: "GET",
 				headers: {

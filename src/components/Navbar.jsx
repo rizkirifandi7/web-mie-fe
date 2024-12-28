@@ -3,22 +3,19 @@
 import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
-
 
 const NavLink = ({ link, activeLink, setActiveLink }) => {
 	return (
-		<ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 ">
+		<ul className="flex flex-col p-4 md:p-0 mt-4 border md:flex-row md:space-x-6 rtl:space-x-reverse md:mt-0 md:border-0 text-sm">
 			{link.map((item, index) => (
 				<li key={index}>
 					<Link
@@ -26,7 +23,7 @@ const NavLink = ({ link, activeLink, setActiveLink }) => {
 						className={
 							activeLink === item.label
 								? `block py-2 px-3 rounded md:p-0 font-bold`
-								: `block py-2 px-3 rounded md:p-0`
+								: `block py-2 px-3 rounded md:p-0 font-normal`
 						}
 						onClick={() => setActiveLink(item.label)}
 					>
@@ -39,11 +36,12 @@ const NavLink = ({ link, activeLink, setActiveLink }) => {
 };
 
 const links = [
-	{ href: "/beranda", label: "Beranda" },
+	{ href: "/", label: "Beranda" },
 	{ href: "/menu", label: "Menu" },
-	{ href: "/beranda/#tentang", label: "Tentang" },
-	{ href: "/beranda/#kontak", label: "Kontak" },
+	{ href: "/#tentang", label: "Tentang" },
+	{ href: "/#kontak", label: "Kontak" },
 	{ href: "/kemitraan", label: "Kemitraan" },
+	{ href: "/#feedback", label: "Feedback" },
 	{ href: "/registrasi", label: "Registrasi" },
 ];
 
@@ -51,10 +49,10 @@ const Navbar = React.memo(function Navbar() {
 	const [activeLink, setActiveLink] = useState("Beranda");
 
 	return (
-		<nav className="fixed w-full bg-white z-50">
+		<nav className="fixed w-full bg-white z-50 border-b">
 			<div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
 				<Link
-					href="/beranda"
+					href="/"
 					className="flex items-center space-x-1 rtl:space-x-reverse"
 				>
 					<Image
@@ -70,19 +68,23 @@ const Navbar = React.memo(function Navbar() {
 
 				<DropdownMenu className="w-full">
 					<DropdownMenuTrigger asChild>
-						<Button size="icon" className="md:hidden inline-flex items-center p-2 w-10 h-10 justify-center bg-white text-black border">
+						<Button
+							size="icon"
+							className="md:hidden inline-flex items-center p-2 w-10 h-10 justify-center bg-white text-black border"
+						>
 							<Menu />
 						</Button>
 					</DropdownMenuTrigger>
-					<DropdownMenuContent className="mt-3 w-[430px] border-none shadow-none rounded-none">
+					<DropdownMenuContent className="mt-3 w-[430px] border-b shadow-none rounded-none">
 						{links.map((item, index) => (
 							<DropdownMenuItem key={index}>
-								<Link href={item.href} className="text-base">{item.label}</Link>
+								<Link href={item.href} className="text-sm">
+									{item.label}
+								</Link>
 							</DropdownMenuItem>
 						))}
 					</DropdownMenuContent>
 				</DropdownMenu>
-
 
 				<div className="hidden w-full md:block md:w-auto" id="navbar-default">
 					<NavLink

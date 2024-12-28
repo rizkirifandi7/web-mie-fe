@@ -35,12 +35,14 @@ const PageMenu = () => {
 		<section className="md:w-full min-h-screen " id="menu">
 			<div className="md:max-w-screen-xl mx-auto py-28 px-8 md:px-0">
 				<div className="flex justify-center items-center w-full h-[200px] rounded-lg bg-center bg-no-repeat bg-cover bg-[url('/bg.jpg')] bg-gray-700 bg-blend-multiply text-white">
-					<Judul mainText="D'EMIEHAN" subText="Menu" />
+					<Judul mainText="D'EMIEHAN" subText="Produk Kami" />
 				</div>
 
 				<div className="flex flex-col md:flex-row justify-between items-start mt-10 gap-10">
 					<div className="w-full md:basis-1/4 flex flex-col gap-y-4">
-						<h1 className="text-2xl font-bold capitalize text-center md:text-start">{filter}</h1>
+						<h1 className="text-2xl font-bold capitalize text-center md:text-start">
+							{filter}
+						</h1>
 						{["semua menu", "makanan", "minuman", "topping"].map((type) => (
 							<Button
 								key={type}
@@ -56,7 +58,7 @@ const PageMenu = () => {
 					</div>
 					<div className="w-full md:mt-10">
 						{filteredMenu.length === 0 ? (
-							<p className="flex justify-center items-center min-h-lvh text-2xl font-bold">
+							<p className="flex justify-center items-center h-[500px] text-2xl font-semibold">
 								No menu items available
 							</p>
 						) : (

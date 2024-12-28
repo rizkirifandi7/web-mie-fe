@@ -88,7 +88,7 @@ const PageMenu = () => {
 	];
 
 	const fetchData = async () => {
-		const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/menus`, {
+		const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/menu`, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",

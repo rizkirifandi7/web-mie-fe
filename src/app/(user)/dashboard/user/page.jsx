@@ -59,7 +59,7 @@ const PageUser = () => {
 	];
 
 	const fetchData = async () => {
-		const response = await fetch(`http://localhost:8000/akuns`, {
+		const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/akun`, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",

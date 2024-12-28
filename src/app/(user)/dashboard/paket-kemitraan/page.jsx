@@ -71,7 +71,7 @@ const PagePaketKemitraan = () => {
   ];
 
   const fetchData = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/paket-kemitraans`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/paket-kemitraan`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

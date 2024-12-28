@@ -1,12 +1,10 @@
 import Image from "next/image";
 import React from "react";
 import Judul from "@/components/Judul";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 const Tentang = () => {
 	return (
-		<section className="md:w-full h-full bg-repeat" id="tentang">
+		<section className="md:w-full h-full" id="tentang">
 			<div className="max-w-screen-sm md:max-w-screen-xl mx-auto py-24">
 				<div className="flex flex-col justify-center items-center">
 					<Judul mainText="D'EMIEHAN" subText="Tentang Kami" />

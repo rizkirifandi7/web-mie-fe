@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Judul from "@/components/Judul";
 import React from "react";
 import PaketKemitraan from "./components/PaketKemitraan";
@@ -10,9 +10,10 @@ const PageTemukanKami = () => {
 
 	const fetchData = async () => {
 		try {
-			const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/paket-kemitraans`);
+			const response = await axios.get(
+				`${process.env.NEXT_PUBLIC_BASE_URL}/paket-kemitraan`
+			);
 			const data = await response.data;
-			console.log(data);
 			setData(data);
 		} catch (error) {
 			console.error("Error fetching data:", error);

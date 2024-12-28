@@ -37,7 +37,7 @@ const Menu = () => {
 		<section className="md:w-full h-full" id="menu">
 			<div className="py-24">
 				<div className="flex flex-col justify-center items-center">
-					<Judul mainText="D'EMIEHAN" subText="Menu" />
+					<Judul mainText="D'EMIEHAN" subText="Produk Kami" />
 
 					<div className="flex flex-col justify-center items-center max-w-screen-sm md:max-w-screen-xl pt-10">
 						{menuData.length > 0 ? (
@@ -51,17 +51,14 @@ const Menu = () => {
 							>
 								<CarouselContent>
 									{menuData.map((menu) => (
-										<CarouselItem
-											key={menu.id}
-											className="basis-[280px] md:basis-1/3 lg:basis-[320px]"
-										>
+										<CarouselItem key={menu.id} className="">
 											<Card className="bg-white">
 												<div className="p-3">
 													<Image
 														src={`${menu.gambar}`}
 														alt={menu.nama}
-														width={250}
-														height={250}
+														width={200}
+														height={220}
 														className="w-full h-[200px] md:h-[220px] object-cover rounded-md"
 													/>
 												</div>
@@ -79,7 +76,7 @@ const Menu = () => {
 								</CarouselContent>
 							</Carousel>
 						) : (
-							<p className="text-2xl font-bold text-center my-16">
+							<p className="text-xl font-semibold text-center my-16">
 								No menu items available
 							</p>
 						)}

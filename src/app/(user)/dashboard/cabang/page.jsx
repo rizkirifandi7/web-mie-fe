@@ -48,7 +48,7 @@ const PageCabang = () => {
 	];
 
 	const fetchData = async () => {
-		const response = await fetch(`http://localhost:8000/cabangs`, {
+		const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cabang`, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",

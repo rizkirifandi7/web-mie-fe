@@ -1,16 +1,13 @@
 import { NextResponse } from "next/server";
-import { getCookie } from "./actions/cookies";
-import jwt from "jsonwebtoken";
 
 export async function middleware(request) {
-	const token = getCookie("auth_token");
+	const token = request.cookies.get("auth_token");
 
-	if (!token && request.nextUrl.pathname.startsWith("/dashboard")) {
-		return NextResponse.rewrite(new URL("/auth/signin", request.url));
-	}
-
-	if (request.nextUrl.pathname.startsWith("/auth")) {
-		return NextResponse.rewrite(new URL("/auth/signin", request.url));
+	if (
+		!token &&
+		(pathname.startsWith("/dashboard") || pathname.startsWith("/auth"))
+	) {
+		return NextResponse.redirect(new URL("/signin", request.url));
 	}
 
 	return NextResponse.next();

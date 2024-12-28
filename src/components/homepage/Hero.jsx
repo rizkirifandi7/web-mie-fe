@@ -21,7 +21,7 @@ const Hero = () => {
 				<h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
 					Mie Pedas, Bandung Banget!
 				</h1>
-				<p className="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">
+				<p className="mb-8 text-sm font-normal text-gray-300 md:text-base sm:px-16 lg:px-48">
 					Menjadi perusahaan terkemuka dalam penyediaan solusi usaha kuliner di
 					Indonesia, khususnya dalam sektor gerobak dan kios, dengan fokus pada
 					aksesibilitas dan kualitas.

@@ -9,7 +9,7 @@ const Kontak = () => {
 
 	const fetchCabang = async () => {
 		const response = await axios.get(
-			`${process.env.NEXT_PUBLIC_BASE_URL}/cabangs`
+			`${process.env.NEXT_PUBLIC_BASE_URL}/cabang`
 		);
 		const data = await response.data;
 		setCabang(data);
@@ -69,7 +69,7 @@ const Kontak = () => {
 					</div>
 				</div>
 
-				<div className="flex flex-col md:flex-row gap-4 justify-between items-start border bg-blue-50 h-full w-full p-4 mt-14 rounded-lg">
+				<div className="flex flex-col md:flex-row gap-4 justify-between items-start border h-full w-full p-4 mt-14 rounded-lg">
 					<div className="basis-1/3 p-4">
 						<p className="text-slate-500">Lokasi Kami</p>
 						<h1 className="text-xl font-semibold">Temukan Mitra Kami</h1>

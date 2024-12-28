@@ -7,7 +7,6 @@ import {
 	SidebarGroup,
 	SidebarGroupContent,
 	SidebarGroupLabel,
-	SidebarHeader,
 	SidebarInset,
 	SidebarMenu,
 	SidebarMenuButton,
@@ -33,11 +32,22 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { BriefcaseBusiness, Handshake, LogOut, MapPinned, SquareMenu, User } from "lucide-react";
+import {
+	BriefcaseBusiness,
+	Handshake,
+	Images,
+	LayoutPanelLeft,
+	LogOut,
+	MapPinned,
+	MessageSquareTextIcon,
+	Newspaper,
+	SquareMenu,
+	User,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { removeCookie } from "@/actions/cookies";
+import Link from "next/link";
 
-// This is sample data.
 const data = {
 	navMain: [
 		{
@@ -67,6 +77,32 @@ const data = {
 			],
 		},
 		{
+			title: "Dashboard Informasi",
+			url: "#",
+			items: [
+				{
+					title: "Berita",
+					url: "/dashboard/berita",
+					icon: <Newspaper />,
+				},
+				{
+					title: "Galeri",
+					url: "/dashboard/galeri",
+					icon: <Images />,
+				},
+				{
+					title: "Feedback",
+					url: "/dashboard/feedback",
+					icon: <MessageSquareTextIcon />,
+				},
+				{
+					title: "Media Sosial",
+					url: "/dashboard/media-sosial",
+					icon: <LayoutPanelLeft />,
+				},
+			],
+		},
+		{
 			title: "Dashboard User",
 			url: "#",
 			items: [
@@ -82,6 +118,11 @@ const data = {
 
 export function AppSidebar({ children }) {
 	const router = useRouter();
+	const [activePage, setActivePage] = React.useState("Menu");
+
+	const handleSidebarItemClick = (title) => {
+		setActivePage(title);
+	};
 
 	const handleLogout = () => {
 		removeCookie("auth_token");
@@ -110,13 +151,17 @@ export function AppSidebar({ children }) {
 								<SidebarMenu className="flex flex-col gap-3">
 									{item.items.map((subItem) => (
 										<SidebarMenuItem key={subItem.title}>
-											<SidebarMenuButton asChild>
-												<a href={subItem.url}>
-													<p className="text-2xl">{subItem.icon}</p>
-													<p className="text-base font-medium">
-														{subItem.title}
-													</p>
-												</a>
+											<SidebarMenuButton
+												asChild
+												isActive={activePage === subItem.title}
+											>
+												<Link
+													href={subItem.url}
+													onClick={() => handleSidebarItemClick(subItem.title)}
+												>
+													<p className="text-base">{subItem.icon}</p>
+													<p className="text-base">{subItem.title}</p>
+												</Link>
 											</SidebarMenuButton>
 										</SidebarMenuItem>
 									))}
@@ -140,7 +185,7 @@ export function AppSidebar({ children }) {
 									</BreadcrumbItem>
 									<BreadcrumbSeparator />
 									<BreadcrumbItem>
-										<BreadcrumbPage>Menu</BreadcrumbPage>
+										<BreadcrumbPage>{activePage}</BreadcrumbPage>
 									</BreadcrumbItem>
 								</BreadcrumbList>
 							</Breadcrumb>
