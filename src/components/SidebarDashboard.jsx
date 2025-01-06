@@ -33,15 +33,17 @@ import {
 	DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import {
+	AppWindow,
 	BriefcaseBusiness,
+	FileText,
 	Handshake,
 	Images,
-	LayoutPanelLeft,
 	LogOut,
 	MapPinned,
 	MessageSquareTextIcon,
 	Newspaper,
 	SquareMenu,
+	Store,
 	User,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -57,22 +59,22 @@ const data = {
 				{
 					title: "Menu",
 					url: "/dashboard/menu",
-					icon: <SquareMenu />,
+					icon: <SquareMenu size={20}/>,
 				},
 				{
 					title: "Kemitraan",
 					url: "/dashboard/kemitraan",
-					icon: <Handshake />,
+					icon: <Handshake size={20}/>,
 				},
 				{
 					title: "Cabang",
 					url: "/dashboard/cabang",
-					icon: <MapPinned />,
+					icon: <MapPinned size={20}/>,
 				},
 				{
 					title: "Paket Kemitraan",
 					url: "/dashboard/paket-kemitraan",
-					icon: <BriefcaseBusiness />,
+					icon: <BriefcaseBusiness size={20}/>,
 				},
 			],
 		},
@@ -83,22 +85,32 @@ const data = {
 				{
 					title: "Berita",
 					url: "/dashboard/berita",
-					icon: <Newspaper />,
+					icon: <Newspaper size={20}/>,
 				},
 				{
 					title: "Galeri",
 					url: "/dashboard/galeri",
-					icon: <Images />,
+					icon: <Images size={20}/>,
 				},
 				{
 					title: "Feedback",
 					url: "/dashboard/feedback",
-					icon: <MessageSquareTextIcon />,
+					icon: <MessageSquareTextIcon size={20}/>,
 				},
 				{
 					title: "Media Sosial",
 					url: "/dashboard/media-sosial",
-					icon: <LayoutPanelLeft />,
+					icon: <AppWindow size={20}/>,
+				},
+				{
+					title: "Tentang Kami",
+					url: "/dashboard/tentang-kami",
+					icon: <Store  size={20}/>,
+				},
+				{
+					title: "Sertifikat",
+					url: "/dashboard/sertifikat",
+					icon: <FileText size={20}/>,
 				},
 			],
 		},
@@ -109,7 +121,7 @@ const data = {
 				{
 					title: "User",
 					url: "/dashboard/user",
-					icon: <User />,
+					icon: <User size={20}/>,
 				},
 			],
 		},
@@ -135,7 +147,7 @@ export function AppSidebar({ children }) {
 				<SidebarMenu className="p-2">
 					<SidebarMenuItem>
 						<SidebarMenuButton size="lg">
-							<Image src={"/logobrand.png"} width={40} height={40} alt="logo" />
+							<Image src={"/logobrand.png"} width={40} height={40} alt="logo" className="w-auto h-auto"/>
 							<div className="flex flex-col gap-0.5">
 								<span className="font-bold text-base">Dmiehan</span>
 								<span className="text-sm text-gray-500">Sistem Informasi</span>
@@ -202,8 +214,8 @@ export function AppSidebar({ children }) {
 							<DropdownMenuContent className="w-auto me-5">
 								<DropdownMenuLabel>Akun Saya</DropdownMenuLabel>
 								<DropdownMenuSeparator />
-								<DropdownMenuItem onClick={handleLogout}>
-									<LogOut />
+								<DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2">
+									<LogOut size={16}/>
 									<span>Keluar</span>
 								</DropdownMenuItem>
 							</DropdownMenuContent>

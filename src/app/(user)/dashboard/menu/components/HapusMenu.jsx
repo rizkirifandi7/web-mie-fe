@@ -25,7 +25,6 @@ const HapusMenu = ({ id, fetchData }) => {
 				`${process.env.NEXT_PUBLIC_BASE_URL}/menu/${selectedId}`
 			);
 
-			console.log("response", response);
 			if (response.status === 204) {
 				toast.success("Menu berhasil dihapus");
 				setOpenHapus(false);

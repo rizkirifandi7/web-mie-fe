@@ -1,9 +1,88 @@
-import React from 'react'
+"use client";
+import TableView from "@/components/TableView";
+import Image from "next/image";
+import React, { useEffect } from "react";
+import TambahBerita from "./components/TambahBerita";
+import parse from "html-react-parser";
+import HapusBerita from "./components/HapusBerita";
+import EditBerita from "./components/EditBerita";
 
 const PageBerita = () => {
-  return (
-    <div>PageBerita</div>
-  )
-}
+	const [data, setData] = React.useState([]);
 
-export default PageBerita
+	const columns = [
+		{
+			accessorKey: "judul",
+			header: "Judul",
+			cell: ({ row }) => (
+				<div className="capitalize">{row.getValue("judul")}</div>
+			),
+		},
+		{
+			accessorKey: "isi",
+			header: "Isi",
+			cell: ({ row }) => (
+				<div className="w-[300px] truncate h-[25px]">{parse(row.getValue("isi"))}</div>
+			),
+		},
+		{
+			accessorKey: "gambar",
+			header: "Gambar",
+			cell: ({ row }) => (
+				<div>
+					<Image
+						src={row.getValue("gambar")}
+						width={50}
+						height={50}
+						className="w-auto h-auto object-cover"
+						alt="gambar"
+					/>
+				</div>
+			),
+		},
+		{
+			id: "actions",
+			enableHiding: false,
+			cell: ({ row }) => {
+				const id = row.original.id;
+				const rowData = row.original;
+				return (
+					<div className="flex items-center gap-2">
+						<EditBerita id={id} fetchData={fetchData} rowData={rowData} />
+						<HapusBerita id={id} fetchData={fetchData} />
+					</div>
+				);
+			},
+		},
+	];
+
+	const fetchData = async () => {
+		const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/berita`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+		const data = await response.json();
+		setData(data.berita);
+	};
+
+	useEffect(() => {
+		fetchData();
+	}, []);
+
+	return (
+		<React.Fragment>
+			<TableView
+				columns={columns}
+				data={data}
+				TambahComponent={() => <TambahBerita />}
+				title="Dashboard Berita"
+				search="judul"
+				pageSize={5}
+			/>
+		</React.Fragment>
+	);
+};
+
+export default PageBerita;

@@ -52,8 +52,12 @@ const TambahPaketKemitraan = ({ fetchData }) => {
 			const formData = new FormData();
 			formData.append("jenis_kemitraan", data.jenis_kemitraan);
 			formData.append("ukuran", data.ukuran);
-			formData.append("gambar", data.gambar[0]);
 			formData.append("harga", data.harga);
+
+			// Tambahkan setiap file ke FormData
+			data.gambar.forEach((file) => {
+				formData.append("gambar", file); // Tambahkan satu per satu
+			});
 
 			const response = await fetch(
 				`${process.env.NEXT_PUBLIC_BASE_URL}/paket-kemitraan`,
@@ -68,6 +72,9 @@ const TambahPaketKemitraan = ({ fetchData }) => {
 				form.reset();
 				setOpenTambah(false);
 				fetchData();
+			} else {
+				const resJson = await response.json();
+				toast.error(`Gagal menambahkan: ${resJson.message}`);
 			}
 		} catch (error) {
 			console.error("Error adding paket kemitraan:", error);

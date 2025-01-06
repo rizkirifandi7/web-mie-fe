@@ -1,27 +1,45 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useCallback, useEffect, useState, useMemo } from "react";
 import LogoBrand from "@/assets/logo.svg";
 
+const sections = [
+	{
+		title: "Navigasi",
+		links: [
+			{ href: "/beranda", label: "Beranda" },
+			{ href: "/tentang", label: "Tentang Kami" },
+			{ href: "/menu", label: "Menu" },
+			{ href: "#kontak", label: "Kontak" },
+		],
+	},
+];
+
 const Footer = () => {
-	const sections = [
-		{
-			title: "Navigasi",
-			links: [
-				{ href: "/beranda", label: "Beranda" },
-				{ href: "#tentang", label: "Tentang Kami" },
-				{ href: "/menu", label: "Menu" },
-				{ href: "#kontak", label: "Kontak" },
-			],
-		},
-		{
-			title: "Ikuti Kami",
-			links: [
-				{ href: "https://github.com/themesberg/flowbite", label: "Instagram" },
-				{ href: "https://discord.gg/4eeurUVvTy", label: "Facebook" },
-			],
-		},
-	];
+	const [data, setData] = useState([]);
+
+	const fetchData = useCallback(async () => {
+		const response = await fetch(
+			`${process.env.NEXT_PUBLIC_BASE_URL}/media-sosial`,
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		);
+
+		const data = await response.json();
+		setData(data.mediaSosial);
+	}, []);
+
+	useEffect(() => {
+		fetchData();
+	}, [fetchData]);
+
+	const memoizedSections = useMemo(() => sections, []);
 
 	return (
 		<footer className="bg-blue-500 text-white">
@@ -42,7 +60,7 @@ const Footer = () => {
 						</Link>
 					</div>
 					<div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-						{sections.map((section) => (
+						{memoizedSections.map((section) => (
 							<div key={section.title}>
 								<h2 className="mb-6 text-lg font-semibold">{section.title}</h2>
 								<div className="">
@@ -56,12 +74,26 @@ const Footer = () => {
 								</div>
 							</div>
 						))}
+						{data.length > 0 && (
+							<div>
+								<h2 className="mb-6 text-lg font-semibold">Media Sosial</h2>
+								<div className="">
+									{data.map((item) => (
+										<div key={item.id} className="mb-4">
+											<a href={item.link} className="hover:underline">
+												{item.nama}
+											</a>
+										</div>
+									))}
+								</div>
+							</div>
+						)}
 					</div>
 				</div>
 				<hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
 				<div className="text-center">
 					<span className="text-base  sm:text-center dark:text-gray-400">
-						© 2023 Demiehan . All Rights Reserved.
+						© Demiehan . All Rights Reserved.
 					</span>
 				</div>
 			</div>
@@ -69,4 +101,4 @@ const Footer = () => {
 	);
 };
 
-export default Footer;
+export default React.memo(Footer);

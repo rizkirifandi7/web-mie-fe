@@ -16,7 +16,6 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
 	Select,
 	SelectContent,
@@ -26,6 +25,7 @@ import {
 } from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
+import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineEdit } from "react-icons/md";
@@ -34,10 +34,9 @@ import { z } from "zod";
 
 const FormSchema = z.object({
 	nama: z.string().nonempty("Nama harus diisi."),
-	deskripsi: z.string().nonempty("Deskripsi harus diisi."),
-	gambar: z.any(),
-	kategori: z.any(),
-	harga: z.any(),
+	email: z.string().email("Email tidak valid.").nonempty("Email harus diisi."),
+	password: z.any(),
+	role: z.string().nonempty("Role harus diisi."),
 });
 
 const UpdateUser = ({ fetchData, id, rowData }) => {
@@ -47,10 +46,9 @@ const UpdateUser = ({ fetchData, id, rowData }) => {
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
 			nama: rowData.nama,
-			deskripsi: rowData.deskripsi,
-			gambar: rowData.gambar,
-			kategori: rowData.kategori,
-			harga: rowData.harga,
+			email: rowData.email,
+			password: "",
+			role: rowData.role,
 		},
 	});
 
@@ -58,28 +56,24 @@ const UpdateUser = ({ fetchData, id, rowData }) => {
 		try {
 			const formData = new FormData();
 			formData.append("nama", data.nama);
-			formData.append("deskripsi", data.deskripsi);
-			formData.append("gambar", data.gambar[0]);
-			formData.append("kategori", data.kategori);
-			formData.append("harga", data.harga);
+			formData.append("email", data.email);
+			formData.append("role", data.role);
+			formData.append("password", data.password);
 
-			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_BASE_URL}/menu/${id}`,
-				{
-					method: "PUT",
-					body: formData,
-				}
+			const response = await axios.put(
+				`${process.env.NEXT_PUBLIC_BASE_URL}/akun/${id}`,
+				data
 			);
 
 			if (response.status === 200) {
-				toast.success("Menu berhasil diupdate");
+				toast.success("Akun berhasil diupdate");
 				form.reset();
 				setOpenTambah(false);
 				fetchData();
 			}
 		} catch (error) {
-			console.error("Error adding menu:", error);
-			toast.error("Gagal menambahkan menu");
+			console.error("Error adding akun:", error);
+			toast.error("Gagal menambahkan akun");
 		}
 	};
 
@@ -92,8 +86,8 @@ const UpdateUser = ({ fetchData, id, rowData }) => {
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
-					<DialogTitle>Update Menu</DialogTitle>
-					<DialogDescription>Update menu baru.</DialogDescription>
+					<DialogTitle>Update Akun</DialogTitle>
+					<DialogDescription>Update akun baru.</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
 					<form
@@ -120,14 +114,14 @@ const UpdateUser = ({ fetchData, id, rowData }) => {
 						/>
 						<FormField
 							control={form.control}
-							name="deskripsi"
+							name="email"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Deskripsi</FormLabel>
+									<FormLabel>Email</FormLabel>
 									<FormControl>
 										<Input
 											className="shadow-none"
-											placeholder="masukkan deskripsi..."
+											placeholder="masukkan email..."
 											{...field}
 											type="text"
 										/>
@@ -136,31 +130,12 @@ const UpdateUser = ({ fetchData, id, rowData }) => {
 								</FormItem>
 							)}
 						/>
-
 						<FormField
 							control={form.control}
-							name="harga"
+							name="role"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Harga</FormLabel>
-									<FormControl>
-										<Input
-											className="shadow-none"
-											placeholder="masukkan harga..."
-											{...field}
-											type="number"
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="kategori"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Kategori</FormLabel>
+									<FormLabel>Role</FormLabel>
 									<FormControl>
 										<Select
 											onValueChange={field.onChange}
@@ -168,13 +143,12 @@ const UpdateUser = ({ fetchData, id, rowData }) => {
 										>
 											<FormControl>
 												<SelectTrigger>
-													<SelectValue placeholder="Kategori" />
+													<SelectValue placeholder="role" />
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
-												<SelectItem value="makanan">Makanan</SelectItem>
-												<SelectItem value="minuman">Minuman</SelectItem>
-												<SelectItem value="topping">Topping</SelectItem>
+												<SelectItem value="admin">Admin</SelectItem>
+												<SelectItem value="pegawai">Pegawai</SelectItem>
 											</SelectContent>
 										</Select>
 									</FormControl>
@@ -182,14 +156,25 @@ const UpdateUser = ({ fetchData, id, rowData }) => {
 								</FormItem>
 							)}
 						/>
-						<div className="space-y-2">
-							<Label className="">Gambar</Label>
-							<Input
-								type="file"
-								className="shadow-none h-full py-1.5"
-								onChange={(e) => form.setValue("gambar", e.target.files)}
-							/>
-						</div>
+
+						<FormField
+							control={form.control}
+							name="password"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Password</FormLabel>
+									<FormControl>
+										<Input
+											className="shadow-none"
+											placeholder="masukkan password..."
+											{...field}
+											type="password"
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 						<DialogFooter>
 							<Button type="submit" className="w-full mt-2">
 								Submit

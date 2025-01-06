@@ -16,7 +16,6 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
 	Select,
 	SelectContent,
@@ -26,6 +25,7 @@ import {
 } from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
+import axios from "axios";
 import { PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -34,10 +34,9 @@ import { z } from "zod";
 
 const FormSchema = z.object({
 	nama: z.string().nonempty("Nama harus diisi."),
-	deskripsi: z.string().nonempty("Deskripsi harus diisi."),
-	gambar: z.any(),
-	kategori: z.any(),
-	harga: z.any(),
+	email: z.string().nonempty("Email harus diisi."),
+	password: z.any(),
+	role: z.string().nonempty("Role harus diisi."),
 });
 
 const TambahUser = ({ fetchData }) => {
@@ -47,36 +46,28 @@ const TambahUser = ({ fetchData }) => {
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
 			nama: "",
-			deskripsi: "",
-			gambar: "",
-			kategori: "",
-			harga: "",
+			email: "",
+			password: "",
+			role: "",
 		},
 	});
 
 	const handleTambah = async (data) => {
 		try {
-			const formData = new FormData();
-			formData.append("nama", data.nama);
-			formData.append("deskripsi", data.deskripsi);
-			formData.append("gambar", data.gambar[0]);
-			formData.append("kategori", data.kategori);
-			formData.append("harga", data.harga);
+			const response = await axios.post(
+				`${process.env.NEXT_PUBLIC_BASE_URL}/signup`,
+				data
+			);
 
-			const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user`, {
-				method: "POST",
-				body: formData,
-			});
-
-			if (response.status === 201) {
-				toast.success("User berhasil ditambahkan");
+			if (response.status === 200) {
+				toast.success("Akun berhasil ditambahkan");
 				form.reset();
 				setOpenTambah(false);
 				fetchData();
 			}
 		} catch (error) {
-			console.error("Error adding user:", error);
-			toast.error("Gagal menambahkan user");
+			console.error("Error adding akun:", error);
+			toast.error("Gagal menambahkan akun");
 		}
 	};
 
@@ -85,13 +76,13 @@ const TambahUser = ({ fetchData }) => {
 			<DialogTrigger asChild>
 				<Button>
 					<PlusCircle />
-					Tambah User
+					Tambah Akun
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
-					<DialogTitle>Tambah User</DialogTitle>
-					<DialogDescription>Tambahkan user baru.</DialogDescription>
+					<DialogTitle>Tambah Akun</DialogTitle>
+					<DialogDescription>Tambah akun baru.</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
 					<form
@@ -118,14 +109,14 @@ const TambahUser = ({ fetchData }) => {
 						/>
 						<FormField
 							control={form.control}
-							name="deskripsi"
+							name="email"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Deskripsi</FormLabel>
+									<FormLabel>Email</FormLabel>
 									<FormControl>
 										<Input
 											className="shadow-none"
-											placeholder="masukkan deskripsi..."
+											placeholder="masukkan email..."
 											{...field}
 											type="text"
 										/>
@@ -136,28 +127,10 @@ const TambahUser = ({ fetchData }) => {
 						/>
 						<FormField
 							control={form.control}
-							name="harga"
+							name="role"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Harga</FormLabel>
-									<FormControl>
-										<Input
-											className="shadow-none"
-											placeholder="masukkan harga..."
-											{...field}
-											type="number"
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="kategori"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Kategori</FormLabel>
+									<FormLabel>Role</FormLabel>
 									<FormControl>
 										<Select
 											onValueChange={field.onChange}
@@ -165,13 +138,12 @@ const TambahUser = ({ fetchData }) => {
 										>
 											<FormControl>
 												<SelectTrigger>
-													<SelectValue placeholder="kategori" />
+													<SelectValue placeholder="role" />
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
-												<SelectItem value="makanan">Makanan</SelectItem>
-												<SelectItem value="minuman">Minuman</SelectItem>
-												<SelectItem value="topping">Topping</SelectItem>
+												<SelectItem value="admin">Admin</SelectItem>
+												<SelectItem value="pegawai">Pegawai</SelectItem>
 											</SelectContent>
 										</Select>
 									</FormControl>
@@ -179,14 +151,25 @@ const TambahUser = ({ fetchData }) => {
 								</FormItem>
 							)}
 						/>
-						<div className="space-y-2">
-							<Label className="">Gambar</Label>
-							<Input
-								type="file"
-								className="shadow-none h-full py-1.5"
-								onChange={(e) => form.setValue("gambar", e.target.files)}
-							/>
-						</div>
+
+						<FormField
+							control={form.control}
+							name="password"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Password</FormLabel>
+									<FormControl>
+										<Input
+											className="shadow-none"
+											placeholder="masukkan password..."
+											{...field}
+											type="password"
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 						<DialogFooter>
 							<Button type="submit" className="w-full mt-2">
 								Submit

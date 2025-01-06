@@ -20,16 +20,16 @@ const HapusUser = ({ id, fetchData }) => {
 	const handleDelete = async () => {
 		try {
 			const response = await axios.delete(
-				`${process.env.NEXT_PUBLIC_BASE_URL}/menu/${selectedId}`
+				`${process.env.NEXT_PUBLIC_BASE_URL}/akun/${selectedId}`
 			);
-			if (response.status === 200) {
-				toast.success("Berita berhasil dihapus");
+			if (response.status === 204) {
+				toast.success("User berhasil dihapus");
 				setOpenHapus(false);
 				fetchData();
 			}
 		} catch (error) {
-			console.error("Error deleting berita:", error);
-			toast.error("Gagal menghapus berita");
+			console.error("Error deleting user:", error);
+			toast.error("Gagal menghapus user");
 		}
 	};
 

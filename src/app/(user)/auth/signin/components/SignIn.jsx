@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -26,6 +26,8 @@ import {
 import { useRouter } from "next/navigation";
 import { setCookie } from "@/actions/cookies";
 import Image from "next/image";
+import React from "react";
+import axios from "axios";
 
 const FormSchema = z.object({
 	email: z
@@ -40,6 +42,8 @@ const FormSchema = z.object({
 
 const SignIn = () => {
 	const router = useRouter();
+	const [loading, setLoading] = React.useState(false);
+
 	const form = useForm({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
@@ -50,18 +54,28 @@ const SignIn = () => {
 
 	const onLogin = async (data) => {
 		const { email, password } = data;
+		setLoading(true);
 
 		try {
-			const response = await Login({ email, password });
+			const response = await axios.post(
+				`${process.env.NEXT_PUBLIC_BASE_URL}/signin`,
+				{
+					email,
+					password,
+				}
+			);
 
-			if (response.role === "admin") {
-				setCookie("auth_token", response.token);
+			if (response.data.role === "admin") {
+				setCookie("auth_token", response.data.token);
 				router.push("/dashboard/menu");
+				toast.success("Login berhasil.");
 			} else {
 				toast.error("Anda tidak memiliki akses.");
 			}
 		} catch (error) {
 			console.error("Error login:", error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -115,8 +129,8 @@ const SignIn = () => {
 									</FormItem>
 								)}
 							/>
-							<Button type="submit" className="w-full">
-								Login
+							<Button type="submit" className="w-full" disabled={loading}>
+								{loading ? "Loading..." : "Login"}
 							</Button>
 						</form>
 					</Form>

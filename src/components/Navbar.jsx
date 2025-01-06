@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu } from "lucide-react";
+import { ChevronDown, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -8,7 +8,9 @@ import React, { useState } from "react";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
+	DropdownMenuGroup,
 	DropdownMenuItem,
+	DropdownMenuShortcut,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
@@ -23,7 +25,7 @@ const NavLink = ({ link, activeLink, setActiveLink }) => {
 						className={
 							activeLink === item.label
 								? `block py-2 px-3 rounded md:p-0 font-bold`
-								: `block py-2 px-3 rounded md:p-0 font-normal`
+								: `py-2 px-3 rounded md:p-1 font-medium hover:bg-slate-50`
 						}
 						onClick={() => setActiveLink(item.label)}
 					>
@@ -38,11 +40,13 @@ const NavLink = ({ link, activeLink, setActiveLink }) => {
 const links = [
 	{ href: "/", label: "Beranda" },
 	{ href: "/menu", label: "Menu" },
-	{ href: "/#tentang", label: "Tentang" },
+	{ href: "/tentang", label: "Tentang" },
 	{ href: "/#kontak", label: "Kontak" },
 	{ href: "/kemitraan", label: "Kemitraan" },
 	{ href: "/#feedback", label: "Feedback" },
 	{ href: "/registrasi", label: "Registrasi" },
+	{ href: "/berita", label: "Berita" },
+	{ href: "/galeri", label: "Galeri" },
 ];
 
 const Navbar = React.memo(function Navbar() {
@@ -87,11 +91,154 @@ const Navbar = React.memo(function Navbar() {
 				</DropdownMenu>
 
 				<div className="hidden w-full md:block md:w-auto" id="navbar-default">
-					<NavLink
+					{/* <NavLink
 						link={links}
 						activeLink={activeLink}
 						setActiveLink={setActiveLink}
-					/>
+					/> */}
+
+					<ul className="flex flex-col p-4 md:p-0 mt-4 border md:flex-row md:gap-4 rtl:space-x-reverse md:mt-0 md:border-0 text-sm">
+						<li>
+							<Link
+								href="/"
+								className={
+									activeLink === "Beranda"
+										? `block py-2 px-3 rounded md:p-0 font-bold`
+										: `py-2 px-3 rounded md:p-1 font-medium hover:bg-slate-50`
+								}
+								onClick={() => setActiveLink("Beranda")}
+							>
+								Beranda
+							</Link>
+						</li>
+						<li>
+							<Link
+								href="/menu"
+								className={
+									activeLink === "Menu"
+										? `block py-2 px-3 rounded md:p-0 font-bold`
+										: `py-2 px-3 rounded md:p-1 font-medium hover:bg-slate-50`
+								}
+								onClick={() => setActiveLink("Menu")}
+							>
+								Menu
+							</Link>
+						</li>
+						<li>
+							<DropdownMenu>
+								<DropdownMenuTrigger asChild>
+									<button
+										className={
+											activeLink === "Informasi"
+												? `inline-flex items-center gap-1 py-2 px-3 rounded md:p-0 font-bold`
+												: `inline-flex items-center gap-1 py-2 px-3 rounded md:p-0 font-medium hover:bg-slate-50`
+										}
+										onClick={() => setActiveLink("Informasi")}
+									>
+										Informasi <ChevronDown size={14} />
+									</button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent className="w-fit">
+									<DropdownMenuGroup>
+										<Link
+											href="/tentang"
+											onClick={() => setActiveLink("Tentang")}
+										>
+											<DropdownMenuItem
+												className={
+													activeLink === "Informasi"
+														? `font-bold text-sm`
+														: `font-medium text-sm`
+												}
+											>
+												Tentang
+											</DropdownMenuItem>
+										</Link>
+										<Link
+											href="/berita"
+											onClick={() => setActiveLink("Berita")}
+										>
+											<DropdownMenuItem
+												className={
+													activeLink === "Informasi"
+														? `font-bold text-sm`
+														: `font-medium text-sm`
+												}
+											>
+												Berita
+											</DropdownMenuItem>
+										</Link>
+										<Link
+											href="/galeri"
+											onClick={() => setActiveLink("Galeri")}
+										>
+											<DropdownMenuItem
+												className={
+													activeLink === "Informasi"
+														? `font-bold text-sm`
+														: `font-medium text-sm`
+												}
+											>
+												Galeri
+											</DropdownMenuItem>
+										</Link>
+									</DropdownMenuGroup>
+								</DropdownMenuContent>
+							</DropdownMenu>
+						</li>
+						<li>
+							<Link
+								href="/#kontak"
+								className={
+									activeLink === "Kontak"
+										? `block py-2 px-3 rounded md:p-0 font-bold`
+										: `py-2 px-3 rounded md:p-1 font-medium hover:bg-slate-50`
+								}
+								onClick={() => setActiveLink("Kontak")}
+							>
+								Kontak
+							</Link>
+						</li>
+						<li>
+							<Link
+								href="/kemitraan"
+								className={
+									activeLink === "Kemitraan"
+										? `block py-2 px-3 rounded md:p-0 font-bold`
+										: `py-2 px-3 rounded md:p-1 font-medium hover:bg-slate-50`
+								}
+								onClick={() => setActiveLink("Kemitraan")}
+							>
+								Kemitraan
+							</Link>
+						</li>
+						<li>
+							<Link
+								href="/#feedback"
+								className={
+									activeLink === "Feedback"
+										? `block py-2 px-3 rounded md:p-0 font-bold`
+										: `py-2 px-3 rounded md:p-1 font-medium hover:bg-slate-50`
+								}
+								onClick={() => setActiveLink("Feedback")}
+							>
+								Feedback
+							</Link>
+						</li>
+						<li>
+							<Link
+								href="/registrasi"
+								className={
+									activeLink === "Registrasi"
+										? `block py-2 px-3 rounded md:p-0 font-bold`
+										: `py-2 px-3 rounded md:p-1 font-medium hover:bg-slate-50`
+								}
+								onClick={() => setActiveLink("Registrasi")}
+							>
+								Registrasi
+							</Link>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</nav>

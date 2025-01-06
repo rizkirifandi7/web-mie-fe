@@ -2,12 +2,10 @@ import { NextResponse } from "next/server";
 
 export async function middleware(request) {
 	const token = request.cookies.get("auth_token");
+	const { pathname } = request.nextUrl;
 
-	if (
-		!token &&
-		(pathname.startsWith("/dashboard") || pathname.startsWith("/auth"))
-	) {
-		return NextResponse.redirect(new URL("/signin", request.url));
+	if (pathname.startsWith("/dashboard") && !token) {
+		return NextResponse.redirect(new URL("/auth/signin", request.url));
 	}
 
 	return NextResponse.next();

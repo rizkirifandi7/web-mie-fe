@@ -25,10 +25,10 @@ const PageCabang = () => {
 			),
 		},
 		{
-			accessorKey: "alamat",
+			accessorKey: "link_gmap",
 			header: "Link Maps",
 			cell: ({ row }) => (
-				<div className="capitalize">{row.getValue("alamat")}</div>
+				<div className="">{row.getValue("link_gmap")}</div>
 			),
 		},
 		{

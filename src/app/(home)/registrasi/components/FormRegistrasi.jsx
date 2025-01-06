@@ -67,7 +67,9 @@ const FormSchema = z.object({
 });
 
 const FormRegistrasi = () => {
+	const [isBusinessSelected, setIsBusinessSelected] = useState(false);
 	const [loading, setLoading] = useState(false);
+
 	const form = useForm({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
@@ -371,7 +373,10 @@ const FormRegistrasi = () => {
 										<FormLabel>Pengalaman Bisnis</FormLabel>
 										<FormControl>
 											<RadioGroup
-												onValueChange={field.onChange}
+												onValueChange={(value) => {
+													field.onChange(value);
+													setIsBusinessSelected(value === "Ya");
+												}}
 												defaultValue={field.value}
 												className="flex space-x-2"
 											>
@@ -391,6 +396,16 @@ const FormRegistrasi = () => {
 												</FormItem>
 											</RadioGroup>
 										</FormControl>
+										{isBusinessSelected && (
+											<FormControl>
+												<Input
+													type="text"
+													placeholder="Jenis Usaha"
+													{...field}
+												/>
+											</FormControl>
+										)}
+										<FormMessage />
 										<FormMessage />
 									</FormItem>
 								)}
@@ -403,6 +418,7 @@ const FormRegistrasi = () => {
 										<FormLabel>Modal Yang Disiapkan</FormLabel>
 										<FormControl>
 											<Input
+												type="number"
 												placeholder="Masukan modal yang disiapkan"
 												{...field}
 											/>
@@ -420,7 +436,7 @@ const FormRegistrasi = () => {
 										<FormControl>
 											<Textarea
 												placeholder="Jelaskan secara singkat motivasi anda"
-												className="resize-none"
+												className="resize-none h-[200px]"
 												{...field}
 											/>
 										</FormControl>
@@ -432,7 +448,11 @@ const FormRegistrasi = () => {
 					</div>
 				</div>
 				<div className="">
-					<Button type="submit" className="w-full md:w-fit py-5 mt-4 bg-blue-500" disabled={loading}>
+					<Button
+						type="submit"
+						className="w-full md:w-fit py-5 mt-4 bg-blue-500"
+						disabled={loading}
+					>
 						{loading ? "Loading..." : "Submit"}
 					</Button>
 				</div>

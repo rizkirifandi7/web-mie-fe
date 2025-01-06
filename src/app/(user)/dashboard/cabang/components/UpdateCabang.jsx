@@ -28,6 +28,7 @@ import { z } from "zod";
 const FormSchema = z.object({
 	nama_cabang: z.string().nonempty("Nama harus diisi."),
 	alamat: z.string().nonempty("Alamat harus diisi."),
+	link_gmap: z.string().nonempty("Link Map harus diisi."),
 });
 
 const UpdateCabang = ({ fetchData, id, rowData }) => {
@@ -39,6 +40,7 @@ const UpdateCabang = ({ fetchData, id, rowData }) => {
 		defaultValues: {
 			nama_cabang: rowData.nama_cabang,
 			alamat: rowData.alamat,
+			link_gmap: rowData.link_gmap,
 		},
 	});
 
@@ -48,12 +50,14 @@ const UpdateCabang = ({ fetchData, id, rowData }) => {
 			const formData = new FormData();
 			formData.append("nama_cabang", data.nama_cabang);
 			formData.append("alamat", data.alamat);
+			formData.append("link_gmap", data.link_gmap);
 
 			const response = await axios.put(
 				`${process.env.NEXT_PUBLIC_BASE_URL}/cabang/${id}`,
 				{
 					nama_cabang: data.nama_cabang,
 					alamat: data.alamat,
+					link_gmap: data.link_gmap,
 				}
 			);
 
@@ -118,6 +122,24 @@ const UpdateCabang = ({ fetchData, id, rowData }) => {
 										<Input
 											className="shadow-none"
 											placeholder="masukkan alamat..."
+											{...field}
+											type="text"
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="link_gmap"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Link Map</FormLabel>
+									<FormControl>
+										<Input
+											className="shadow-none"
+											placeholder="masukkan link map..."
 											{...field}
 											type="text"
 										/>

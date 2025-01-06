@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+import Footer from "../../components/homepage/Footer";
 import { Inter } from "next/font/google";
 import ButtonWa from "@/components/ButtonWa";
 import { Toaster } from "sonner";

@@ -39,8 +39,8 @@ const Menu = () => {
 				<div className="flex flex-col justify-center items-center">
 					<Judul mainText="D'EMIEHAN" subText="Produk Kami" />
 
-					<div className="flex flex-col justify-center items-center max-w-screen-sm md:max-w-screen-xl pt-10">
-						{menuData.length > 0 ? (
+					{menuData.length > 0 ? (
+						<div className="flex flex-col justify-center items-center max-w-screen-sm md:max-w-screen-xl pt-10">
 							<Carousel
 								plugins={[
 									Autoplay({
@@ -75,20 +75,19 @@ const Menu = () => {
 									))}
 								</CarouselContent>
 							</Carousel>
-						) : (
-							<p className="text-xl font-semibold text-center my-16">
-								No menu items available
-							</p>
-						)}
-
-						<div className="mt-14">
-							<Link href="/menu">
-								<Button className="py-5 text-sm rounded-lg tracking-wider border border-white transform transition-transform duration-300 bg-blue-500 hover:bg-blue-600">
-									Lihat Semua Menu
-								</Button>
-							</Link>
+							<div className="mt-14">
+								<Link href="/menu">
+									<Button className="py-5 text-sm rounded-lg tracking-wider border border-white transform transition-transform duration-300 bg-blue-500 hover:bg-blue-600">
+										Lihat Semua Menu
+									</Button>
+								</Link>
+							</div>
 						</div>
-					</div>
+					) : (
+						<p className="text-xl text-center my-16">
+							No menu items available
+						</p>
+					)}
 				</div>
 			</div>
 		</section>

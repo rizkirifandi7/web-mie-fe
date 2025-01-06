@@ -33,6 +33,7 @@ module.exports = {
 	},
 	plugins: [
 		require("tailwindcss-animate"),
+		require("@tailwindcss/typography"),
 		require("tailwindcss-filters"),
 		function ({ addUtilities }) {
 			addUtilities({
