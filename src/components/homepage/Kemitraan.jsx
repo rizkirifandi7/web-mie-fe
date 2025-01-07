@@ -13,6 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Card } from "../ui/card";
+import BackgroundBox from "../BackgroundBox";
 
 const Kemitraan = () => {
 	const [data, setData] = React.useState([]);
@@ -70,35 +71,41 @@ const Kemitraan = () => {
 							<Link href="/kemitraan">Lihat Selengkapnya</Link>
 						</Button>
 					</div>
-					<Carousel
-						plugins={[
-							Autoplay({
-								delay: 2000,
-							}),
-						]}
-						className="w-full md:w-[500px] mt-10 md:mt-0"
-					>
-						<CarouselContent>
-							{data.flatMap((item) =>
-								item.gambar.map((img, index) => (
-									<CarouselItem key={`${item.id}-${index}`}>
-										<Card className="flex justify-center overflow-hidden items-center rounded-md w-[280px] md:w-full object-cover">
-											<Image
-												src={img.path}
-												width={450}
-												height={450}
-												alt="logo"
-												className="object-cover p-6"
-											/>
-										</Card>
-									</CarouselItem>
-								))
-							)}
-						</CarouselContent>
-					</Carousel>
+					{data ? (
+						<Carousel
+							plugins={[
+								Autoplay({
+									delay: 2000,
+								}),
+							]}
+							className="w-full md:w-[500px] mt-10 md:mt-0"
+						>
+							<CarouselContent>
+								{data.flatMap((item) =>
+									item.gambar.map((img, index) => (
+										<CarouselItem key={`${item.id}-${index}`}>
+											<Card className="flex justify-center overflow-hidden items-center rounded-md w-[280px] md:w-full object-cover">
+												<Image
+													src={img.path}
+													width={450}
+													height={450}
+													alt="logo"
+													className="object-cover p-6"
+												/>
+											</Card>
+										</CarouselItem>
+									))
+								)}
+							</CarouselContent>
+						</Carousel>
+					) : (
+						<div className="flex justify-center items-center w-[400px] h-[400px] bg-slate-50 rounded-lg">
+							<p>Tidak ada Gambar</p>
+						</div>
+					)}
 				</div>
 
-				<div className="flex flex-col justify-center items-center h-[250px] mt-14 rounded-lg mx-14 bg-center bg-no-repeat bg-cover bg-[url('/bg.jpg')] bg-gray-700 bg-blend-multiply">
+				<BackgroundBox className="flex flex-col justify-center items-center h-[250px] mt-14 rounded-lg mx-14">
 					<h1 className="text-2xl font-bold text-white text-center">
 						Tertarik Bergabung Dengan Kemitraan Demiehan ?
 					</h1>
@@ -110,7 +117,7 @@ const Kemitraan = () => {
 							<Link href="https://wa.link/dben6b">WhatsApp</Link>
 						</Button>
 					</div>
-				</div>
+				</BackgroundBox>
 			</div>
 		</section>
 	);

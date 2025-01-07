@@ -9,21 +9,21 @@ const CardMenu = ({ filterMenu }) => {
 			{filterMenu.map((menu) => (
 				<Card
 					key={menu.id}
-					className="h-full rounded-lg border transform transition-transform duration-300 hover:scale-105 hover:rotate-3"
+					className="h-full rounded-md p-2 border transform transition-transform duration-300 hover:scale-105"
 				>
-					<div className="rounded-lg">
+					<div className="flex justify-center items-center rounded-md border h-[230px] overflow-hidden bg-blue-50">
 						<Image
 							src={`${menu.gambar}`}
 							alt={menu.nama}
 							width={300}
 							height={250}
-							className="w-full h-[250px] object-cover p-4 rounded-lg"
+							className="w-full h-full object-cover rounded-md"
 						/>
 					</div>
-					<div className="px-4 pb-4">
+					<div className="px-2 py-2">
 						<div className="flex justify-between items-center">
 							<p className="font-bold text-base">{menu.nama}</p>
-							<p className="text-base font-bold uppercase">
+							<p className="text-base font-bold uppercase text-blue-500 ">
 								{formatHarga(menu.harga)}
 							</p>
 						</div>

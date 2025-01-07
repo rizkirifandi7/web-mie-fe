@@ -15,27 +15,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
 
-const NavLink = ({ link, activeLink, setActiveLink }) => {
-	return (
-		<ul className="flex flex-col p-4 md:p-0 mt-4 border md:flex-row md:space-x-6 rtl:space-x-reverse md:mt-0 md:border-0 text-sm">
-			{link.map((item, index) => (
-				<li key={index}>
-					<Link
-						href={item.href}
-						className={
-							activeLink === item.label
-								? `block py-2 px-3 rounded md:p-0 font-bold`
-								: `py-2 px-3 rounded md:p-1 font-medium hover:bg-slate-50`
-						}
-						onClick={() => setActiveLink(item.label)}
-					>
-						{item.label}
-					</Link>
-				</li>
-			))}
-		</ul>
-	);
-};
 
 const links = [
 	{ href: "/", label: "Beranda" },
@@ -47,6 +26,7 @@ const links = [
 	{ href: "/registrasi", label: "Registrasi" },
 	{ href: "/berita", label: "Berita" },
 	{ href: "/galeri", label: "Galeri" },
+	{ href: "/artikel", label: "Artikel" },
 ];
 
 const Navbar = React.memo(function Navbar() {
@@ -91,11 +71,6 @@ const Navbar = React.memo(function Navbar() {
 				</DropdownMenu>
 
 				<div className="hidden w-full md:block md:w-auto" id="navbar-default">
-					{/* <NavLink
-						link={links}
-						activeLink={activeLink}
-						setActiveLink={setActiveLink}
-					/> */}
 
 					<ul className="flex flex-col p-4 md:p-0 mt-4 border md:flex-row md:gap-4 rtl:space-x-reverse md:mt-0 md:border-0 text-sm">
 						<li>
@@ -146,7 +121,7 @@ const Navbar = React.memo(function Navbar() {
 										>
 											<DropdownMenuItem
 												className={
-													activeLink === "Informasi"
+													activeLink === "Tentang"
 														? `font-bold text-sm`
 														: `font-medium text-sm`
 												}
@@ -160,7 +135,7 @@ const Navbar = React.memo(function Navbar() {
 										>
 											<DropdownMenuItem
 												className={
-													activeLink === "Informasi"
+													activeLink === "Berita"
 														? `font-bold text-sm`
 														: `font-medium text-sm`
 												}
@@ -174,12 +149,26 @@ const Navbar = React.memo(function Navbar() {
 										>
 											<DropdownMenuItem
 												className={
-													activeLink === "Informasi"
+													activeLink === "Galeri"
 														? `font-bold text-sm`
 														: `font-medium text-sm`
 												}
 											>
 												Galeri
+											</DropdownMenuItem>
+										</Link>
+										<Link
+											href="/artikel"
+											onClick={() => setActiveLink("Artikel")}
+										>
+											<DropdownMenuItem
+												className={
+													activeLink === "Artikel"
+														? `font-bold text-sm`
+														: `font-medium text-sm`
+												}
+											>
+												Artikel
 											</DropdownMenuItem>
 										</Link>
 									</DropdownMenuGroup>

@@ -50,13 +50,7 @@ const Feedback = () => {
 				<div className="flex flex-col justify-center items-center w-full">
 					<Judul mainText="D'EMIEHAN" subText="Kritik & Saran" />
 
-					<Card className="flex flex-col items-center max-w-2xl mt-14 p-4">
-						<h1 className="text-xl font-semibold">Kritik dan Saran</h1>
-						<p className="text-slate-500 text-sm text-center">
-							Kami senang mendengar kritik dan saran dari Anda. Silahkan isi
-							formulir di bawah ini.
-						</p>
-
+					<Card className="flex flex-col items-center w-1/2 mt-14 p-4">
 						<form
 							className="flex flex-col gap-4 mt-4 w-full"
 							onSubmit={handleSubmit}
@@ -64,14 +58,14 @@ const Feedback = () => {
 							<Input
 								type="text"
 								placeholder="Nama (Opsional)"
-								className="border p-2 rounded-lg"
+								className="border p-2 rounded-lg w-full"
 								value={nama}
 								onChange={(e) => setNama(e.target.value)}
 							/>
 							<Input
 								type="number"
 								placeholder="No. Telepon (Opsional)"
-								className="border p-2 rounded-lg"
+								className="border p-2 rounded-lg w-full"
 								value={nomor}
 								onChange={(e) => setNomor(e.target.value)}
 							/>

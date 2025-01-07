@@ -24,6 +24,14 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
+
 function extractTextFromHTML(html) {
 	const parser = new DOMParser();
 	const doc = parser.parseFromString(html, "text/html");
@@ -33,6 +41,7 @@ function extractTextFromHTML(html) {
 const FormSchema = z.object({
 	judul: z.string().nonempty("Judul harus diisi."),
 	gambar: z.any(),
+	tipe: z.string().nonempty("Tipe harus diisi."),
 	isi: z.string().refine(
 		(value) => {
 			return extractTextFromHTML(value).trim().length >= 5;
@@ -46,7 +55,6 @@ const FormSchema = z.object({
 const TextEditor = () => {
 	const router = useRouter();
 	const [loading, setLoading] = useState(false);
-	const [deskripsi, setDeskripsi] = useState("");
 
 	const form = useForm({
 		resolver: zodResolver(FormSchema),
@@ -66,6 +74,7 @@ const TextEditor = () => {
 				formData.append("gambar", data.gambar[0]);
 			}
 			formData.append("isi", data.isi);
+			formData.append("tipe", data.tipe);
 
 			const response = await fetch(
 				`${process.env.NEXT_PUBLIC_BASE_URL}/berita`,
@@ -77,9 +86,8 @@ const TextEditor = () => {
 
 			if (response.status === 201) {
 				toast.success("Berita berhasil ditambahkan");
-				form.reset(); // Reset form
-				setDeskripsi(""); // Reset deskripsi
-				router.push("/dashboard/berita"); // Redirect to berita page
+				form.reset();
+				router.push("/dashboard/berita-artikel");
 			}
 		} catch (error) {
 			console.error("Error adding berita:", error);
@@ -92,9 +100,9 @@ const TextEditor = () => {
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>Tambah Berita</CardTitle>
+				<CardTitle>Tambah Data Informasi</CardTitle>
 				<CardDescription>
-					Tambah berita baru untuk ditampilkan di halaman berita.
+					Tambah Informasi baru.
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -117,6 +125,30 @@ const TextEditor = () => {
 											type="text"
 										/>
 									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="tipe"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Jenis Informasi</FormLabel>
+									<Select
+										onValueChange={field.onChange}
+										defaultValue={field.value}
+									>
+										<FormControl>
+											<SelectTrigger>
+												<SelectValue placeholder="Pilih tipe informasi berita atau artikel" />
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											<SelectItem value="berita">Berita</SelectItem>
+											<SelectItem value="artikel">Artikel</SelectItem>
+										</SelectContent>
+									</Select>
 									<FormMessage />
 								</FormItem>
 							)}

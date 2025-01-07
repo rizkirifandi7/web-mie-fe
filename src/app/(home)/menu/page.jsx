@@ -5,6 +5,7 @@ import Judul from "@/components/Judul";
 import { getAllMenu } from "@/services/api/menu";
 import CardMenu from "./components/CardMenu";
 import { Button } from "@/components/ui/button";
+import BackgroundBox from "@/components/BackgroundBox";
 
 const PageMenu = () => {
 	const [menu, setMenu] = useState([]);
@@ -34,9 +35,9 @@ const PageMenu = () => {
 	return (
 		<section className="md:w-full min-h-screen " id="menu">
 			<div className="md:max-w-screen-xl mx-auto py-28 px-8 md:px-0">
-				<div className="flex justify-center items-center w-full h-[200px] rounded-lg bg-center bg-no-repeat bg-cover bg-[url('/bg.jpg')] bg-gray-700 bg-blend-multiply text-white">
+				<BackgroundBox>
 					<Judul mainText="D'EMIEHAN" subText="Produk Kami" />
-				</div>
+				</BackgroundBox>
 
 				<div className="flex flex-col md:flex-row justify-between items-start mt-10 gap-10">
 					<div className="w-full md:basis-1/4 flex flex-col gap-y-4">

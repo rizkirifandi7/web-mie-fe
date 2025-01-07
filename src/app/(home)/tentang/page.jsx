@@ -1,4 +1,5 @@
 "use client";
+import BackgroundBox from "@/components/BackgroundBox";
 import Judul from "@/components/Judul";
 import Image from "next/image";
 import React from "react";
@@ -31,14 +32,14 @@ const PageTentang = () => {
 	return (
 		<section className="w-full md:w-full min-h-screen bg-white">
 			<div className="max-w-screen-sm md:max-w-screen-lg mx-auto py-28 px-8 md:px-0">
-				<div className="flex flex-col justify-center items-center w-full h-[200px] rounded-lg bg-center bg-no-repeat bg-cover bg-[url('/bg.jpg')] bg-gray-700 bg-blend-multiply text-white">
+				<BackgroundBox>
 					<Judul mainText="D'EMIEHAN" subText="Tentang Kami" />
-				</div>
+				</BackgroundBox>
 
 				<div className="flex flex-col justify-center items-center mt-10 text-center gap-4">
 					<div className="flex flex-col md:flex-row items-center gap-4">
 						<Image
-							src={data.gambar}
+							src={data.gambar ? data.gambar : "/logobrand.png"}
 							width={350}
 							height={350}
 							alt="logo"

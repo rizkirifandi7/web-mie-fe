@@ -15,6 +15,7 @@ import { useCallback, useEffect, useState } from "react";
 import { getAllMenu } from "@/services/api/menu";
 import { toast } from "sonner";
 import Autoplay from "embla-carousel-autoplay";
+import { formatHarga } from "@/lib/formatHarga";
 
 const Menu = () => {
 	const [menuData, setMenuData] = useState([]);
@@ -51,22 +52,25 @@ const Menu = () => {
 							>
 								<CarouselContent>
 									{menuData.map((menu) => (
-										<CarouselItem key={menu.id} className="">
-											<Card className="bg-white">
-												<div className="p-3">
+										<CarouselItem key={menu.id} className="basis-1/3 py-2">
+											<Card className="bg-white p-2  transform transition-transform duration-300 hover:scale-105">
+												<div className="border bg-blue-50 rounded-md h-[250px] overflow-hidden">
 													<Image
 														src={`${menu.gambar}`}
 														alt={menu.nama}
-														width={200}
-														height={220}
-														className="w-full h-[200px] md:h-[220px] object-cover rounded-md"
+														width={300}
+														height={300}
+														className="w-auto h-auto object-cover rounded-md"
 													/>
 												</div>
-												<div className="px-3 pb-3">
-													<h2 className="text-base font-bold text-left">
-														{menu.nama}
-													</h2>
-													<p className="text-sm text-slate-500 text-left truncate">
+												<div className="px-2 py-3">
+													<div className="flex justify-between items-center">
+														<h2 className="text-base font-bold">{menu.nama}</h2>
+														<p className="text-sm text-blue-500 font-bold">
+															{formatHarga(menu.harga)}
+														</p>
+													</div>
+													<p className="text-sm text-slate-500 truncate">
 														{menu.deskripsi}
 													</p>
 												</div>
@@ -84,9 +88,7 @@ const Menu = () => {
 							</div>
 						</div>
 					) : (
-						<p className="text-xl text-center my-16">
-							No menu items available
-						</p>
+						<p className="text-xl text-center my-16">No menu items available</p>
 					)}
 				</div>
 			</div>

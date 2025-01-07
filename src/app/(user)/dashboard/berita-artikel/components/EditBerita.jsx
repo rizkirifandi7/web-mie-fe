@@ -27,6 +27,14 @@ import { z } from "zod";
 import RichTextEditor from "./RichTextEditor";
 import { Label } from "@/components/ui/label";
 
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
+
 function extractTextFromHTML(html) {
 	const parser = new DOMParser();
 	const doc = parser.parseFromString(html, "text/html");
@@ -36,6 +44,7 @@ function extractTextFromHTML(html) {
 const FormSchema = z.object({
 	judul: z.string().nonempty("Judul harus diisi."),
 	gambar: z.any(),
+	tipe: z.string().nonempty("Tipe harus diisi."),
 	isi: z.string().refine(
 		(value) => {
 			return extractTextFromHTML(value).trim().length >= 5;
@@ -56,6 +65,7 @@ const EditBerita = ({ fetchData, id, rowData }) => {
 			judul: rowData.judul,
 			gambar: rowData.gambar,
 			isi: rowData.isi,
+			tipe: rowData.tipe,
 		},
 	});
 
@@ -66,6 +76,7 @@ const EditBerita = ({ fetchData, id, rowData }) => {
 			formData.append("judul", data.judul);
 			formData.append("gambar", data.gambar[0]);
 			formData.append("isi", data.isi);
+			formData.append("tipe", rowData.tipe);
 
 			const response = await axios.put(
 				`${process.env.NEXT_PUBLIC_BASE_URL}/berita/${id}`,
@@ -73,6 +84,7 @@ const EditBerita = ({ fetchData, id, rowData }) => {
 					judul: data.judul,
 					gambar: data.gambar,
 					isi: data.isi,
+					tipe: data.tipe,
 				}
 			);
 
@@ -123,6 +135,31 @@ const EditBerita = ({ fetchData, id, rowData }) => {
 											type="text"
 										/>
 									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						<FormField
+							control={form.control}
+							name="tipe"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Jenis Informasi</FormLabel>
+									<Select
+										onValueChange={field.onChange}
+										defaultValue={field.value}
+									>
+										<FormControl>
+											<SelectTrigger>
+												<SelectValue placeholder="Pilih tipe informasi berita atau artikel" />
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											<SelectItem value="berita">Berita</SelectItem>
+											<SelectItem value="artikel">Artikel</SelectItem>
+										</SelectContent>
+									</Select>
 									<FormMessage />
 								</FormItem>
 							)}

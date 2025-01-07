@@ -22,7 +22,16 @@ const PageBerita = () => {
 			accessorKey: "isi",
 			header: "Isi",
 			cell: ({ row }) => (
-				<div className="w-[300px] truncate h-[25px]">{parse(row.getValue("isi"))}</div>
+				<div className="w-[350px] truncate h-[25px]">
+					{parse(row.getValue("isi"))}
+				</div>
+			),
+		},
+		{
+			accessorKey: "tipe",
+			header: "Tipe",
+			cell: ({ row }) => (
+				<div className="capitalize">{parse(row.getValue("tipe"))}</div>
 			),
 		},
 		{
@@ -77,7 +86,7 @@ const PageBerita = () => {
 				columns={columns}
 				data={data}
 				TambahComponent={() => <TambahBerita />}
-				title="Dashboard Berita"
+				title="Dashboard Berita & Artikel"
 				search="judul"
 				pageSize={5}
 			/>

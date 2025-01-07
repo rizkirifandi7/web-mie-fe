@@ -13,10 +13,13 @@ export default function RichTextEditor({ content, onChange }) {
 					HTMLAttributes: { class: "font-bold text-xl" },
 				},
 				orderedList: {
-					HTMLAttributes: { class: "list-decimal ml-4" },
+					HTMLAttributes: { class: "list-decimal ml-4 mt-2" },
 				},
 				bulletList: {
 					HTMLAttributes: { class: "list-disc ml-4" },
+				},
+				paragraph: {
+					HTMLAttributes: { class: "text-sm mt-2" },
 				},
 			}),
 			Highlight,

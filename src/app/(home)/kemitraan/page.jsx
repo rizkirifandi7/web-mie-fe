@@ -3,6 +3,7 @@ import Judul from "@/components/Judul";
 import React from "react";
 import PaketKemitraan from "./components/PaketKemitraan";
 import axios from "axios";
+import BackgroundBox from "@/components/BackgroundBox";
 
 const PageTemukanKami = () => {
 	const [data, setData] = React.useState([]);
@@ -26,9 +27,9 @@ const PageTemukanKami = () => {
 	return (
 		<section className="w-full md:w-full min-h-screen bg-white">
 			<div className="max-w-screen-sm md:max-w-screen-lg mx-auto py-28 px-8 md:px-0">
-				<div className="flex flex-col justify-center items-center w-full h-[200px] rounded-lg bg-center bg-no-repeat bg-cover bg-[url('/bg.jpg')] bg-gray-700 bg-blend-multiply text-white">
+				<BackgroundBox>
 					<Judul mainText="D'EMIEHAN" subText="Kemitraan" />
-				</div>
+				</BackgroundBox>
 
 				<div className="mt-20">
 					<h1 className="text-3xl font-bold text-center">Paket Kemitraan</h1>

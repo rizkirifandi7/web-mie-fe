@@ -1,23 +1,16 @@
-"use server";
-
-import { cookies } from "next/headers";
+// filepath: /c:/IKI/project-client/dmiehan/dmiehan-fe/src/actions/cookies.js
+import Cookies from "js-cookie";
 
 const setCookie = (name, value) => {
-	cookies().set({
-		name,
-		value,
-		httpOnly: true,
-		path: "/",
-	});
+	Cookies.set(name, value, { path: "/", secure: true, sameSite: "strict" });
 };
 
 const getCookie = (name) => {
-	const cookie = cookies().get(name);
-	return cookie ? cookie.value : null;
+	return Cookies.get(name);
 };
 
 const removeCookie = (name) => {
-	cookies().set(name, "");
+	Cookies.remove(name, { path: "/" });
 };
 
 export { setCookie, removeCookie, getCookie };

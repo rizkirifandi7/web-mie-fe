@@ -6,10 +6,10 @@ import React from "react";
 const TambahBerita = () => {
 	return (
 		<>
-			<Link href="/dashboard/berita/tambah-berita">
+			<Link href="/dashboard/berita-artikel/tambah-berita">
 				<Button>
 					<PlusCircle />
-					Tambah Berita
+					Tambah Berita Atau Artikel
 				</Button>
 			</Link>
 		</>

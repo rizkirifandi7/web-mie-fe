@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React from "react";
 import Judul from "@/components/Judul";
+import { ImageDown } from "lucide-react";
 
 const Tentang = () => {
 	const [data, setData] = React.useState([]);
@@ -26,14 +27,21 @@ const Tentang = () => {
 					<Judul mainText="D'EMIEHAN" subText="Tentang Kami" />
 
 					<div className="flex flex-col md:flex-row justify-between items-center mt-10">
-						<div className="md:basis-1/3 w-[250px] bg-blue-50 rounded-custom2 md:ml-24">
-							<Image
-								src={data.gambar}
-								width={500}
-								height={500}
-								alt="logo"
-								className="object-cover p-6"
-							/>
+						<div className="md:basis-1/3 w-[250px] h-[400px] bg-blue-50 rounded-custom2 md:ml-24">
+							{data.gambar ? (
+								<Image
+									src={data.gambar}
+									width={500}
+									height={500}
+									alt="logo"
+									className="object-cover p-6"
+								/>
+							) : (
+								<div className="flex flex-col items-center justify-center w-full h-full">
+									<ImageDown size={40}/>
+									<span>Tidak ada gambar</span>
+								</div>
+							)}
 						</div>
 						<div className="md:basis-1/2 px-4">
 							<h1 className="font-bold text-3xl mb-2 hidden md:block">

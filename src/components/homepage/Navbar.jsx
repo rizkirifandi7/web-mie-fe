@@ -1,15 +1,19 @@
-import { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 const links = [
 	{ href: "/", label: "Beranda" },
 	{ href: "/menu", label: "Menu" },
-	{ href: "/#tentang", label: "Tentang", submenu: [
-		{ href: "/#sejarah", label: "Sejarah" },
-		{ href: "/#visi-misi", label: "Visi & Misi" },
-		{ href: "/#tim", label: "Tim" }
-	]},
+	{
+		href: "/#tentang",
+		label: "Tentang",
+		submenu: [
+			{ href: "/#sejarah", label: "Sejarah" },
+			{ href: "/#visi-misi", label: "Visi & Misi" },
+			{ href: "/#tim", label: "Tim" },
+		],
+	},
 	{ href: "/#kontak", label: "Kontak" },
 	{ href: "/kemitraan", label: "Kemitraan" },
 	{ href: "/#feedback", label: "Feedback" },
@@ -29,12 +33,18 @@ const Navbar = React.memo(function Navbar() {
 		setActiveLink(label);
 	};
 
+	const handleLinkClick = (label) => {
+		setActiveLink(label);
+		setDropdownOpen(false);
+	};
+
 	return (
 		<nav className="fixed w-full bg-white z-50 border-b">
 			<div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
 				<Link
 					href="/"
 					className="flex items-center space-x-1 rtl:space-x-reverse"
+					onClick={() => handleLinkClick("Beranda")}
 				>
 					<Image
 						src="/logobrand.png"
@@ -57,7 +67,7 @@ const Navbar = React.memo(function Navbar() {
 										? `block py-2 px-3 rounded md:p-0 font-bold`
 										: `block py-2 px-3 rounded md:p-0 font-normal`
 								}
-								onClick={() => handleDropdown(item.label)}
+								onClick={() => handleLinkClick(item.label)}
 							>
 								{item.label}
 							</Link>
@@ -68,7 +78,7 @@ const Navbar = React.memo(function Navbar() {
 											<Link
 												href={subItem.href}
 												className="block py-2 px-4 hover:bg-gray-100"
-												onClick={() => setActiveLink(subItem.label)}
+												onClick={() => handleLinkClick(subItem.label)}
 											>
 												{subItem.label}
 											</Link>
@@ -85,3 +95,4 @@ const Navbar = React.memo(function Navbar() {
 });
 
 export default Navbar;
+

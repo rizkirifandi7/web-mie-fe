@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const PageBerita = () => {
+const PageArtikel = () => {
 	const [data, setData] = React.useState([]);
 
 	const fetchData = async () => {
@@ -25,19 +25,19 @@ const PageBerita = () => {
 		fetchData();
 	}, []);
 
-	const filterData = data.filter((item) => item.tipe === "berita");
+	const filterData = data.filter((item) => item.tipe === "artikel");
 
 	return (
 		<section className="w-full md:w-full min-h-screen bg-white">
 			<div className="max-w-screen-sm md:max-w-screen-xl mx-auto py-28 px-8 md:px-0">
 				<BackgroundBox>
-					<Judul mainText="D'EMIEHAN" subText="Berita" />
+					<Judul mainText="D'EMIEHAN" subText="Artikel" />
 				</BackgroundBox>
 
-				<div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-20 h-full">
+				<div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-20">
 					{filterData.map((item, index) => (
-						<Link key={index} href={`/berita/${item.id}`} className="h-full">
-							<Card className="flex flex-col p-2 transform transition duration-300 hover:scale-105 h-full">
+						<Link key={index} href={`/artikel/${item.id}`}>
+							<Card className="flex flex-col p-2 transform transition duration-300 hover:scale-105">
 								<div className="flex justify-center items-center h-[180px] mb-1 border rounded-md bg-slate-50 overflow-hidden">
 									<Image
 										src={item.gambar}
@@ -70,4 +70,4 @@ const PageBerita = () => {
 	);
 };
 
-export default PageBerita;
+export default PageArtikel;

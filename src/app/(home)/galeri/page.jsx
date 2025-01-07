@@ -4,6 +4,7 @@ import React from "react";
 
 import Image from "next/image";
 import BlurFade from "@/components/ui/blur-fade";
+import BackgroundBox from "@/components/BackgroundBox";
 
 const PageGaleri = () => {
 	const [data, setData] = React.useState([]);
@@ -26,9 +27,9 @@ const PageGaleri = () => {
 	return (
 		<section className="w-full md:w-full min-h-screen bg-white">
 			<div className="max-w-screen-sm md:max-w-screen-xl mx-auto py-28 px-8 md:px-0">
-				<div className="flex flex-col justify-center items-center w-full h-[200px] rounded-lg bg-center bg-no-repeat bg-cover bg-[url('/bg.jpg')] bg-gray-700 bg-blend-multiply text-white">
+				<BackgroundBox>
 					<Judul mainText="D'EMIEHAN" subText="Galeri" />
-				</div>
+				</BackgroundBox>
 
 				<div className="mt-20">
 					<div className="columns-2 gap-4 sm:columns-3">

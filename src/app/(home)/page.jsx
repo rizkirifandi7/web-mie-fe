@@ -5,12 +5,14 @@ import Menu from "../../components/homepage/Menu";
 import Kemitraan from "../../components/homepage/Kemitraan";
 import Kontak from "../../components/homepage/Kontak";
 import Feedback from "@/components/homepage/Feedback";
+import Banner from "@/components/homepage/Banner";
 
 const PageHome = () => {
 	return (
 		<>
 			<Hero />
 			<Tentang />
+			<Banner />
 			<Menu />
 			<Kemitraan />
 			<Kontak />
