@@ -36,7 +36,7 @@ const Hero = () => {
 			className="relative bg-center bg-no-repeat bg-cover bg-gray-700 bg-blend-multiply"
 			style={{
 				backgroundImage: `url(${
-					data.background ? data.background : undefined
+					data.background ? data.background : "bg.jpg"
 				})`,
 			}}
 		>
@@ -44,25 +44,25 @@ const Hero = () => {
 				<div className="flex justify-center items-center mb-4">
 					<Image
 						src={data.gambar ? data.gambar : "/logobrand.png"}
-						width={200}
-						height={200}
-						className="w-auto h-auto"
+						width={150}
+						height={150}
+						className="md:w-auto md:h-auto"
 						alt="Demiehan Logo"
 					/>
 				</div>
-				<h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
+				<h1 className="mb-4 text-3xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
 					{data.judul}
 				</h1>
 				<p className="mb-8 text-sm font-normal text-gray-300 md:text-base sm:px-16 lg:px-48">
 					{data.deskripsi}
 				</p>
 				<div className="flex justify-center items-center gap-4">
-					<Button asChild className="w-full md:w-fit bg-blue-500 py-6">
+					<Button asChild className="w-fit bg-blue-500 py-6">
 						<Link href="/kemitraan">Gabung Kemitraan</Link>
 					</Button>
 					<Button
 						asChild
-						className="w-full md:w-fit py-6 bg-transparent text-white"
+						className="w-fit py-6 bg-transparent text-white"
 						variant="outline"
 					>
 						<Link href="/menu">Lihat Menu</Link>

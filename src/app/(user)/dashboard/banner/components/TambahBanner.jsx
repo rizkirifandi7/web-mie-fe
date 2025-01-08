@@ -17,6 +17,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import { PlusCircle } from "lucide-react";
@@ -27,6 +35,8 @@ import { z } from "zod";
 
 const FormSchema = z.object({
 	judul: z.string().nonempty("Judul harus diisi."),
+	deskripsi: z.string().nonempty("Deskripsi harus diisi."),
+	link: z.string().nonempty("Link harus berupa URL yang valid."),
 	gambar: z.any(),
 });
 
@@ -38,6 +48,8 @@ const TambahBanner = ({ fetchData }) => {
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
 			judul: "",
+			deskripsi: "",
+			link: "",
 			gambar: null,
 		},
 	});
@@ -47,6 +59,8 @@ const TambahBanner = ({ fetchData }) => {
 		try {
 			const formData = new FormData();
 			formData.append("judul", data.judul);
+			formData.append("deskripsi", data.deskripsi);
+			formData.append("link", data.link);
 			formData.append("gambar", data.gambar[0]);
 
 			const response = await fetch(
@@ -107,15 +121,62 @@ const TambahBanner = ({ fetchData }) => {
 								</FormItem>
 							)}
 						/>
+						<FormField
+							control={form.control}
+							name="deskripsi"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Deskripsi</FormLabel>
+									<FormControl>
+										<Textarea
+											className="shadow-none"
+											placeholder="masukkan deskripsi..."
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="link"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Tujuan Halaman</FormLabel>
+									<FormControl>
+										<Select
+											onValueChange={field.onChange}
+											defaultValue={field.value}
+										>
+											<FormControl>
+												<SelectTrigger>
+													<SelectValue placeholder="Tujuan Halaman" />
+												</SelectTrigger>
+											</FormControl>
+											<SelectContent>
+												<SelectItem value="berita">Berita</SelectItem>
+												<SelectItem value="tentang">Tentang</SelectItem>
+												<SelectItem value="artikel">Artikel</SelectItem>
+												<SelectItem value="galeri">Galeri</SelectItem>
+												<SelectItem value="kemitraan">Kemitraan</SelectItem>
+												<SelectItem value="registrasi">Registrasi</SelectItem>
+												<SelectItem value="menu">Menu</SelectItem>
+												<SelectItem value="feedback">Feedback</SelectItem>
+												<SelectItem value="kontak">Kontak</SelectItem>
+											</SelectContent>
+										</Select>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 						<div className="space-y-2">
 							<Label className="">Gambar</Label>
 							<Input
 								type="file"
 								className="shadow-none h-full py-1.5"
-								multiple
-								onChange={(e) =>
-									form.setValue("gambar", Array.from(e.target.files))
-								}
+								onChange={(e) => form.setValue("gambar", e.target.files)}
 							/>
 						</div>
 						<DialogFooter>

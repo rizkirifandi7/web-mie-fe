@@ -19,7 +19,7 @@ const BackgroundBox = ({ children, className }) => {
 
 	const backgroundImageStyle = useMemo(
 		() => ({
-			backgroundImage: `url(${data.background ? data.background : undefined})`,
+			backgroundImage: `url(${data.background ? data.background : "bg.jpg"})`,
 		}),
 		[data.background]
 	);
@@ -27,7 +27,7 @@ const BackgroundBox = ({ children, className }) => {
 	return (
 		<div
 			className={cn(
-				"flex justify-center items-center w-full h-[200px] rounded-lg bg-center bg-no-repeat bg-cover bg-gray-700 bg-blend-multiply text-white",
+				"flex justify-center items-center md:w-full h-[200px] rounded-lg bg-center bg-no-repeat bg-cover bg-gray-700 bg-blend-multiply text-white",
 				className
 			)}
 			style={backgroundImageStyle}

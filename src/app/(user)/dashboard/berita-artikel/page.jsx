@@ -6,11 +6,30 @@ import TambahBerita from "./components/TambahBerita";
 import parse from "html-react-parser";
 import HapusBerita from "./components/HapusBerita";
 import EditBerita from "./components/EditBerita";
+import { Button } from "@/components/ui/button";
+import { ArrowUpDown } from "lucide-react";
 
 const PageBerita = () => {
 	const [data, setData] = React.useState([]);
 
 	const columns = [
+		{
+			accessorKey: "tipe",
+			header: ({ column }) => {
+				return (
+					<Button
+						variant="ghost"
+						onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+					>
+						Tipe
+						<ArrowUpDown />
+					</Button>
+				);
+			},
+			cell: ({ row }) => (
+				<div className="capitalize">{row.getValue("tipe")}</div>
+			),
+		},
 		{
 			accessorKey: "judul",
 			header: "Judul",
@@ -27,13 +46,7 @@ const PageBerita = () => {
 				</div>
 			),
 		},
-		{
-			accessorKey: "tipe",
-			header: "Tipe",
-			cell: ({ row }) => (
-				<div className="capitalize">{parse(row.getValue("tipe"))}</div>
-			),
-		},
+	
 		{
 			accessorKey: "gambar",
 			header: "Gambar",

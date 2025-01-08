@@ -27,91 +27,92 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
+import { PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { MdOutlineEdit } from "react-icons/md";
 import { toast } from "sonner";
 import { z } from "zod";
 
 const FormSchema = z.object({
-	judul: z.string().nonempty("Judul harus diisi."),
-	gambar: z.any(),
-	deskripsi: z.string().nonempty("Deskripsi harus diisi."),
-	link: z.string().nonempty("Link harus berupa URL yang valid."),
+	nama: z.string().nonempty("Nama harus diisi."),
+	testimoni: z.string().nonempty("Testimoni harus diisi."),
+	foto: z.any(),
+	status: z.any(),
 });
 
-const UpdateBanner = ({ fetchData, id, rowData }) => {
+const TambahTestimoni = ({ fetchData }) => {
 	const [openTambah, setOpenTambah] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const form = useForm({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			judul: rowData.judul,
-			gambar: rowData.gambar,
-			deskripsi: rowData.deskripsi,
-			link: rowData.link,
+			nama: "",
+			testimoni: "",
+			foto: "",
+			status: "",
 		},
 	});
 
-	const handleUpdate = async (data) => {
-		setIsLoading(true);
+	const handleTambah = async (data) => {
+		setLoading(true);
 		try {
 			const formData = new FormData();
-			formData.append("judul", data.judul);
-			formData.append("gambar", data.gambar[0]);
-			formData.append("deskripsi", data.deskripsi);
-			formData.append("link", data.link);
+			formData.append("nama", data.nama);
+			formData.append("testimoni", data.testimoni);
+			formData.append("foto", data.foto[0]);
+			formData.append("status", data.status);
 
 			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_BASE_URL}/banner/${id}`,
+				`${process.env.NEXT_PUBLIC_BASE_URL}/testimoni`,
 				{
-					method: "PUT",
+					method: "POST",
 					body: formData,
 				}
 			);
 
-			if (response.status === 200) {
-				toast.success("Banner berhasil diupdate");
+			if (response.status === 201) {
+				toast.success("Testimoni berhasil ditambahkan");
 				form.reset();
 				setOpenTambah(false);
 				fetchData();
 			}
 		} catch (error) {
-			console.error("Error adding banner:", error);
-			toast.error("Gagal menambahkan banner");
+			console.error("Error adding testimoni:", error);
+			toast.error("Gagal menambahkan testimoni");
 		} finally {
-			setIsLoading(false);
+			setLoading(false);
 		}
 	};
 
 	return (
 		<Dialog open={openTambah} onOpenChange={setOpenTambah}>
 			<DialogTrigger asChild>
-				<Button variant="outline" size="icon">
-					<MdOutlineEdit />
+				<Button>
+					<PlusCircle />
+					Tambah Testimoni
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
-					<DialogTitle>Update Banner</DialogTitle>
-					<DialogDescription>Update banner.</DialogDescription>
+					<DialogTitle>Tambah Testimoni</DialogTitle>
+					<DialogDescription>Tambahkan testimoni baru.</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
 					<form
-						onSubmit={form.handleSubmit(handleUpdate)}
+						onSubmit={form.handleSubmit(handleTambah)}
 						className="space-y-4"
 					>
 						<FormField
 							control={form.control}
-							name="judul"
+							name="nama"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Judul</FormLabel>
+									<FormLabel>Nama</FormLabel>
 									<FormControl>
 										<Input
 											className="shadow-none"
-											placeholder="masukkan judul..."
+											placeholder="masukkan nama..."
 											{...field}
 											type="text"
 										/>
@@ -122,14 +123,14 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 						/>
 						<FormField
 							control={form.control}
-							name="deskripsi"
+							name="testimoni"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Deskripsi</FormLabel>
+									<FormLabel>Testimoni</FormLabel>
 									<FormControl>
 										<Textarea
-											className="shadow-none"
-											placeholder="masukkan deskripsi..."
+											className="shadow-none resize-none"
+											placeholder="masukkan testimoni..."
 											{...field}
 										/>
 									</FormControl>
@@ -139,10 +140,10 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 						/>
 						<FormField
 							control={form.control}
-							name="link"
+							name="status"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Tujuan Halaman</FormLabel>
+									<FormLabel>Status</FormLabel>
 									<FormControl>
 										<Select
 											onValueChange={field.onChange}
@@ -150,19 +151,12 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 										>
 											<FormControl>
 												<SelectTrigger>
-													<SelectValue placeholder="Tujuan Halaman" />
+													<SelectValue placeholder="status" />
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
-												<SelectItem value="berita">Berita</SelectItem>
-												<SelectItem value="tentang">Tentang</SelectItem>
-												<SelectItem value="artikel">Artikel</SelectItem>
-												<SelectItem value="galeri">Galeri</SelectItem>
-												<SelectItem value="kemitraan">Kemitraan</SelectItem>
-												<SelectItem value="registrasi">Registrasi</SelectItem>
-												<SelectItem value="menu">Menu</SelectItem>
-												<SelectItem value="feedback">Feedback</SelectItem>
-												<SelectItem value="kontak">Kontak</SelectItem>
+												<SelectItem value="hide">Sembunyikan</SelectItem>
+												<SelectItem value="show">Tampilkan</SelectItem>
 											</SelectContent>
 										</Select>
 									</FormControl>
@@ -171,20 +165,16 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 							)}
 						/>
 						<div className="space-y-2">
-							<Label className="">Gambar</Label>
+							<Label className="">Foto</Label>
 							<Input
 								type="file"
 								className="shadow-none h-full py-1.5"
-								onChange={(e) => form.setValue("gambar", e.target.files)}
+								onChange={(e) => form.setValue("foto", e.target.files)}
 							/>
 						</div>
 						<DialogFooter>
-							<Button
-								type="submit"
-								className="w-full mt-2"
-								disabled={isLoading}
-							>
-								{isLoading ? "Loading..." : "Submit"}
+							<Button type="submit" className="w-full mt-2" disabled={loading}>
+								{loading ? "Loading..." : "Submit"}
 							</Button>
 						</DialogFooter>
 					</form>
@@ -194,4 +184,4 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 	);
 };
 
-export default UpdateBanner;
+export default TambahTestimoni;

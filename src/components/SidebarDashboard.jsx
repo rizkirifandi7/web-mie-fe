@@ -114,10 +114,14 @@ const data = {
 					url: "/dashboard/media-sosial",
 					icon: <AppWindow size={20} />,
 				},
-
 				{
 					title: "Sertifikat",
 					url: "/dashboard/sertifikat",
+					icon: <FileText size={20} />,
+				},
+				{
+					title: "Testimoni",
+					url: "/dashboard/testimoni",
 					icon: <FileText size={20} />,
 				},
 			],

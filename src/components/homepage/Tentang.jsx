@@ -27,7 +27,7 @@ const Tentang = () => {
 					<Judul mainText="D'EMIEHAN" subText="Tentang Kami" />
 
 					<div className="flex flex-col md:flex-row justify-between items-center mt-10">
-						<div className="md:basis-1/3 w-[250px] h-[400px] bg-blue-50 rounded-custom2 md:ml-24">
+						<div className="md:basis-1/3 w-[250px] h-[250px] md:h-[400px] bg-blue-50 rounded-custom2 md:ml-24">
 							{data.gambar ? (
 								<Image
 									src={data.gambar}

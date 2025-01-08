@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import axios from "axios";
 import Autoplay from "embla-carousel-autoplay";
-import { Check } from "lucide-react";
+import { Check, ImageDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -71,7 +71,7 @@ const Kemitraan = () => {
 							<Link href="/kemitraan">Lihat Selengkapnya</Link>
 						</Button>
 					</div>
-					{data ? (
+					{data.length > 0 ? (
 						<Carousel
 							plugins={[
 								Autoplay({
@@ -99,13 +99,14 @@ const Kemitraan = () => {
 							</CarouselContent>
 						</Carousel>
 					) : (
-						<div className="flex justify-center items-center w-[400px] h-[400px] bg-slate-50 rounded-lg">
+						<div className="flex flex-col justify-center items-center w-[380px] h-[380px] md:w-[400px] md:h-[400px] mt-6 md:mt-0 bg-slate-50 rounded-lg">
+							<ImageDown size={40} />
 							<p>Tidak ada Gambar</p>
 						</div>
 					)}
 				</div>
 
-				<BackgroundBox className="flex flex-col justify-center items-center h-[250px] mt-14 rounded-lg mx-14">
+				<BackgroundBox className="flex flex-col justify-center items-center w-[380px] mx-auto h-[250px] mt-14 rounded-lg md:mx-14">
 					<h1 className="text-2xl font-bold text-white text-center">
 						Tertarik Bergabung Dengan Kemitraan Demiehan ?
 					</h1>

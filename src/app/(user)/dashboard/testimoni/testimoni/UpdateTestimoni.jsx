@@ -34,23 +34,23 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 const FormSchema = z.object({
-	judul: z.string().nonempty("Judul harus diisi."),
-	gambar: z.any(),
-	deskripsi: z.string().nonempty("Deskripsi harus diisi."),
-	link: z.string().nonempty("Link harus berupa URL yang valid."),
+	nama: z.string().nonempty("Nama harus diisi."),
+	testimoni: z.string().nonempty("Testimoni harus diisi."),
+	foto: z.any(),
+  status: z.any(),
 });
 
-const UpdateBanner = ({ fetchData, id, rowData }) => {
+const UpdateTestimoni = ({ fetchData, id, rowData }) => {
 	const [openTambah, setOpenTambah] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const form = useForm({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			judul: rowData.judul,
-			gambar: rowData.gambar,
-			deskripsi: rowData.deskripsi,
-			link: rowData.link,
+			nama: rowData.nama,
+			testimoni: rowData.testimoni,
+			foto: rowData.foto,
+			status: rowData.status,
 		},
 	});
 
@@ -58,13 +58,13 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 		setIsLoading(true);
 		try {
 			const formData = new FormData();
-			formData.append("judul", data.judul);
-			formData.append("gambar", data.gambar[0]);
-			formData.append("deskripsi", data.deskripsi);
-			formData.append("link", data.link);
+			formData.append("nama", data.nama);
+			formData.append("testimoni", data.testimoni);
+			formData.append("foto", data.foto[0]);
+			formData.append("status", data.status);
 
 			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_BASE_URL}/banner/${id}`,
+				`${process.env.NEXT_PUBLIC_BASE_URL}/testimoni/${id}`,
 				{
 					method: "PUT",
 					body: formData,
@@ -72,15 +72,16 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 			);
 
 			if (response.status === 200) {
-				toast.success("Banner berhasil diupdate");
+				toast.success("Testimoni berhasil diupdate");
 				form.reset();
 				setOpenTambah(false);
 				fetchData();
 			}
 		} catch (error) {
-			console.error("Error adding banner:", error);
-			toast.error("Gagal menambahkan banner");
-		} finally {
+			console.error("Error adding testimoni:", error);
+			toast.error("Gagal menambahkan testimoni");
+		}
+		finally {
 			setIsLoading(false);
 		}
 	};
@@ -94,8 +95,8 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
-					<DialogTitle>Update Banner</DialogTitle>
-					<DialogDescription>Update banner.</DialogDescription>
+					<DialogTitle>Update Testimoni</DialogTitle>
+					<DialogDescription>Update testimoni baru.</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
 					<form
@@ -104,14 +105,14 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 					>
 						<FormField
 							control={form.control}
-							name="judul"
+							name="nama"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Judul</FormLabel>
+									<FormLabel>Nama</FormLabel>
 									<FormControl>
 										<Input
 											className="shadow-none"
-											placeholder="masukkan judul..."
+											placeholder="masukkan nama..."
 											{...field}
 											type="text"
 										/>
@@ -122,14 +123,14 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 						/>
 						<FormField
 							control={form.control}
-							name="deskripsi"
+							name="testimoni"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Deskripsi</FormLabel>
+									<FormLabel>Testimoni</FormLabel>
 									<FormControl>
 										<Textarea
-											className="shadow-none"
-											placeholder="masukkan deskripsi..."
+											className="shadow-none resize-none"
+											placeholder="masukkan testimoni..."
 											{...field}
 										/>
 									</FormControl>
@@ -139,10 +140,10 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 						/>
 						<FormField
 							control={form.control}
-							name="link"
+							name="status"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Tujuan Halaman</FormLabel>
+									<FormLabel>Status</FormLabel>
 									<FormControl>
 										<Select
 											onValueChange={field.onChange}
@@ -150,19 +151,12 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 										>
 											<FormControl>
 												<SelectTrigger>
-													<SelectValue placeholder="Tujuan Halaman" />
+													<SelectValue placeholder="Status" />
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
-												<SelectItem value="berita">Berita</SelectItem>
-												<SelectItem value="tentang">Tentang</SelectItem>
-												<SelectItem value="artikel">Artikel</SelectItem>
-												<SelectItem value="galeri">Galeri</SelectItem>
-												<SelectItem value="kemitraan">Kemitraan</SelectItem>
-												<SelectItem value="registrasi">Registrasi</SelectItem>
-												<SelectItem value="menu">Menu</SelectItem>
-												<SelectItem value="feedback">Feedback</SelectItem>
-												<SelectItem value="kontak">Kontak</SelectItem>
+												<SelectItem value="show">Tampilkan</SelectItem>
+												<SelectItem value="hide">Sembunyikan</SelectItem>
 											</SelectContent>
 										</Select>
 									</FormControl>
@@ -171,20 +165,16 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 							)}
 						/>
 						<div className="space-y-2">
-							<Label className="">Gambar</Label>
+							<Label className="">Foto</Label>
 							<Input
 								type="file"
 								className="shadow-none h-full py-1.5"
-								onChange={(e) => form.setValue("gambar", e.target.files)}
+								onChange={(e) => form.setValue("foto", e.target.files)}
 							/>
 						</div>
 						<DialogFooter>
-							<Button
-								type="submit"
-								className="w-full mt-2"
-								disabled={isLoading}
-							>
-								{isLoading ? "Loading..." : "Submit"}
+							<Button type="submit" className="w-full mt-2" disabled={isLoading}>
+								{isLoading ? "Loading..." : "Update"}
 							</Button>
 						</DialogFooter>
 					</form>
@@ -194,4 +184,4 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 	);
 };
 
-export default UpdateBanner;
+export default UpdateTestimoni;

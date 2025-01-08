@@ -16,6 +16,7 @@ import { getAllMenu } from "@/services/api/menu";
 import { toast } from "sonner";
 import Autoplay from "embla-carousel-autoplay";
 import { formatHarga } from "@/lib/formatHarga";
+import { truncateText } from "@/lib/batasiText";
 
 const Menu = () => {
 	const [menuData, setMenuData] = useState([]);
@@ -36,60 +37,69 @@ const Menu = () => {
 
 	return (
 		<section className="md:w-full h-full" id="menu">
-			<div className="py-24">
-				<div className="flex flex-col justify-center items-center">
+			<div className="max-w-screen-sm md:max-w-screen-xl mx-auto p-20 w-full h-full">
+				<div className="flex flex-col justify-center items-center w-full">
 					<Judul mainText="D'EMIEHAN" subText="Produk Kami" />
 
-					{menuData.length > 0 ? (
-						<div className="flex flex-col justify-center items-center max-w-screen-sm md:max-w-screen-xl pt-10">
-							<Carousel
-								plugins={[
-									Autoplay({
-										delay: 2000,
-									}),
-								]}
-								className="w-full max-w-xs md:max-w-screen-2xl"
-							>
-								<CarouselContent>
-									{menuData.map((menu) => (
-										<CarouselItem key={menu.id} className="basis-1/3 py-2">
-											<Card className="bg-white p-2  transform transition-transform duration-300 hover:scale-105">
-												<div className="border bg-blue-50 rounded-md h-[250px] overflow-hidden">
-													<Image
-														src={`${menu.gambar}`}
-														alt={menu.nama}
-														width={300}
-														height={300}
-														className="w-auto h-auto object-cover rounded-md"
-													/>
-												</div>
-												<div className="px-2 py-3">
-													<div className="flex justify-between items-center">
-														<h2 className="text-base font-bold">{menu.nama}</h2>
-														<p className="text-sm text-blue-500 font-bold">
-															{formatHarga(menu.harga)}
+					<div className="w-full">
+						{menuData.length > 0 ? (
+							<div className="flex flex-col justify-center items-center pt-10">
+								<Carousel
+									plugins={[
+										Autoplay({
+											delay: 2000,
+										}),
+									]}
+									className="w-full"
+								>
+									<CarouselContent>
+										{menuData.map((menu) => (
+											<CarouselItem
+												key={menu.id}
+												className="md:basis-1/2 lg:basis-1/3 w-full h-full"
+											>
+												<Card className="w-full h-full p-2">
+													<div className="flex justify-center items-center bg-blue-50 overflow-hidden w-full h-[300px] object-cover rounded-t-md">
+														<Image
+															src={menu.gambar}
+															width={500}
+															height={250}
+															className="object-fit w-full"
+															alt="menu"
+														/>
+													</div>
+													<div className="p-4 space-y-1">
+														<div className="flex justify-between items-center h-full">
+															<h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+																{menu.nama}
+															</h5>
+															<p className="font-semibold text-blue-500">
+																{formatHarga(menu.harga)}
+															</p>
+														</div>
+														<p className="font-normal text-gray-700 dark:text-gray-400 truncate">
+															{menu.deskripsi}
 														</p>
 													</div>
-													<p className="text-sm text-slate-500 truncate">
-														{menu.deskripsi}
-													</p>
-												</div>
-											</Card>
-										</CarouselItem>
-									))}
-								</CarouselContent>
-							</Carousel>
-							<div className="mt-14">
-								<Link href="/menu">
-									<Button className="py-5 text-sm rounded-lg tracking-wider border border-white transform transition-transform duration-300 bg-blue-500 hover:bg-blue-600">
-										Lihat Semua Menu
-									</Button>
-								</Link>
+												</Card>
+											</CarouselItem>
+										))}
+									</CarouselContent>
+								</Carousel>
+								<div className="mt-14">
+									<Link href="/menu">
+										<Button className="py-5 text-sm rounded-lg tracking-wider border border-white transform transition-transform duration-300 bg-blue-500 hover:bg-blue-600">
+											Lihat Semua Menu
+										</Button>
+									</Link>
+								</div>
 							</div>
-						</div>
-					) : (
-						<p className="text-xl text-center my-16">No menu items available</p>
-					)}
+						) : (
+							<p className="flex justify-center items-center text-base text-slate-500 text-center h-[300px]">
+								Tidak ada menu
+							</p>
+						)}
+					</div>
 				</div>
 			</div>
 		</section>

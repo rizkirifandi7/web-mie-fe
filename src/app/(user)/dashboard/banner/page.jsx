@@ -18,6 +18,20 @@ const PageBanner = () => {
 			),
 		},
 		{
+			accessorKey: "deskripsi",
+			header: "Deskripsi",
+			cell: ({ row }) => (
+				<div className="capitalize">{row.getValue("deskripsi")}</div>
+			),
+		},
+		{
+			accessorKey: "link",
+			header: "Tujuan Halaman",
+			cell: ({ row }) => (
+				<div className="capitalize">{row.getValue("link")}</div>
+			),
+		},
+		{
 			accessorKey: "gambar",
 			header: "Gambar",
 			cell: ({ row }) => (

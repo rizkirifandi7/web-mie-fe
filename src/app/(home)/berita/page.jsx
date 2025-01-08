@@ -34,36 +34,41 @@ const PageBerita = () => {
 					<Judul mainText="D'EMIEHAN" subText="Berita" />
 				</BackgroundBox>
 
-				<div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-20 h-full">
-					{filterData.map((item, index) => (
-						<Link key={index} href={`/berita/${item.id}`} className="h-full">
-							<Card className="flex flex-col p-2 transform transition duration-300 hover:scale-105 h-full">
-								<div className="flex justify-center items-center h-[180px] mb-1 border rounded-md bg-slate-50 overflow-hidden">
-									<Image
-										src={item.gambar}
-										width={300}
-										height={300}
-										alt="img"
-										className="object-cover w-full h-full rounded-md"
-									/>
-								</div>
-								<div className="flex flex-col gap-y-1 p-1">
-									<h1 className="text-base font-semibold">{item.judul}</h1>
-									<p className="text-xs text-slate-500">
-										{new Date(item.createdAt).toLocaleString("id-ID", {
-											day: "2-digit",
-											month: "2-digit",
-											year: "numeric",
-											hour: "2-digit",
-											minute: "2-digit",
-											hour12: false,
-										})}{" "}
-										WIB
-									</p>
-								</div>
-							</Card>
-						</Link>
-					))}
+				{filterData.length > 0 && (
+					<div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-20 h-full">
+						{filterData.map((item, index) => (
+							<Link key={index} href={`/berita/${item.id}`} className="h-full">
+								<Card className="flex flex-col p-2 transform transition duration-300 hover:scale-105 h-full">
+									<div className="flex justify-center items-center h-[180px] mb-1 border rounded-md bg-slate-50 overflow-hidden">
+										<Image
+											src={item.gambar}
+											width={300}
+											height={300}
+											alt="img"
+											className="object-cover w-full h-full rounded-md"
+										/>
+									</div>
+									<div className="flex flex-col gap-y-1 p-1">
+										<h1 className="text-base font-semibold">{item.judul}</h1>
+										<p className="text-xs text-slate-500">
+											{new Date(item.createdAt).toLocaleString("id-ID", {
+												day: "2-digit",
+												month: "2-digit",
+												year: "numeric",
+												hour: "2-digit",
+												minute: "2-digit",
+												hour12: false,
+											})}{" "}
+											WIB
+										</p>
+									</div>
+								</Card>
+							</Link>
+						))}
+					</div>
+				)}
+				<div className="flex justify-center items-center h-[400px] mt-10">
+					<p>Tidak ada galeri</p>
 				</div>
 			</div>
 		</section>
