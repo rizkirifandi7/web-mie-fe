@@ -21,13 +21,13 @@ const Kontak = () => {
 
 	return (
 		<section id="kontak" className="w-full h-full ">
-			<div className="md:max-w-screen-xl mx-auto py-24 px-14">
+			<div className="md:max-w-screen-xl mx-auto py-24 px-8 md:px-14">
 				<div className="flex flex-col justify-center items-center">
 					<Judul mainText="D'EMIEHAN" subText="Kontak" />
 				</div>
 
 				<div className="flex flex-col md:flex-row justify-between items-center mt-14 gap-x-10">
-					<div className="basis-1/3 relative">
+					<div className="w-full md:basis-1/3 relative">
 						<HeroVideoDialog
 							className="dark:hidden block "
 							animationStyle="from-center"
@@ -43,7 +43,7 @@ const Kontak = () => {
 							thumbnailAlt="Hero Video"
 						/>
 					</div>
-					<div className="basis-1/2 mt-10 md:mt-0">
+					<div className="w-full md:basis-1/2 mt-10 md:mt-0">
 						<h1 className="text-2xl font-bold">Hubungi Kami</h1>
 						<p className="text-base text-slate-500">
 							Hubungi kami untuk informasi lebih lanjut atau jika Anda memiliki

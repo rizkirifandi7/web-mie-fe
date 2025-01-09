@@ -37,7 +37,7 @@ const FormSchema = z.object({
 	nama: z.string().nonempty("Nama harus diisi."),
 	testimoni: z.string().nonempty("Testimoni harus diisi."),
 	foto: z.any(),
-  status: z.any(),
+	status: z.any(),
 });
 
 const UpdateTestimoni = ({ fetchData, id, rowData }) => {
@@ -49,7 +49,7 @@ const UpdateTestimoni = ({ fetchData, id, rowData }) => {
 		defaultValues: {
 			nama: rowData.nama,
 			testimoni: rowData.testimoni,
-			foto: rowData.foto,
+			foto: rowData.foto || "",
 			status: rowData.status,
 		},
 	});
@@ -80,8 +80,7 @@ const UpdateTestimoni = ({ fetchData, id, rowData }) => {
 		} catch (error) {
 			console.error("Error adding testimoni:", error);
 			toast.error("Gagal menambahkan testimoni");
-		}
-		finally {
+		} finally {
 			setIsLoading(false);
 		}
 	};
@@ -173,7 +172,11 @@ const UpdateTestimoni = ({ fetchData, id, rowData }) => {
 							/>
 						</div>
 						<DialogFooter>
-							<Button type="submit" className="w-full mt-2" disabled={isLoading}>
+							<Button
+								type="submit"
+								className="w-full mt-2"
+								disabled={isLoading}
+							>
 								{isLoading ? "Loading..." : "Update"}
 							</Button>
 						</DialogFooter>

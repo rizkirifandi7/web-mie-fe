@@ -24,6 +24,10 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import {
+	ACCEPTED_IMAGE_MIME_TYPES,
+	MAX_FILE_SIZE,
+} from "@/constant/constantData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import { useState } from "react";
@@ -35,7 +39,17 @@ import { z } from "zod";
 const FormSchema = z.object({
 	nama: z.string().nonempty("Nama harus diisi."),
 	deskripsi: z.string().nonempty("Deskripsi harus diisi."),
-	gambar: z.any(),
+	gambar: z
+		.any()
+		.optional()
+		.refine(
+			(file) => !file || file.size <= MAX_FILE_SIZE,
+			`Batas ukuran gambar adalah 5MB.`
+		)
+		.refine(
+			(file) => !file || ACCEPTED_IMAGE_MIME_TYPES.includes(file.type),
+			"Only .jpg, .jpeg, and .png formats are supported."
+		),
 	kategori: z.any(),
 	harga: z.any(),
 });
@@ -49,7 +63,7 @@ const UpdateMenu = ({ fetchData, id, rowData }) => {
 		defaultValues: {
 			nama: rowData.nama,
 			deskripsi: rowData.deskripsi,
-			gambar: rowData.gambar,
+			gambar: undefined,
 			kategori: rowData.kategori,
 			harga: rowData.harga,
 		},
@@ -61,7 +75,9 @@ const UpdateMenu = ({ fetchData, id, rowData }) => {
 			const formData = new FormData();
 			formData.append("nama", data.nama);
 			formData.append("deskripsi", data.deskripsi);
-			formData.append("gambar", data.gambar[0]);
+			if (data.gambar) {
+				formData.append("gambar", data.gambar[0]);
+			}
 			formData.append("kategori", data.kategori);
 			formData.append("harga", data.harga);
 
@@ -82,8 +98,7 @@ const UpdateMenu = ({ fetchData, id, rowData }) => {
 		} catch (error) {
 			console.error("Error adding menu:", error);
 			toast.error("Gagal menambahkan menu");
-		}
-		finally {
+		} finally {
 			setIsLoading(false);
 		}
 	};
@@ -187,16 +202,31 @@ const UpdateMenu = ({ fetchData, id, rowData }) => {
 								</FormItem>
 							)}
 						/>
-						<div className="space-y-2">
-							<Label className="">Gambar</Label>
-							<Input
-								type="file"
-								className="shadow-none h-full py-1.5"
-								onChange={(e) => form.setValue("gambar", e.target.files)}
-							/>
-						</div>
+						<FormField
+							control={form.control}
+							name="gambar"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Gambar</FormLabel>
+									<FormControl>
+										<Input
+											type="file"
+											accept="image/*"
+											onChange={(e) => {
+												field.onChange(e.target.files?.[0]);
+											}}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 						<DialogFooter>
-							<Button type="submit" className="w-full mt-2" disabled={isLoading}>
+							<Button
+								type="submit"
+								className="w-full mt-2"
+								disabled={isLoading}
+							>
 								{isLoading ? "Loading..." : "Update"}
 							</Button>
 						</DialogFooter>

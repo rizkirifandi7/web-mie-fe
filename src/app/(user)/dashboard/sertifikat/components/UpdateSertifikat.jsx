@@ -16,11 +16,13 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import {
+	ACCEPTED_IMAGE_MIME_TYPES,
+	MAX_FILE_SIZE,
+} from "@/constant/constantData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import axios from "axios";
-import { PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineEdit } from "react-icons/md";
@@ -29,7 +31,17 @@ import { z } from "zod";
 
 const FormSchema = z.object({
 	keterangan: z.string().nonempty("Keterangan harus diisi."),
-	gambar: z.any(),
+	gambar: z
+		.any()
+		.optional()
+		.refine(
+			(file) => !file || file.size <= MAX_FILE_SIZE,
+			`Batas ukuran gambar adalah 5MB.`
+		)
+		.refine(
+			(file) => !file || ACCEPTED_IMAGE_MIME_TYPES.includes(file.type),
+			"Only .jpg, .jpeg, and .png formats are supported."
+		),
 });
 
 const UpdateSertifikat = ({ fetchData, id, rowData }) => {
@@ -40,7 +52,7 @@ const UpdateSertifikat = ({ fetchData, id, rowData }) => {
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
 			keterangan: rowData.keterangan,
-			gambar: rowData.gambar,
+			gambar: undefined,
 		},
 	});
 
@@ -49,7 +61,9 @@ const UpdateSertifikat = ({ fetchData, id, rowData }) => {
 		try {
 			const formData = new FormData();
 			formData.append("keterangan", data.keterangan);
-			formData.append("gambar", data.gambar[0]);
+			if (data.gambar) {
+				formData.append("gambar", data.gambar);
+			}
 
 			const response = await axios.put(
 				`${process.env.NEXT_PUBLIC_BASE_URL}/sertifikat/${id}`,
@@ -105,14 +119,25 @@ const UpdateSertifikat = ({ fetchData, id, rowData }) => {
 								</FormItem>
 							)}
 						/>
-						<div className="space-y-2">
-							<Label className="">Gambar</Label>
-							<Input
-								type="file"
-								className="shadow-none h-full py-1.5"
-								onChange={(e) => form.setValue("gambar", e.target.files)}
-							/>
-						</div>
+						<FormField
+							control={form.control}
+							name="gambar"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Gambar</FormLabel>
+									<FormControl>
+										<Input
+											type="file"
+											accept="image/*"
+											onChange={(e) => {
+												field.onChange(e.target.files?.[0]);
+											}}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 						<DialogFooter>
 							<Button type="submit" className="w-full mt-2" disabled={loading}>
 								{loading ? "Loading..." : "Submit"}

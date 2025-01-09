@@ -40,7 +40,7 @@ const Kemitraan = () => {
 					<Judul mainText="D'EMIEHAN" subText="Kemitraan" />
 				</div>
 
-				<div className="flex flex-col md:flex-row justify-between items-center mt-14 mx-14">
+				<div className="flex flex-col md:flex-row justify-between items-center mt-14 mx-8 md:mx-14">
 					<div className="flex flex-col">
 						<h1 className="font-bold text-2xl mb-2">
 							Mari Bermitra Dengan Demiehan
@@ -84,7 +84,7 @@ const Kemitraan = () => {
 								{data.flatMap((item) =>
 									item.gambar.map((img, index) => (
 										<CarouselItem key={`${item.id}-${index}`}>
-											<Card className="flex justify-center overflow-hidden items-center rounded-md w-[280px] md:w-full object-cover">
+											<Card className="flex justify-center overflow-hidden items-center rounded-md w-full object-cover">
 												<Image
 													src={img.path}
 													width={450}
@@ -106,19 +106,21 @@ const Kemitraan = () => {
 					)}
 				</div>
 
-				<BackgroundBox className="flex flex-col justify-center items-center w-[380px] mx-auto h-[250px] mt-14 rounded-lg md:mx-14">
-					<h1 className="text-2xl font-bold text-white text-center">
-						Tertarik Bergabung Dengan Kemitraan Demiehan ?
-					</h1>
-					<div className="flex gap-x-4">
-						<Button className="w-full md:w-fit py-5 mt-10 bg-blue-500">
-							<Link href="/registrasi">Daftar Sekarang</Link>
-						</Button>
-						<Button className="w-full md:w-fit py-5 mt-10 bg-green-500">
-							<Link href="https://wa.link/dben6b">WhatsApp</Link>
-						</Button>
-					</div>
-				</BackgroundBox>
+				<div className="md:px-14">
+					<BackgroundBox className="flex flex-col justify-center items-center w-full mx-auto h-[250px] mt-14 md:rounded-md">
+						<h1 className="text-2xl font-bold text-white text-center">
+							Tertarik Bergabung Dengan Kemitraan Demiehan ?
+						</h1>
+						<div className="flex gap-x-4">
+							<Button className="w-full md:w-fit py-5 mt-10 bg-blue-500">
+								<Link href="/registrasi">Daftar Sekarang</Link>
+							</Button>
+							<Button className="w-full md:w-fit py-5 mt-10 bg-green-500">
+								<Link href="https://wa.link/dben6b">WhatsApp</Link>
+							</Button>
+						</div>
+					</BackgroundBox>
+				</div>
 			</div>
 		</section>
 	);

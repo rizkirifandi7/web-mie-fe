@@ -19,7 +19,7 @@ import Autoplay from "embla-carousel-autoplay";
 
 const Testimoni = ({ data }) => {
 	return (
-		<div className="mt-10">
+		<div className="px-8 mt-10">
 			<Carousel
 				plugins={[
 					Autoplay({

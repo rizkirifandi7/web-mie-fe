@@ -45,7 +45,7 @@ const PageBerita = () => {
 											width={300}
 											height={300}
 											alt="img"
-											className="object-cover w-full h-full rounded-md"
+											className="object-contain w-full h-full rounded-md"
 										/>
 									</div>
 									<div className="flex flex-col gap-y-1 p-1">

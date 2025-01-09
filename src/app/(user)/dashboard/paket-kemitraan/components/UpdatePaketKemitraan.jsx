@@ -41,7 +41,7 @@ const UpdatePaketKemitraan = ({ fetchData, id, rowData }) => {
 		defaultValues: {
 			jenis_kemitraan: rowData.jenis_kemitraan,
 			ukuran: rowData.ukuran,
-			gambar: rowData.gambar,
+			gambar: null,
 			harga: rowData.harga,
 		},
 	});
@@ -151,17 +151,29 @@ const UpdatePaketKemitraan = ({ fetchData, id, rowData }) => {
 								</FormItem>
 							)}
 						/>
-						<div className="space-y-2">
-							<Label className="">Gambar</Label>
-							<Input
-								type="file"
-								className="shadow-none h-full py-1.5"
-								multiple
-								onChange={(e) =>
-									form.setValue("gambar", Array.from(e.target.files))
-								}
-							/>
-						</div>
+						<FormField
+							control={form.control}
+							name="gambar"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Gambar</FormLabel>
+									<FormControl>
+										<Input
+											type="file"
+											accept="image/*"
+											multiple
+											onChange={(e) => {
+												field.onChange(Array.from(e.target.files));
+											}}
+										/>
+									</FormControl>
+									<FormDescription>
+										Input beberapa gambar jika ingin lebih dari satu
+									</FormDescription>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 						<DialogFooter>
 							<Button
 								type="submit"

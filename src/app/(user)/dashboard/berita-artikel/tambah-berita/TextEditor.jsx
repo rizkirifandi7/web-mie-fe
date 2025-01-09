@@ -38,9 +38,21 @@ function extractTextFromHTML(html) {
 	return doc.body.textContent?.trim() || "";
 }
 
+const MAX_FILE_SIZE = 1024 * 1024 * 5;
+const ACCEPTED_IMAGE_MIME_TYPES = ["image/jpeg", "image/jpg", "image/png"];
+
 const FormSchema = z.object({
 	judul: z.string().nonempty("Judul harus diisi."),
-	gambar: z.any(),
+	gambar: z
+		.custom((file) => !!file, "Gambar harus diunggah.")
+		.refine(
+			(file) => file.size <= MAX_FILE_SIZE,
+			`Batas ukuran gambar adalah 5MB.`
+		)
+		.refine(
+			(file) => ACCEPTED_IMAGE_MIME_TYPES.includes(file.type),
+			"Only .jpg, .jpeg, and .png formats are supported."
+		),
 	tipe: z.string().nonempty("Tipe harus diisi."),
 	isi: z.string().refine(
 		(value) => {
@@ -70,9 +82,7 @@ const TextEditor = () => {
 		try {
 			const formData = new FormData();
 			formData.append("judul", data.judul);
-			if (data.gambar && data.gambar[0]) {
-				formData.append("gambar", data.gambar[0]);
-			}
+			formData.append("gambar", data.gambar);
 			formData.append("isi", data.isi);
 			formData.append("tipe", data.tipe);
 
@@ -101,9 +111,7 @@ const TextEditor = () => {
 		<Card>
 			<CardHeader>
 				<CardTitle>Tambah Data Informasi</CardTitle>
-				<CardDescription>
-					Tambah Informasi baru.
-				</CardDescription>
+				<CardDescription>Tambah Informasi baru.</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<Form {...form}>
@@ -154,17 +162,25 @@ const TextEditor = () => {
 							)}
 						/>
 
-						<div className="space-y-1">
-							<Label>Gambar</Label>
-							<Input
-								type="file"
-								placeholder="gambar"
-								onChange={(e) =>
-									form.setValue("gambar", Array.from(e.target.files))
-								}
-							/>
-						</div>
-
+						<FormField
+							control={form.control}
+							name="gambar"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Gambar</FormLabel>
+									<FormControl>
+										<Input
+											type="file"
+											accept="image/*"
+											onChange={(e) => {
+												field.onChange(e.target.files?.[0]);
+											}}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 						<FormField
 							control={form.control}
 							name="isi"

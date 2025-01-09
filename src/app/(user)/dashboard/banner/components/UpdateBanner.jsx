@@ -16,7 +16,6 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
 	Select,
 	SelectContent,
@@ -25,6 +24,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { ACCEPTED_IMAGE_MIME_TYPES, MAX_FILE_SIZE_20MB } from "@/constant/constantData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import { useState } from "react";
@@ -35,7 +35,17 @@ import { z } from "zod";
 
 const FormSchema = z.object({
 	judul: z.string().nonempty("Judul harus diisi."),
-	gambar: z.any(),
+	gambar: z
+		.any()
+		.optional()
+		.refine(
+			(file) => !file || file.size <= MAX_FILE_SIZE_20MB,
+			`Batas ukuran gambar adalah 10MB.`
+		)
+		.refine(
+			(file) => !file || ACCEPTED_IMAGE_MIME_TYPES.includes(file.type),
+			"Only .jpg, .jpeg, and .png formats are supported."
+		),
 	deskripsi: z.string().nonempty("Deskripsi harus diisi."),
 	link: z.string().nonempty("Link harus berupa URL yang valid."),
 });
@@ -48,7 +58,7 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
 			judul: rowData.judul,
-			gambar: rowData.gambar,
+			gambar: undefined,
 			deskripsi: rowData.deskripsi,
 			link: rowData.link,
 		},
@@ -59,7 +69,9 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 		try {
 			const formData = new FormData();
 			formData.append("judul", data.judul);
-			formData.append("gambar", data.gambar[0]);
+			if (data.gambar) {
+				formData.append("gambar", data.gambar);
+			}
 			formData.append("deskripsi", data.deskripsi);
 			formData.append("link", data.link);
 
@@ -170,14 +182,26 @@ const UpdateBanner = ({ fetchData, id, rowData }) => {
 								</FormItem>
 							)}
 						/>
-						<div className="space-y-2">
-							<Label className="">Gambar</Label>
-							<Input
-								type="file"
-								className="shadow-none h-full py-1.5"
-								onChange={(e) => form.setValue("gambar", e.target.files)}
-							/>
-						</div>
+						<FormField
+							control={form.control}
+							name="gambar"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Gambar</FormLabel>
+									<FormControl>
+										<Input
+											type="file"
+											accept="image/*"
+											onChange={(e) => {
+												field.onChange(e.target.files?.[0]);
+											}}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
 						<DialogFooter>
 							<Button
 								type="submit"

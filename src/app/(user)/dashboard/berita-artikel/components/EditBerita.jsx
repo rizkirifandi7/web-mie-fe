@@ -41,18 +41,28 @@ function extractTextFromHTML(html) {
 	return doc.body.textContent?.trim() || "";
 }
 
+const MAX_FILE_SIZE = 1024 * 1024 * 5;
+const ACCEPTED_IMAGE_MIME_TYPES = ["image/jpeg", "image/jpg", "image/png"];
+
 const FormSchema = z.object({
 	judul: z.string().nonempty("Judul harus diisi."),
-	gambar: z.any(),
+	gambar: z
+		.any()
+		.optional()
+		.refine(
+			(file) => !file || file.size <= MAX_FILE_SIZE,
+			`Batas ukuran gambar adalah 5MB.`
+		)
+		.refine(
+			(file) => !file || ACCEPTED_IMAGE_MIME_TYPES.includes(file.type),
+			"Only .jpg, .jpeg, and .png formats are supported."
+		),
 	tipe: z.string().nonempty("Tipe harus diisi."),
-	isi: z.string().refine(
-		(value) => {
-			return extractTextFromHTML(value).trim().length >= 5;
-		},
-		{
+	isi: z
+		.string()
+		.refine((value) => extractTextFromHTML(value).trim().length >= 5, {
 			message: "Deskripsi harus diisi dan minimal 5 karakter.",
-		}
-	),
+		}),
 });
 
 const EditBerita = ({ fetchData, id, rowData }) => {
@@ -63,7 +73,7 @@ const EditBerita = ({ fetchData, id, rowData }) => {
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
 			judul: rowData.judul,
-			gambar: rowData.gambar,
+			gambar: undefined,
 			isi: rowData.isi,
 			tipe: rowData.tipe,
 		},
@@ -74,18 +84,16 @@ const EditBerita = ({ fetchData, id, rowData }) => {
 		try {
 			const formData = new FormData();
 			formData.append("judul", data.judul);
-			formData.append("gambar", data.gambar[0]);
 			formData.append("isi", data.isi);
-			formData.append("tipe", rowData.tipe);
+			formData.append("tipe", data.tipe);
+
+			if (data.gambar) {
+				formData.append("gambar", data.gambar);
+			}
 
 			const response = await axios.put(
 				`${process.env.NEXT_PUBLIC_BASE_URL}/berita/${id}`,
-				{
-					judul: data.judul,
-					gambar: data.gambar,
-					isi: data.isi,
-					tipe: data.tipe,
-				}
+				formData
 			);
 
 			if (response.status === 200) {
@@ -165,16 +173,25 @@ const EditBerita = ({ fetchData, id, rowData }) => {
 							)}
 						/>
 
-						<div className="space-y-1">
-							<Label>Gambar</Label>
-							<Input
-								type="file"
-								placeholder="gambar"
-								onChange={(e) =>
-									form.setValue("gambar", Array.from(e.target.files))
-								}
-							/>
-						</div>
+						<FormField
+							control={form.control}
+							name="gambar"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Gambar</FormLabel>
+									<FormControl>
+										<Input
+											type="file"
+											accept="image/*"
+											onChange={(e) => {
+												field.onChange(e.target.files?.[0]);
+											}}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 
 						<FormField
 							control={form.control}

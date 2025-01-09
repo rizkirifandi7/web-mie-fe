@@ -53,7 +53,7 @@ const PageTemukanKami = () => {
 					<PaketKemitraan data={data} />
 				</div>
 
-				<div className="mt-10">
+				<div className="mt-28">
 					<h1 className="text-3xl font-bold text-center">
 						Sudah Siapkah Anda Menjadi Mitra Demiehan ?
 					</h1>

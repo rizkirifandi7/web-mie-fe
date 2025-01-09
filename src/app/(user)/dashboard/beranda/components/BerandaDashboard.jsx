@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -12,17 +12,42 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
+import {
+	ACCEPTED_IMAGE_MIME_TYPES,
+	MAX_FILE_SIZE,
+	MAX_FILE_SIZE_10MB,
+	MAX_FILE_SIZE_20MB,
+} from "@/constant/constantData";
 
 const FormSchema = z.object({
 	judul: z.string().nonempty("Judul harus diisi."),
 	deskripsi: z.string().nonempty("Deskripsi harus diisi."),
-	gambar: z.any(),
-	background: z.any(),
+	gambar: z
+		.any()
+		.optional()
+		.refine(
+			(file) => !file || file.size <= MAX_FILE_SIZE,
+			`Batas ukuran gambar adalah 10MB.`
+		)
+		.refine(
+			(file) => !file || ACCEPTED_IMAGE_MIME_TYPES.includes(file.type),
+			"Only .jpg, .jpeg, and .png formats are supported."
+		),
+	background: z
+		.any()
+		.optional()
+		.refine(
+			(file) => !file || file.size <= MAX_FILE_SIZE_10MB,
+			`Batas ukuran gambar adalah 10MB.`
+		)
+		.refine(
+			(file) => !file || ACCEPTED_IMAGE_MIME_TYPES.includes(file.type),
+			"Only .jpg, .jpeg, and .png formats are supported."
+		),
 });
 
 const BerandaDashboard = () => {
@@ -34,12 +59,12 @@ const BerandaDashboard = () => {
 		defaultValues: {
 			judul: "",
 			deskripsi: "",
-			gambar: "",
-			background: "",
+			gambar: undefined,
+			background: undefined,
 		},
 	});
 
-	const fetchData = async () => {
+	const fetchData = useCallback(async () => {
 		try {
 			const response = await fetch(
 				`${process.env.NEXT_PUBLIC_BASE_URL}/beranda/1`
@@ -49,27 +74,31 @@ const BerandaDashboard = () => {
 			form.reset({
 				judul: result.data.judul,
 				deskripsi: result.data.deskripsi,
-				gambar: result.data.gambar ? result.data.gambar : "",
-				background: result.data.background ? result.data.background : "",
+				gambar: undefined,
+				background: undefined,
 			});
+
 		} catch (error) {
 			console.error("Error fetching data:", error);
 		}
-	};
+	}, [form]);
 
 	useEffect(() => {
 		fetchData();
-	}, []);
+	}, [fetchData]);
 
 	const handleTambah = async (data) => {
 		setLoading(true);
 		try {
-			console.log(data);
 			const formData = new FormData();
 			formData.append("judul", data.judul);
 			formData.append("deskripsi", data.deskripsi);
-			formData.append("gambar", data.gambar[0]);
-			formData.append("background", data.background[0]);
+			if (data.gambar) {
+				formData.append("gambar", data.gambar);
+			}
+			if (data.background) {
+				formData.append("background", data.background);
+			}
 
 			const response = await fetch(
 				`${process.env.NEXT_PUBLIC_BASE_URL}/beranda/1`,
@@ -79,10 +108,8 @@ const BerandaDashboard = () => {
 				}
 			);
 
-			console.log(response);
-
 			if (response.status === 200) {
-				toast.success("Banner berhasil ditambahkan");
+				toast.success("Banner berhasil diupdate");
 				form.reset();
 				fetchData();
 			}
@@ -133,11 +160,24 @@ const BerandaDashboard = () => {
 					)}
 				/>
 				<div className="space-y-2">
-					<Label className="">Gambar</Label>
-					<Input
-						type="file"
-						className="shadow-none h-full py-1.5"
-						onChange={(e) => form.setValue("gambar", e.target.files)}
+					<FormField
+						control={form.control}
+						name="gambar"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Logo</FormLabel>
+								<FormControl>
+									<Input
+										type="file"
+										accept="image/*"
+										onChange={(e) => {
+											field.onChange(e.target.files?.[0]);
+										}}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
 					/>
 					<div className="w-24 h-24 bg-gray-100 rounded-md">
 						{data.gambar && (
@@ -152,6 +192,38 @@ const BerandaDashboard = () => {
 					</div>
 				</div>
 				<div className="space-y-2">
+					<FormField
+						control={form.control}
+						name="background"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Background</FormLabel>
+								<FormControl>
+									<Input
+										type="file"
+										accept="image/*"
+										onChange={(e) => {
+											field.onChange(e.target.files?.[0]);
+										}}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<div className="w-24 h-24 bg-gray-100 rounded-md">
+						{data.background && (
+							<Image
+								src={data.background}
+								width={150}
+								height={150}
+								alt="background"
+								className="w-24 h-24 object-cover rounded-md"
+							/>
+						)}
+					</div>
+				</div>
+				{/* <div className="space-y-2">
 					<Label className="">Background</Label>
 					<Input
 						type="file"
@@ -169,7 +241,7 @@ const BerandaDashboard = () => {
 							/>
 						)}
 					</div>
-				</div>
+				</div> */}
 				<Button type="submit" className="w-fit mt-2" disabled={loading}>
 					{loading ? "Loading..." : "Update"}
 				</Button>

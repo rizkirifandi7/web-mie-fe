@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect } from "react";
-import UpdateTestimoni from "./testimoni/UpdateTestimoni";
-import HapusTestimoni from "./testimoni/HapusTestimoni";
-import TambahTestimoni from "./testimoni/TambahTestimoni";
+import UpdateTestimoni from "./components/UpdateTestimoni";
+import HapusTestimoni from "./components/HapusTestimoni";
+import TambahTestimoni from "./components/TambahTestimoni";
 
 const PageTestimoni = () => {
 	const [data, setData] = React.useState([]);
@@ -43,21 +43,33 @@ const PageTestimoni = () => {
 				<div className="capitalize">{row.getValue("testimoni")}</div>
 			),
 		},
-
 		{
 			accessorKey: "foto",
 			header: "Foto",
-			cell: ({ row }) => (
-				<div>
-					<Image
-						src={row.getValue("foto")}
-						width={50}
-						height={50}
-						className="w-auto h-auto"
-						alt="foto"
-					/>
-				</div>
-			),
+			cell: ({ row }) => {
+				const fotoUrl = row.getValue("foto");
+				return (
+					<div>
+						{fotoUrl ? (
+							<Image
+								src={fotoUrl}
+								width={50}
+								height={50}
+								className="w-auto h-auto"
+								alt="foto"
+							/>
+						) : (
+							<div
+								style={{
+									width: "50px",
+									height: "50px",
+									backgroundColor: "#e0e0e0",
+								}}
+							/>
+						)}
+					</div>
+				);
+			},
 		},
 		{
 			id: "actions",

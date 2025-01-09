@@ -57,7 +57,7 @@ const PageMenu = () => {
 							</Button>
 						))}
 					</div>
-					<div className="w-full md:mt-10">
+					<div className="w-full">
 						{filteredMenu.length === 0 ? (
 							<p className="flex justify-center items-center h-[500px] text-xl text-slate-500 font-semibold">
 								Tidak ada menu

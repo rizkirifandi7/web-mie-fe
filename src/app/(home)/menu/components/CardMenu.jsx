@@ -11,13 +11,13 @@ const CardMenu = ({ filterMenu }) => {
 					key={menu.id}
 					className="h-full rounded-md p-2 border transform transition-transform duration-300 hover:scale-105"
 				>
-					<div className="flex justify-center items-center rounded-md border h-[230px] overflow-hidden bg-blue-50">
+					<div className="flex justify-center items-center rounded-md border h-[220px] overflow-hidden bg-blue-50">
 						<Image
 							src={`${menu.gambar}`}
 							alt={menu.nama}
 							width={300}
-							height={250}
-							className="w-full h-full object-cover rounded-md"
+							height={300}
+							className="w-full h-full object-contain rounded-md"
 						/>
 					</div>
 					<div className="px-2 py-2">

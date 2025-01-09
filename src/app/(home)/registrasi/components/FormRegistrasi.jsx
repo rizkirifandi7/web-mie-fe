@@ -273,7 +273,7 @@ const FormRegistrasi = () => {
 										<FormLabel>Tempat, Tanggal Lahir</FormLabel>
 										<FormControl>
 											<Input
-												placeholder="Masukan tempat dan tanggal lahir"
+												placeholder="Masukan tempat dan tanggal lahir (ex: Jakarta, 01-01-2000) "
 												{...field}
 											/>
 										</FormControl>

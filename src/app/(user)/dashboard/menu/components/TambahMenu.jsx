@@ -24,6 +24,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { ACCEPTED_IMAGE_MIME_TYPES, MAX_FILE_SIZE } from "@/constant/constantData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import { PlusCircle } from "lucide-react";
@@ -35,7 +36,16 @@ import { z } from "zod";
 const FormSchema = z.object({
 	nama: z.string().nonempty("Nama harus diisi."),
 	deskripsi: z.string().nonempty("Deskripsi harus diisi."),
-	gambar: z.any(),
+	gambar: z
+		.custom((file) => !!file, "Gambar harus diunggah.")
+		.refine(
+			(file) => file.size <= MAX_FILE_SIZE,
+			`Batas ukuran gambar adalah 5MB.`
+		)
+		.refine(
+			(file) => ACCEPTED_IMAGE_MIME_TYPES.includes(file.type),
+			"Only .jpg, .jpeg, and .png formats are supported."
+		),
 	kategori: z.any(),
 	harga: z.any(),
 });
@@ -49,7 +59,7 @@ const TambahMenu = ({ fetchData }) => {
 		defaultValues: {
 			nama: "",
 			deskripsi: "",
-			gambar: "",
+			gambar: undefined,
 			kategori: "",
 			harga: "",
 		},
@@ -61,7 +71,7 @@ const TambahMenu = ({ fetchData }) => {
 			const formData = new FormData();
 			formData.append("nama", data.nama);
 			formData.append("deskripsi", data.deskripsi);
-			formData.append("gambar", data.gambar[0]);
+			formData.append("gambar", data.gambar);
 			formData.append("kategori", data.kategori);
 			formData.append("harga", data.harga);
 
@@ -183,14 +193,25 @@ const TambahMenu = ({ fetchData }) => {
 								</FormItem>
 							)}
 						/>
-						<div className="space-y-2">
-							<Label className="">Gambar</Label>
-							<Input
-								type="file"
-								className="shadow-none h-full py-1.5"
-								onChange={(e) => form.setValue("gambar", e.target.files)}
-							/>
-						</div>
+						<FormField
+							control={form.control}
+							name="gambar"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Gambar</FormLabel>
+									<FormControl>
+										<Input
+											type="file"
+											accept="image/*"
+											onChange={(e) => {
+												field.onChange(e.target.files?.[0]);
+											}}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 						<DialogFooter>
 							<Button type="submit" className="w-full mt-2" disabled={loading}>
 								{loading ? "Loading..." : "Submit"}

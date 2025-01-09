@@ -26,7 +26,7 @@ const Tentang = () => {
 				<div className="flex flex-col justify-center items-center">
 					<Judul mainText="D'EMIEHAN" subText="Tentang Kami" />
 
-					<div className="flex flex-col md:flex-row justify-between items-center mt-10">
+					<div className="flex flex-col md:flex-row justify-between items-center mt-10 px-8">
 						<div className="md:basis-1/3 w-[250px] h-[250px] md:h-[400px] bg-blue-50 rounded-custom2 md:ml-24">
 							{data.gambar ? (
 								<Image
@@ -43,11 +43,11 @@ const Tentang = () => {
 								</div>
 							)}
 						</div>
-						<div className="md:basis-1/2 px-4">
+						<div className="w-full md:basis-1/2 md:px-4">
 							<h1 className="font-bold text-3xl mb-2 hidden md:block">
 								D&apos;emiehan
 							</h1>
-							<p className="text-justify px-4 md:px-0 md:text-justify text-sm md:text-base mt-4 md:mt-0">
+							<p className="md:px-0 text-center md:text-justify text-sm md:text-base mt-10 md:mt-0">
 								{data.deskripsi}
 							</p>
 						</div>

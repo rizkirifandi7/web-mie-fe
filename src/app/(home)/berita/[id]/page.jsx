@@ -46,7 +46,7 @@ const PageBeritaDetail = () => {
 							width={1000}
 							height={500}
 							alt="img"
-							className="w-full h-full object-cover"
+							className="w-full h-full object-contain"
 						/>
 					</div>
 					<p className="text-xs text-slate-500">

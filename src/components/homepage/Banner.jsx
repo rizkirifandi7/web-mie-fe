@@ -31,7 +31,7 @@ const Banner = () => {
 					<Judul mainText="D'EMIEHAN" subText="Informasi" />
 				</div>
 				{data.length > 0 ? (
-					<div className="w-full h-full justify-center items-center mt-10 px-10">
+					<div className="w-full h-full justify-center items-center mt-10 px-8">
 						<Carousel
 							opts={{
 								align: "start",
@@ -41,25 +41,6 @@ const Banner = () => {
 							<CarouselContent>
 								{data.map((item, index) => (
 									<CarouselItem key={index} className="w-full">
-										{/* <Card
-											className="aspect-square md:aspect-[16/7] w-full h-full"
-											style={{
-												backgroundImage: `url(${
-													item.gambar ? item.gambar : undefined
-												})`,
-											}}
-										>
-											<CardContent className="w-full h-full flex flex-col aspect-square items-center justify-center gap-4 rounded-md">
-												<h1 className="text-2xl md:text-3xl font-bold text-center">
-													{item.judul}
-												</h1>
-												<Link href={item.link}>
-													<Button className="bg-blue-500">
-														Lihat Selengkapnya
-													</Button>
-												</Link>
-											</CardContent>
-										</Card> */}
 										<BannerCard
 											name={item.judul}
 											description={item.deskripsi}

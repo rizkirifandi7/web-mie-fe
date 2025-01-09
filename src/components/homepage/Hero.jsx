@@ -33,11 +33,10 @@ const Hero = () => {
 	return (
 		<section
 			id="beranda"
-			className="relative bg-center bg-no-repeat bg-cover bg-gray-700 bg-blend-multiply"
+			className="relative bg-center bg-no-repeat bg-contain bg-gray-700 bg-blend-multiply"
 			style={{
-				backgroundImage: `url(${
-					data.background ? data.background : "bg.jpg"
-				})`,
+				backgroundImage: `url(${data.background ? data.background : "bg.jpg"})`,
+				backgroundSize: "contain",
 			}}
 		>
 			<div className="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-44">
@@ -57,12 +56,12 @@ const Hero = () => {
 					{data.deskripsi}
 				</p>
 				<div className="flex justify-center items-center gap-4">
-					<Button asChild className="w-fit bg-blue-500 py-6">
+					<Button asChild className="w-fit bg-blue-500 md:py-6">
 						<Link href="/kemitraan">Gabung Kemitraan</Link>
 					</Button>
 					<Button
 						asChild
-						className="w-fit py-6 bg-transparent text-white"
+						className="w-fit md:py-6 bg-transparent text-white"
 						variant="outline"
 					>
 						<Link href="/menu">Lihat Menu</Link>

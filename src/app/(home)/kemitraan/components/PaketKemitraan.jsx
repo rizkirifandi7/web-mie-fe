@@ -13,7 +13,7 @@ import React from "react";
 
 const PaketKemitraan = ({ data }) => {
 	return (
-		<div>
+		<div className="px-8">
 			{data.map((item) => (
 				<div
 					key={item.id}

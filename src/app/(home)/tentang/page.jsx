@@ -54,19 +54,24 @@ const PageTentang = () => {
 							{sertifikat.map((item, idx) => (
 								<div
 									key={idx}
-									className="flex items-center gap-4 border rounded-md p-2"
+									className="flex justify-center items-center gap-4 border rounded-md p-2"
 								>
 									<Image
 										src={item.gambar}
 										width={80}
 										height={80}
 										alt="sertifikat"
-										className="w-auto h-auto object-cover rounded-md border"
+										className="flex justify-center items-center w-auto h-auto object-fit rounded-md border"
 									/>
-									<p>{item.keterangan}</p>
+									<p className="flex text-sm text-left items-start">{item.keterangan}</p>
 								</div>
 							))}
 						</div>
+						{sertifikat.length === 0 && (
+							<p className="text-center text-sm text-slate-500 my-4">
+								Tidak ada sertifikat
+							</p>
+						)}
 					</div>
 
 					<div className="flex flex-col gap-4">

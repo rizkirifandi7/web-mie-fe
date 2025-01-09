@@ -66,7 +66,7 @@ const Navbar = React.memo(function Navbar() {
 				</Link>
 
 				{/* Mobile Menu Dropdown */}
-				<DropdownMenu className="w-full">
+				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button
 							size="icon"
@@ -80,14 +80,12 @@ const Navbar = React.memo(function Navbar() {
 						{mainLinks.map((item, index) => {
 							if (item.submenu) {
 								return (
-									<DropdownMenu
-										key={index}
-										trigger={
-											<span className="px-3 py-2 block text-sm font-medium">
+									<DropdownMenu key={index}>
+										<DropdownMenuTrigger asChild>
+											<span className="w-full px-3 py-2 block text-sm font-medium cursor-pointer">
 												{item.label}
 											</span>
-										}
-									>
+										</DropdownMenuTrigger>
 										<DropdownMenuContent>
 											<DropdownMenuGroup>
 												{item.submenu.map((subItem, subIndex) => (

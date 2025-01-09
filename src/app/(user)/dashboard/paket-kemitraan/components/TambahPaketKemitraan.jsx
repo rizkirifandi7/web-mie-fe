@@ -10,6 +10,7 @@ import {
 import {
 	Form,
 	FormControl,
+	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -54,9 +55,8 @@ const TambahPaketKemitraan = ({ fetchData }) => {
 			formData.append("ukuran", data.ukuran);
 			formData.append("harga", data.harga);
 
-			// Tambahkan setiap file ke FormData
 			data.gambar.forEach((file) => {
-				formData.append("gambar", file); // Tambahkan satu per satu
+				formData.append("gambar", file);
 			});
 
 			const response = await fetch(
@@ -156,17 +156,30 @@ const TambahPaketKemitraan = ({ fetchData }) => {
 								</FormItem>
 							)}
 						/>
-						<div className="space-y-2">
-							<Label className="">Gambar</Label>
-							<Input
-								type="file"
-								className="shadow-none h-full py-1.5"
-								multiple
-								onChange={(e) =>
-									form.setValue("gambar", Array.from(e.target.files))
-								}
-							/>
-						</div>
+						<FormField
+							control={form.control}
+							name="gambar"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Gambar</FormLabel>
+									<FormControl>
+										<Input
+											type="file"
+											accept="image/*"
+											multiple
+											onChange={(e) => {
+												field.onChange(Array.from(e.target.files));
+											}}
+										/>
+									</FormControl>
+									<FormDescription>
+										Input beberapa gambar jika ingin lebih dari satu
+									</FormDescription>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
 						<DialogFooter>
 							<Button type="submit" className="w-full mt-2" disabled={loading}>
 								{loading ? "Loading..." : "Submit"}

@@ -37,7 +37,7 @@ const Menu = () => {
 
 	return (
 		<section className="md:w-full h-full" id="menu">
-			<div className="max-w-screen-sm md:max-w-screen-xl mx-auto p-20 w-full h-full">
+			<div className="max-w-screen-sm md:max-w-screen-xl mx-auto px-8 md:px-20 w-full h-full">
 				<div className="flex flex-col justify-center items-center w-full">
 					<Judul mainText="D'EMIEHAN" subText="Produk Kami" />
 
@@ -56,7 +56,7 @@ const Menu = () => {
 										{menuData.map((menu) => (
 											<CarouselItem
 												key={menu.id}
-												className="md:basis-1/2 lg:basis-1/3 w-full h-full"
+												className="w-full md:basis-1/3  h-full"
 											>
 												<Card className="w-full h-full p-2">
 													<div className="flex justify-center items-center bg-blue-50 overflow-hidden w-full h-[300px] object-cover rounded-t-md">
@@ -86,7 +86,7 @@ const Menu = () => {
 										))}
 									</CarouselContent>
 								</Carousel>
-								<div className="mt-14">
+								<div className="mt-10">
 									<Link href="/menu">
 										<Button className="py-5 text-sm rounded-lg tracking-wider border border-white transform transition-transform duration-300 bg-blue-500 hover:bg-blue-600">
 											Lihat Semua Menu

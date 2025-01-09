@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
+	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -17,11 +18,25 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { Card } from "./ui/card";
 import axios from "axios";
+import {
+	ACCEPTED_IMAGE_MIME_TYPES,
+	MAX_FILE_SIZE_10MB,
+} from "@/constant/constantData";
 
 const FormSchema = z.object({
 	nama: z.string().nonempty("Nama harus diisi."),
 	testimoni: z.string().nonempty("Testimoni harus diisi."),
-	foto: z.any(),
+	foto: z
+		.any()
+		.optional()
+		.refine(
+			(file) => !file || file.size <= MAX_FILE_SIZE_10MB,
+			`Batas ukuran gambar adalah 5MB.`
+		)
+		.refine(
+			(file) => !file || ACCEPTED_IMAGE_MIME_TYPES.includes(file.type),
+			"Only .jpg, .jpeg, and .png formats are supported."
+		),
 });
 
 const TestimoniForm = () => {
@@ -32,7 +47,7 @@ const TestimoniForm = () => {
 		defaultValues: {
 			nama: "",
 			testimoni: "",
-			foto: "",
+			foto: undefined,
 		},
 	});
 
@@ -42,8 +57,8 @@ const TestimoniForm = () => {
 			const formData = new FormData();
 			formData.append("nama", data.nama);
 			formData.append("testimoni", data.testimoni);
-			if (data.foto && data.foto.length > 0) {
-				formData.append("foto", data.foto[0]);
+			if (data.foto) {
+				formData.append("foto", data.foto);
 			}
 
 			const response = await axios.post(
@@ -81,7 +96,7 @@ const TestimoniForm = () => {
 						name="nama"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Nama</FormLabel>
+								<FormLabel>Nama Lengkap</FormLabel>
 								<FormControl>
 									<Input
 										className="shadow-none"
@@ -111,14 +126,29 @@ const TestimoniForm = () => {
 							</FormItem>
 						)}
 					/>
-					<div className="space-y-2">
-						<FormLabel>Foto</FormLabel>
-						<Input
-							type="file"
-							className="shadow-none h-full py-1.5"
-							onChange={(e) => form.setValue("foto", e.target.files)}
-						/>
-					</div>
+					<FormField
+						control={form.control}
+						name="foto"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Foto Diri</FormLabel>
+								<FormControl>
+									<Input
+										type="file"
+										accept="image/*"
+										onChange={(e) => {
+											field.onChange(e.target.files?.[0]);
+										}}
+									/>
+								</FormControl>
+								<FormDescription>
+									Isi foto diri anda. (opsional)
+								</FormDescription>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+
 					<Button
 						type="submit"
 						className="w-full bg-blue-500 text-white p-2 rounded-lg"

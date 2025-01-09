@@ -24,18 +24,18 @@ const BannerCard = ({
 				className
 			)}
 		>
-			<div className="aspect-square md:aspect-[16/6] object-cover overflow-hidden">
+			<div className="aspect-square md:aspect-[16/9] overflow-hidden">
 				<Image
 					src={background ? background : undefined}
-					width={1000}
-					height={800}
-					className="object-cover w-full h-auto"
-          alt={name}
+					width={1200}
+					height={1200}
+					className="flex justify-center items-center object-fit w-full h-full"
+					alt={name}
 				/>
 			</div>
 			<div className="pointer-events-none z-50 flex transform-gpu flex-col gap-1 p-6 transition-all duration-300 group-hover:-translate-y-10 group-hover:text-white">
-				<h3 className="text-2xl font-semibold ">{name}</h3>
-				<p className="max-w-lg text-neutral-400">{description}</p>
+				<h3 className="text-2xl font-semibold">{name}</h3>
+				<p className="text-base text-slate-500 group-hover:text-white truncate w-full">{description}</p>
 			</div>
 
 			<div
@@ -46,7 +46,7 @@ const BannerCard = ({
 				<Button
 					asChild
 					size="sm"
-					className="pointer-events-auto hover:text-white"
+					className="pointer-events-auto hover:text-white ml-2"
 				>
 					<a href={href}>
 						{cta}

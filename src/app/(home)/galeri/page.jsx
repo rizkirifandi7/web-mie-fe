@@ -32,29 +32,29 @@ const PageGaleri = () => {
 				</BackgroundBox>
 
 				<div className="mt-20">
-					{data.length > 0 && (
-						<div className="columns-2 gap-4 sm:columns-3">
-							{data.map((item, idx) => (
-								<BlurFade key={idx} delay={0.25 + idx * 0.05} inView>
-									<div className="relative group">
-										<Image
-											className="mb-4 size-full rounded-lg object-contain group-hover:opacity-75"
-											src={item.gambar}
-											width={800}
-											height={600}
-											alt={`Random stock image ${idx + 1}`}
-										/>
-										<span className="absolute inset-0 flex items-center justify-center text-white text-lg font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-											{item.judul}
-										</span>
-									</div>
-								</BlurFade>
-							))}
+					<div className="columns-2 gap-4 sm:columns-3">
+						{data.map((item, idx) => (
+							<BlurFade key={idx} delay={0.25 + idx * 0.05} inView>
+								<div className="relative group border rounded-md overflow-hidden">
+									<Image
+										className="mb-4 size-full rounded-lg object-contain group-hover:opacity-75"
+										src={item.gambar}
+										width={500}
+										height={500}
+										alt={`Random stock image ${idx + 1}`}
+									/>
+									<span className="absolute inset-0 flex items-center justify-center bg-black text-white text-lg font-bold opacity-0 group-hover:bg-opacity-35 group-hover:opacity-100 transition-opacity duration-300">
+										{item.judul}
+									</span>
+								</div>
+							</BlurFade>
+						))}
+					</div>
+					{data.length === 0 && (
+						<div className="flex justify-center items-center h-[400px]">
+							<p>Tidak ada galeri</p>
 						</div>
 					)}
-					<div className="flex justify-center items-center h-[400px]">
-						<p>Tidak ada galeri</p>
-					</div>
 				</div>
 			</div>
 		</section>
