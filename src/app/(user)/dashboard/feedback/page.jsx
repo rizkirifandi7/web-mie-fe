@@ -3,6 +3,7 @@
 import TableView from "@/components/TableView";
 import React, { useEffect } from "react";
 import HapusFeedback from "./components/HapusFeedback";
+import DetailFeedback from "./components/DetailFeedback";
 
 const PageFeedback = () => {
 	const [data, setData] = React.useState([]);
@@ -26,14 +27,18 @@ const PageFeedback = () => {
 			accessorKey: "kritik",
 			header: "Kritik",
 			cell: ({ row }) => (
-				<div className="capitalize">{row.getValue("kritik")}</div>
+				<div className="capitalize truncate w-[300px]">
+					{row.getValue("kritik")}
+				</div>
 			),
 		},
 		{
 			accessorKey: "saran",
 			header: "Saran",
 			cell: ({ row }) => (
-				<div className="capitalize">{row.getValue("saran")}</div>
+				<div className="capitalize truncate w-[300px]">
+					{row.getValue("saran")}
+				</div>
 			),
 		},
 		{
@@ -41,8 +46,10 @@ const PageFeedback = () => {
 			enableHiding: false,
 			cell: ({ row }) => {
 				const id = row.original.id;
+				const rowData = row.original;
 				return (
 					<div className="flex items-center gap-2">
+						<DetailFeedback rowData={rowData} />
 						<HapusFeedback id={id} fetchData={fetchData} />
 					</div>
 				);
@@ -74,8 +81,7 @@ const PageFeedback = () => {
 				columns={columns}
 				data={data}
 				title="Dashboard Feedback"
-				search="nama"
-				pageSize={5}
+				search="kritik"
 			/>
 		</div>
 	);

@@ -14,14 +14,14 @@ const PageBanner = () => {
 			accessorKey: "judul",
 			header: "Judul",
 			cell: ({ row }) => (
-				<div className="capitalize">{row.getValue("judul")}</div>
+				<div className="capitalize truncate w-[250px]">{row.getValue("judul")}</div>
 			),
 		},
 		{
 			accessorKey: "deskripsi",
 			header: "Deskripsi",
 			cell: ({ row }) => (
-				<div className="capitalize">{row.getValue("deskripsi")}</div>
+				<div className="capitalize truncate w-[400px]">{row.getValue("deskripsi")}</div>
 			),
 		},
 		{

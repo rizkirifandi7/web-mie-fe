@@ -14,7 +14,7 @@ const PageSertifikat = () => {
 			accessorKey: "keterangan",
 			header: "Keterangan",
 			cell: ({ row }) => (
-				<div className="capitalize">{row.getValue("keterangan")}</div>
+				<div className="capitalize truncate w-[300px]">{row.getValue("keterangan")}</div>
 			),
 		},
 		{

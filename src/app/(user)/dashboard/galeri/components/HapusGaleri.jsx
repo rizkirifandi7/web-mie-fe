@@ -24,7 +24,8 @@ const HapusGaleri = ({ id, fetchData }) => {
 			const response = await axios.delete(
 				`${process.env.NEXT_PUBLIC_BASE_URL}/galeri/${selectedId}`
 			);
-			if (response.status === 200) {
+			console.log(response);
+			if (response.status === 204) {
 				toast.success("Galeri berhasil dihapus");
 				setOpenHapus(false);
 				fetchData();

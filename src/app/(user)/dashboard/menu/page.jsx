@@ -23,7 +23,7 @@ const PageMenu = () => {
 			accessorKey: "deskripsi",
 			header: "Deskripsi",
 			cell: ({ row }) => (
-				<div className="capitalize">{row.getValue("deskripsi")}</div>
+				<div className="capitalize truncate w-[300px]">{row.getValue("deskripsi")}</div>
 			),
 		},
 		{

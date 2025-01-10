@@ -34,7 +34,7 @@ const PageBerita = () => {
 			accessorKey: "judul",
 			header: "Judul",
 			cell: ({ row }) => (
-				<div className="capitalize">{row.getValue("judul")}</div>
+				<div className="capitalize w-[250px] truncate">{row.getValue("judul")}</div>
 			),
 		},
 		{

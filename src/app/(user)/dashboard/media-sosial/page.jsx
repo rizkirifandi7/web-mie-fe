@@ -20,7 +20,7 @@ const PageMediaSosial = () => {
 		{
 			accessorKey: "link",
 			header: "Link Aplikasi",
-			cell: ({ row }) => <div className="">{row.getValue("link")}</div>,
+			cell: ({ row }) => <div className="truncate w-[300px]">{row.getValue("link")}</div>,
 		},
 		{
 			id: "actions",

@@ -21,14 +21,16 @@ const PageCabang = () => {
 			accessorKey: "alamat",
 			header: "Alamat",
 			cell: ({ row }) => (
-				<div className="capitalize">{row.getValue("alamat")}</div>
+				<div className="capitalize truncate w-[300px]">
+					{row.getValue("alamat")}
+				</div>
 			),
 		},
 		{
 			accessorKey: "link_gmap",
 			header: "Link Maps",
 			cell: ({ row }) => (
-				<div className="">{row.getValue("link_gmap")}</div>
+				<div className="truncate w-[300px]">{row.getValue("link_gmap")}</div>
 			),
 		},
 		{
