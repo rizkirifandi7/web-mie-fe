@@ -9,8 +9,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 const ButtonWa = () => {
-	const partnershipMessage =
-		"Halo, saya tertarik untuk bergabung dalam kemitraan.";
+	const infoMessage = `Hallo, Saya tertarik untuk mengetahui lebih lanjut mengenai peluang kemitraan D'Emiehan. Apakah bisa dibantu dengan informasi terkait syarat, sistem, dan cara pendaftarannya?`;
+
+	const partnershipMessage = `1. Nama Lengkap :
+2. Jenis Kelamin :
+3. Alamat Domisili : 
+4. No.Telepon/WhattsApp :
+5. E-mail (Jika Ada) :
+6. Jenis Kemitraan : (Booth/Kios Kecil)`;
 
 	return (
 		<Popover>
@@ -22,7 +28,13 @@ const ButtonWa = () => {
 			<PopoverContent className="w-fit mr-4">
 				<div className="flex flex-col gap-4">
 					<Button variant="outline" asChild>
-						<Link href="https://wa.link/dben6b">Hubungi Kami</Link>
+						<Link
+							href={`https://wa.me/628987201555?text=${encodeURIComponent(
+								infoMessage
+							)}`}
+						>
+							Hubungi Kami
+						</Link>
 					</Button>
 					<Button variant="outline" asChild>
 						<Link
