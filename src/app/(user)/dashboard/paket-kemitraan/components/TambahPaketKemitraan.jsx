@@ -18,6 +18,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+	ACCEPTED_IMAGE_MIME_TYPES,
+	MAX_FILE_SIZE_10MB,
+} from "@/constant/constantData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import { PlusCircle } from "lucide-react";
@@ -29,8 +33,33 @@ import { z } from "zod";
 const FormSchema = z.object({
 	jenis_kemitraan: z.string().nonempty("Jenis kemitraan harus diisi."),
 	ukuran: z.string().nonempty("Ukuran harus diisi."),
-	gambar: z.any(),
-	harga: z.any(),
+	gambar: z
+		.array(
+			z
+				.custom((file) => !!file, "Gambar harus diunggah.")
+				.refine(
+					(file) => file.size <= MAX_FILE_SIZE_10MB,
+					`Batas ukuran gambar adalah 10MB.`
+				)
+				.refine(
+					(file) => ACCEPTED_IMAGE_MIME_TYPES.includes(file.type),
+					"Only .jpg, .jpeg, and .png formats are supported."
+				)
+		)
+		.nonempty("Minimal satu gambar harus diunggah."),
+	harga: z
+		.number({
+			required_error: "Harga harus diisi",
+			invalid_type_error: "Harga harus berupa angka",
+		})
+		.min(0, { message: "Harga tidak boleh kurang dari 0" })
+		.or(
+			z
+				.string()
+				.nonempty("Harga harus diisi")
+				.regex(/^\d+$/, "Harga harus berupa angka")
+				.transform(Number)
+		),
 });
 
 const TambahPaketKemitraan = ({ fetchData }) => {

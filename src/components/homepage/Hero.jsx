@@ -33,10 +33,10 @@ const Hero = () => {
 	return (
 		<section
 			id="beranda"
-			className="relative bg-center bg-no-repeat bg-contain bg-gray-700 bg-blend-multiply"
+			className="relative bg-center bg-no-repeat bg-cover bg-gray-700 bg-blend-multiply"
 			style={{
 				backgroundImage: `url(${data.background ? data.background : "bg.jpg"})`,
-				backgroundSize: "contain",
+				backgroundSize: "cover",
 			}}
 		>
 			<div className="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-44">
@@ -45,7 +45,7 @@ const Hero = () => {
 						src={data.gambar ? data.gambar : "/logobrand.png"}
 						width={150}
 						height={150}
-						className="md:w-auto md:h-auto"
+						className="md:w-auto md:h-auto object-fit"
 						alt="Demiehan Logo"
 					/>
 				</div>

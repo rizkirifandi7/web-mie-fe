@@ -1,8 +1,10 @@
-"use client"
+"use client";
 import React from "react";
 import Judul from "@/components/Judul";
 import HeroVideoDialog from "@/components/ui/hero-video-dialog";
 import axios from "axios";
+import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 const Kontak = () => {
 	const [cabang, setCabang] = React.useState([]);
@@ -56,7 +58,9 @@ const Kontak = () => {
 							</div>
 							<div className="border-y py-4">
 								<h1 className="text-lg font-semibold">Telepon</h1>
-								<a href="https://wa.link/dben6b" className="text-base">+62 898-7201-555</a>
+								<a href="https://wa.link/dben6b" className="text-base">
+									+62 898-7201-555
+								</a>
 							</div>
 							<div className="border-b pb-4">
 								<h1 className="text-lg font-semibold">Alamat</h1>
@@ -76,14 +80,19 @@ const Kontak = () => {
 					</div>
 					<div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
 						{cabang.map((item) => (
-							<div className="" key={item.id}>
+							<div className="flex flex-col gap-1" key={item.id}>
 								<h1 className="text-base font-semibold">{item.nama_cabang}</h1>
 								<p className="text-sm text-slate-600 font-medium">
 									{item.alamat}
 								</p>
+								<a
+									href={item.link_gmap}
+									className="text-sm inline-flex items-center gap-1"
+								>
+									Lihat lokasi <ArrowUpRight size={14} />
+								</a>
 							</div>
-						))
-						}
+						))}
 					</div>
 				</div>
 			</div>

@@ -5,6 +5,8 @@ import React from "react";
 import Image from "next/image";
 import BlurFade from "@/components/ui/blur-fade";
 import BackgroundBox from "@/components/BackgroundBox";
+import { Card } from "@/components/ui/card";
+import Link from "next/link";
 
 const PageGaleri = () => {
 	const [data, setData] = React.useState([]);
@@ -17,7 +19,7 @@ const PageGaleri = () => {
 			},
 		});
 		const data = await response.json();
-		setData(data.galeri);
+		setData(data.data);
 	};
 
 	React.useEffect(() => {
@@ -30,32 +32,32 @@ const PageGaleri = () => {
 				<BackgroundBox>
 					<Judul mainText="D'EMIEHAN" subText="Galeri" />
 				</BackgroundBox>
-
-				<div className="mt-20">
-					<div className="columns-2 gap-4 sm:columns-3">
-						{data.map((item, idx) => (
-							<BlurFade key={idx} delay={0.25 + idx * 0.05} inView>
-								<div className="relative group border rounded-md overflow-hidden">
+				<div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-10">
+					{data.map((item, idx) => (
+						<Link href={`/galeri/${item.id}`} key={idx}>
+							<Card className="border-none shadow-none">
+								<div className="aspect-square border rounded-lg transform transition duration-300 hover:scale-105 h-full">
 									<Image
-										className="mb-4 size-full rounded-lg object-contain group-hover:opacity-75"
-										src={item.gambar}
-										width={500}
-										height={500}
-										alt={`Random stock image ${idx + 1}`}
+										src={item.gambar[0]?.path || "/logobrand.png"}
+										width={250}
+										height={250}
+										alt={item.judul}
+										className="object-cover w-full h-full rounded-lg"
 									/>
-									<span className="absolute inset-0 flex items-center justify-center bg-black text-white text-lg font-bold opacity-0 group-hover:bg-opacity-35 group-hover:opacity-100 transition-opacity duration-300">
-										{item.judul}
-									</span>
 								</div>
-							</BlurFade>
-						))}
-					</div>
-					{data.length === 0 && (
-						<div className="flex justify-center items-center h-[400px]">
-							<p>Tidak ada galeri</p>
-						</div>
-					)}
+								<div className="flex flex-col gap-0.5 p-2">
+									<h1 className="text-base font-semibold">{item.judul}</h1>
+									<p className="text-sm truncate">{item.gambar.length}</p>
+								</div>
+							</Card>
+						</Link>
+					))}
 				</div>
+				{data.length === 0 && (
+					<div className="flex justify-center items-center h-[400px]">
+						<p>Tidak ada galeri</p>
+					</div>
+				)}
 			</div>
 		</section>
 	);

@@ -11,23 +11,23 @@ const PageBeritaDetail = () => {
 	const { id } = useParams();
 	const [data, setData] = React.useState([]);
 
-	const fetchData = async () => {
-		const response = await fetch(
-			`${process.env.NEXT_PUBLIC_BASE_URL}/berita/${id}`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}
-		);
-		const data = await response.json();
-		setData(data.berita);
-	};
-
 	useEffect(() => {
+		const fetchData = async () => {
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_BASE_URL}/berita/${id}`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
+			const data = await response.json();
+			setData(data.berita);
+		};
+
 		fetchData();
-	}, []);
+	}, [id]);
 
 	return (
 		<section className="w-full md:w-full min-h-screen bg-white">

@@ -1,6 +1,13 @@
 "use client";
 import BackgroundBox from "@/components/BackgroundBox";
 import Judul from "@/components/Judul";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 import Image from "next/image";
 import React from "react";
 
@@ -48,13 +55,16 @@ const PageTentang = () => {
 						<p className="text-justify">{data.deskripsi}</p>
 					</div>
 
-					<div className="w-full">
-						<h1 className="text-xl font-bold mt-4">Sertifikat</h1>
-						<div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full mt-4">
+					<Card className="w-full">
+						<CardHeader>
+							<CardTitle>Sertifikat</CardTitle>
+							<CardDescription>Demiehan</CardDescription>
+						</CardHeader>
+						<CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full mt-4">
 							{sertifikat.map((item, idx) => (
 								<div
 									key={idx}
-									className="flex justify-center items-center gap-4 border rounded-md p-2"
+									className="flex items-start gap-4 border rounded-md p-2"
 								>
 									<Image
 										src={item.gambar}
@@ -63,25 +73,38 @@ const PageTentang = () => {
 										alt="sertifikat"
 										className="flex justify-center items-center w-auto h-auto object-fit rounded-md border"
 									/>
-									<p className="flex text-sm text-left items-start">{item.keterangan}</p>
+									<p className="flex text-sm text-left items-start w-full">
+										{item.keterangan}
+									</p>
 								</div>
 							))}
-						</div>
+						</CardContent>
 						{sertifikat.length === 0 && (
 							<p className="text-center text-sm text-slate-500 my-4">
 								Tidak ada sertifikat
 							</p>
 						)}
-					</div>
+					</Card>
 
-					<div className="flex flex-col gap-4">
-						<h1 className="text-xl font-bold mt-4">Visi</h1>
-						<p className="text-justify">{data.visi}</p>
-					</div>
-
-					<div className="flex flex-col gap-4">
-						<h1 className="text-xl font-bold mt-4">Misi</h1>
-						<p className="text-justify">{data.misi}</p>
+					<div className="flex items-start justify-center w-full gap-4 mt-10 h-full">
+						<Card className="w-full h-full">
+							<CardHeader>
+								<CardTitle className="text-2xl font-bold mt-4">Visi</CardTitle>
+								<CardDescription>Demiehan</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<p className="text-justify">{data.visi}</p>
+							</CardContent>
+						</Card>
+						<Card className="w-full h-full">
+							<CardHeader>
+								<CardTitle className="text-2xl font-bold mt-4">Misi</CardTitle>
+								<CardDescription>Demiehan</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<p className="text-justify">{data.misi}</p>
+							</CardContent>
+						</Card>
 					</div>
 				</div>
 			</div>

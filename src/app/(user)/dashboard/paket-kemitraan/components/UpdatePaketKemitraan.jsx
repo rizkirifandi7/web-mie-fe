@@ -17,6 +17,10 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+	ACCEPTED_IMAGE_MIME_TYPES,
+	MAX_FILE_SIZE_10MB,
+} from "@/constant/constantData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import { useState } from "react";
@@ -28,8 +32,32 @@ import { z } from "zod";
 const FormSchema = z.object({
 	jenis_kemitraan: z.string().nonempty("Jenis kemitraan harus diisi."),
 	ukuran: z.string().nonempty("Ukuran harus diisi."),
-	gambar: z.any(),
-	harga: z.any(),
+	gambar: z
+		.array(
+			z
+				.any()
+				.refine(
+					(file) => !file || file.size <= MAX_FILE_SIZE_10MB,
+					`Batas ukuran gambar adalah 10MB.`
+				)
+				.refine(
+					(file) => !file || ACCEPTED_IMAGE_MIME_TYPES.includes(file.type),
+					"Only .jpg, .jpeg, and .png formats are supported."
+				)
+		)
+		.optional(),
+	harga: z
+		.number({
+			required_error: "Harga harus diisi",
+		})
+		.min(0, { message: "Harga tidak boleh kurang dari 0" })
+		.or(
+			z
+				.string()
+				.nonempty("Harga harus diisi")
+				.regex(/^\d+$/, "Harga harus berupa angka")
+				.transform(Number)
+		),
 });
 
 const UpdatePaketKemitraan = ({ fetchData, id, rowData }) => {
@@ -41,7 +69,7 @@ const UpdatePaketKemitraan = ({ fetchData, id, rowData }) => {
 		defaultValues: {
 			jenis_kemitraan: rowData.jenis_kemitraan,
 			ukuran: rowData.ukuran,
-			gambar: null,
+			gambar: undefined,
 			harga: rowData.harga,
 		},
 	});
@@ -54,10 +82,11 @@ const UpdatePaketKemitraan = ({ fetchData, id, rowData }) => {
 			formData.append("ukuran", data.ukuran);
 			formData.append("harga", data.harga);
 
-			// Tambahkan setiap file ke FormData
-			data.gambar.forEach((file) => {
-				formData.append("gambar", file); // Tambahkan satu per satu
-			});
+			if (data.gambar) {
+				data.gambar.forEach((file) => {
+					formData.append("gambar", file);
+				});
+			}
 			const response = await fetch(
 				`${process.env.NEXT_PUBLIC_BASE_URL}/paket-kemitraan/${id}`,
 				{
@@ -89,8 +118,8 @@ const UpdatePaketKemitraan = ({ fetchData, id, rowData }) => {
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
-					<DialogTitle>Tambah Paket Kemitraan</DialogTitle>
-					<DialogDescription>Tambahkan paket kemitraan baru.</DialogDescription>
+					<DialogTitle>Update Paket Kemitraan</DialogTitle>
+					<DialogDescription>Update paket kemitraan baru.</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
 					<form

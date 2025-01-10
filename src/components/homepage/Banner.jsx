@@ -2,12 +2,7 @@
 import React from "react";
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 
-import { Card, CardContent } from "../ui/card";
 import Judul from "../Judul";
-import { Button } from "../ui/button";
-import Link from "next/link";
-import { BentoCard } from "../ui/bento-grid";
-import { Notebook } from "lucide-react";
 import BannerCard from "../BannerCard";
 
 const Banner = () => {
