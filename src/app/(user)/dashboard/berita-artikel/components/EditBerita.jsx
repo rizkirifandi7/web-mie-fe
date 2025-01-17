@@ -24,7 +24,7 @@ import { useForm } from "react-hook-form";
 import { MdOutlineEdit } from "react-icons/md";
 import { toast } from "sonner";
 import { z } from "zod";
-import RichTextEditor from "./RichTextEditor";
+import RichTextEditor from "../../../../../components/RichTextEditor";
 import { Label } from "@/components/ui/label";
 
 import {
@@ -127,7 +127,7 @@ const EditBerita = ({ fetchData, id, rowData }) => {
 				<Form {...form}>
 					<form
 						onSubmit={form.handleSubmit(handleUpdate)}
-						className="space-y-4"
+						className="space-y-4 max-w-[600px] w-full mx-auto"
 					>
 						<FormField
 							control={form.control}

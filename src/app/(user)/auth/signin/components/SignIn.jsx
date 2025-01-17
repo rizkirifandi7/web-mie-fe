@@ -83,7 +83,7 @@ const SignIn = () => {
 		<div className="flex justify-center items-center min-h-screen w-full bg-[#f5f5f5]">
 			<Card className="md:w-1/4 g">
 				<CardHeader>
-					<div className="flex flex-col gap-2 justify-center items-center mb-10">
+					<div className="flex flex-col gap-2 justify-center items-center mb-4">
 						<Image src="/logo.svg" width="100" height="100" alt="Logo" />
 						<h1 className="font-bold">Dmiehan</h1>
 					</div>
@@ -94,7 +94,7 @@ const SignIn = () => {
 				</CardHeader>
 				<CardContent>
 					<Form {...form}>
-						<form onSubmit={form.handleSubmit(onLogin)} className=" space-y-6">
+						<form onSubmit={form.handleSubmit(onLogin)} className="space-y-4">
 							<FormField
 								control={form.control}
 								name="email"
@@ -106,6 +106,7 @@ const SignIn = () => {
 												placeholder="masukkan email..."
 												{...field}
 												type="text"
+												className="py-6"
 											/>
 										</FormControl>
 										<FormMessage />
@@ -123,13 +124,18 @@ const SignIn = () => {
 												placeholder="masukkan password..."
 												{...field}
 												type="password"
+												className="py-6"
 											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
 								)}
 							/>
-							<Button type="submit" className="w-full" disabled={loading}>
+							<Button
+								type="submit"
+								className="w-full bg-blue-500 py-6"
+								disabled={loading}
+							>
 								{loading ? "Loading..." : "Login"}
 							</Button>
 						</form>

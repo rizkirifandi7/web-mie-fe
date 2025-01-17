@@ -1,8 +1,8 @@
 "use client";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import ToolBar from "./ToolBar";
 import Highlight from "@tiptap/extension-highlight";
+import ToolBar from "./ToolBar";
 
 export default function RichTextEditor({ content, onChange }) {
 	const editor = useEditor({
@@ -19,14 +19,17 @@ export default function RichTextEditor({ content, onChange }) {
 					HTMLAttributes: { class: "list-disc ml-4" },
 				},
 				paragraph: {
-					HTMLAttributes: { class: "text-sm mt-2" },
+					HTMLAttributes: { class: "text-base mt-2" },
 				},
 			}),
 			Highlight,
 		],
 		content: content,
 		editorProps: {
-			attributes: { class: "min-h-[200px] rounded-md p-6" },
+			attributes: {
+				class:
+					"min-h-[200px] box-border h-[200px] w-full overflow-y-auto rounded-md p-6",
+			},
 		},
 		onUpdate: ({ editor }) => {
 			onChange(editor.getHTML());

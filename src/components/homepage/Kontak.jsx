@@ -58,9 +58,7 @@ const Kontak = ({ dataBeranda }) => {
 							</div>
 							<div className="border-y py-4">
 								<h1 className="text-lg font-semibold">Telepon</h1>
-								<a href="https://wa.link/dben6b" className="text-base">
-									{dataBeranda.nomor}
-								</a>
+								<p className="text-base">{dataBeranda.nomor}</p>
 							</div>
 							<div className="border-b pb-4">
 								<h1 className="text-lg font-semibold">Alamat</h1>

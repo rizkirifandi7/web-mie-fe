@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
-import RichTextEditor from "../components/RichTextEditor";
+import RichTextEditor from "../../../../../components/RichTextEditor";
 import {
 	Form,
 	FormControl,
@@ -108,103 +108,105 @@ const TextEditor = () => {
 	};
 
 	return (
-		<Card>
-			<CardHeader>
-				<CardTitle>Tambah Data Informasi</CardTitle>
-				<CardDescription>Tambah Informasi baru.</CardDescription>
-			</CardHeader>
-			<CardContent>
-				<Form {...form}>
-					<form
-						onSubmit={form.handleSubmit(handleSubmit)}
-						className="space-y-4"
-					>
-						<FormField
-							control={form.control}
-							name="judul"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Judul</FormLabel>
-									<FormControl>
-										<Input
-											className="shadow-none"
-											placeholder="masukkan judul..."
-											{...field}
-											type="text"
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="tipe"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Jenis Informasi</FormLabel>
-									<Select
-										onValueChange={field.onChange}
-										defaultValue={field.value}
-									>
+		<div className="flex justify-center items-center">
+			<Card className="w-fit">
+				<CardHeader>
+					<CardTitle>Tambah Data Informasi</CardTitle>
+					<CardDescription>Tambah Informasi baru.</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<Form {...form}>
+						<form
+							onSubmit={form.handleSubmit(handleSubmit)}
+							className="space-y-4 max-w-7xl"
+						>
+							<FormField
+								control={form.control}
+								name="judul"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Judul</FormLabel>
 										<FormControl>
-											<SelectTrigger>
-												<SelectValue placeholder="Pilih tipe informasi berita atau artikel" />
-											</SelectTrigger>
+											<Input
+												className="shadow-none"
+												placeholder="masukkan judul..."
+												{...field}
+												type="text"
+											/>
 										</FormControl>
-										<SelectContent>
-											<SelectItem value="berita">Berita</SelectItem>
-											<SelectItem value="artikel">Artikel</SelectItem>
-										</SelectContent>
-									</Select>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="tipe"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Jenis Informasi</FormLabel>
+										<Select
+											onValueChange={field.onChange}
+											defaultValue={field.value}
+										>
+											<FormControl>
+												<SelectTrigger>
+													<SelectValue placeholder="Pilih tipe informasi berita atau artikel" />
+												</SelectTrigger>
+											</FormControl>
+											<SelectContent>
+												<SelectItem value="berita">Berita</SelectItem>
+												<SelectItem value="artikel">Artikel</SelectItem>
+											</SelectContent>
+										</Select>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
 
-						<FormField
-							control={form.control}
-							name="gambar"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Gambar</FormLabel>
-									<FormControl>
-										<Input
-											type="file"
-											accept="image/*"
-											onChange={(e) => {
-												field.onChange(e.target.files?.[0]);
-											}}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="isi"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Deskripsi</FormLabel>
-									<FormControl>
-										<RichTextEditor
-											content={field.value}
-											onChange={(value) => field.onChange(value)}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
+							<FormField
+								control={form.control}
+								name="gambar"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Gambar</FormLabel>
+										<FormControl>
+											<Input
+												type="file"
+												accept="image/*"
+												onChange={(e) => {
+													field.onChange(e.target.files?.[0]);
+												}}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="isi"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Deskripsi</FormLabel>
+										<FormControl>
+											<RichTextEditor
+												content={field.value}
+												onChange={(value) => field.onChange(value)}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
 
-						<Button className="w-fit" disabled={loading}>
-							{loading ? "Loading..." : "Simpan"}
-						</Button>
-					</form>
-				</Form>
-			</CardContent>
-		</Card>
+							<Button className="w-fit" disabled={loading}>
+								{loading ? "Loading..." : "Simpan"}
+							</Button>
+						</form>
+					</Form>
+				</CardContent>
+			</Card>
+		</div>
 	);
 };
 

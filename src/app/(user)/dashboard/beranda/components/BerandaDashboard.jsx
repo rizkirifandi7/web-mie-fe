@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
 	Form,
 	FormControl,
+	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -20,7 +21,6 @@ import {
 	ACCEPTED_IMAGE_MIME_TYPES,
 	MAX_FILE_SIZE,
 	MAX_FILE_SIZE_10MB,
-	MAX_FILE_SIZE_20MB,
 } from "@/constant/constantData";
 
 const FormSchema = z.object({
@@ -154,11 +154,15 @@ const BerandaDashboard = () => {
 							<FormControl>
 								<Input
 									className="shadow-none"
-									placeholder="masukkan nomor..."
+									placeholder="masukkan nomor telepon... (ex: 628123456789)"
 									{...field}
 									type="number"
 								/>
 							</FormControl>
+							<FormDescription>
+								Format nomor telepon tanpa menggunakan karakter spasi atau tanda
+								dan dimulai dengan kode negara (62).
+							</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}

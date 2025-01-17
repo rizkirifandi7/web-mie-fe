@@ -10,6 +10,7 @@ import { formatRupiah } from "@/lib/formatHarga";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import parse from "html-react-parser";
 
 const PaketKemitraan = ({ data }) => {
 	return (
@@ -28,7 +29,7 @@ const PaketKemitraan = ({ data }) => {
 											src={gambar.path}
 											width="500"
 											height="500"
-											className="flex aspect-square items-center justify-center p-6 w-full h-full object-cover rounded-lg border"
+											className="flex aspect-square items-center justify-center w-full h-full object-cover rounded-lg border"
 											alt="paket kemitraan"
 										/>
 									</CarouselItem>
@@ -42,26 +43,9 @@ const PaketKemitraan = ({ data }) => {
 						<h1 className="text-2xl font-bold mb-6 text-blue-500 capitalize">
 							{item.jenis_kemitraan}
 						</h1>
-						<div className="flex flex-col gap-y-4 text-lg">
-							{/* <div className="flex items-center gap-4">
-								<Image
-									src="/kitchen.png"
-									width="80"
-									height="80"
-									alt="chef hat"
-								/>
-								<p className="font-semibold text-lg w-[150px]">
-									Perlengkapan Alat Dapur
-								</p>
-							</div>
-							<div className="flex items-center gap-4">
-								<Image src="/bahan.png" width="80" height="80" alt="chef hat" />
-								<p className="font-semibold text-lg w-[150px]">
-									Bahan Baku untuk 50 Porsi
-								</p>
-							</div> */}
-							<p className="">Perlengkapan : {item.deskripsi}</p>
-							<p className="text-gray-500 text-lg">Ukuran : {item.ukuran}</p>
+						<div className="flex flex-col gap-y-4">
+							<div>{parse(item.deskripsi)}</div>
+							<p className="text-gray-500 text-base">Ukuran : {item.ukuran}</p>
 							<p className="text-xl font-bold">{formatRupiah(item.harga)}</p>
 						</div>
 						<div className="flex items-center gap-4">

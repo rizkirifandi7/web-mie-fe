@@ -29,6 +29,7 @@ import { useForm } from "react-hook-form";
 import { MdOutlineEdit } from "react-icons/md";
 import { toast } from "sonner";
 import { z } from "zod";
+import RichTextEditor from "../../../../../components/RichTextEditor";
 
 const FormSchema = z.object({
 	jenis_kemitraan: z.string().nonempty("Jenis kemitraan harus diisi."),
@@ -120,7 +121,7 @@ const UpdatePaketKemitraan = ({ fetchData, id, rowData }) => {
 					<MdOutlineEdit />
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="sm:max-w-[425px]">
+			<DialogContent className="sm:max-w-[625px] mx-auto">
 				<DialogHeader>
 					<DialogTitle>Update Paket Kemitraan</DialogTitle>
 					<DialogDescription>Update paket kemitraan baru.</DialogDescription>
@@ -128,7 +129,7 @@ const UpdatePaketKemitraan = ({ fetchData, id, rowData }) => {
 				<Form {...form}>
 					<form
 						onSubmit={form.handleSubmit(handleUpdate)}
-						className="space-y-4"
+						className="space-y-4 max-w-[600px] w-full mx-auto"
 					>
 						<FormField
 							control={form.control}
@@ -155,10 +156,9 @@ const UpdatePaketKemitraan = ({ fetchData, id, rowData }) => {
 								<FormItem>
 									<FormLabel>Deskripsi Paket</FormLabel>
 									<FormControl>
-										<Textarea
-											className="shadow-none"
-											placeholder="masukkan deskripsi..."
-											{...field}
+										<RichTextEditor
+											content={field.value}
+											onChange={field.onChange}
 										/>
 									</FormControl>
 									<FormMessage />

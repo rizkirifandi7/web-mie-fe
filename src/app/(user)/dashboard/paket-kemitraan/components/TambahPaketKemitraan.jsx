@@ -29,6 +29,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import RichTextEditor from "../../../../../components/RichTextEditor";
 
 const FormSchema = z.object({
 	jenis_kemitraan: z.string().nonempty("Jenis kemitraan harus diisi."),
@@ -124,7 +125,7 @@ const TambahPaketKemitraan = ({ fetchData }) => {
 					Tambah Paket Kemitraan
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="sm:max-w-[425px]">
+			<DialogContent className="max-w-[625px] mx-auto">
 				<DialogHeader>
 					<DialogTitle>Tambah Paket Kemitraan</DialogTitle>
 					<DialogDescription>Tambahkan paket kemitraan baru.</DialogDescription>
@@ -132,7 +133,7 @@ const TambahPaketKemitraan = ({ fetchData }) => {
 				<Form {...form}>
 					<form
 						onSubmit={form.handleSubmit(handleTambah)}
-						className="space-y-4"
+						className="space-y-4 max-w-[600px] w-full mx-auto"
 					>
 						<FormField
 							control={form.control}
@@ -159,10 +160,9 @@ const TambahPaketKemitraan = ({ fetchData }) => {
 								<FormItem>
 									<FormLabel>Deskripsi Paket</FormLabel>
 									<FormControl>
-										<Textarea
-											className="shadow-none"
-											placeholder="masukkan deskripsi..."
-											{...field}
+										<RichTextEditor
+											content={field.value}
+											onChange={(value) => field.onChange(value)}
 										/>
 									</FormControl>
 									<FormMessage />

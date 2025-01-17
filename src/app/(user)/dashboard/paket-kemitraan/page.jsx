@@ -14,6 +14,7 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
+import parse from "html-react-parser";
 
 const PagePaketKemitraan = () => {
 	const [data, setData] = React.useState([]);
@@ -30,7 +31,9 @@ const PagePaketKemitraan = () => {
 			accessorKey: "deskripsi",
 			header: "Deskripsi Paket",
 			cell: ({ row }) => (
-				<div className="capitalize">{row.getValue("deskripsi") || "-"}</div>
+				<div className="w-[300px] truncate">
+					{parse(row.getValue("deskripsi")) || "-"}
+				</div>
 			),
 		},
 		{
