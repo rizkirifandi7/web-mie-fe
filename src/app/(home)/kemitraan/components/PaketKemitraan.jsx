@@ -17,7 +17,7 @@ const PaketKemitraan = ({ data }) => {
 			{data.map((item) => (
 				<div
 					key={item.id}
-					className="flex flex-col md:flex-row justify-evenly items-center gap-16 mt-20"
+					className="flex flex-col md:flex-row justify-evenly items-center gap-10 md:gap-20 mt-20"
 				>
 					<Carousel className="w-full max-w-sm">
 						<CarouselContent>
@@ -38,12 +38,12 @@ const PaketKemitraan = ({ data }) => {
 						<CarouselPrevious />
 						<CarouselNext />
 					</Carousel>
-					<div className="flex flex-col">
+					<div className="flex flex-col w-full">
 						<h1 className="text-2xl font-bold mb-6 text-blue-500 capitalize">
 							{item.jenis_kemitraan}
 						</h1>
 						<div className="flex flex-col gap-y-4 text-lg">
-							<div className="flex items-center gap-4">
+							{/* <div className="flex items-center gap-4">
 								<Image
 									src="/kitchen.png"
 									width="80"
@@ -59,7 +59,8 @@ const PaketKemitraan = ({ data }) => {
 								<p className="font-semibold text-lg w-[150px]">
 									Bahan Baku untuk 50 Porsi
 								</p>
-							</div>
+							</div> */}
+							<p className="">Perlengkapan : {item.deskripsi}</p>
 							<p className="text-gray-500 text-lg">Ukuran : {item.ukuran}</p>
 							<p className="text-xl font-bold">{formatRupiah(item.harga)}</p>
 						</div>

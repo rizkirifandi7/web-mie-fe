@@ -17,6 +17,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
 	ACCEPTED_IMAGE_MIME_TYPES,
 	MAX_FILE_SIZE_10MB,
@@ -32,6 +33,7 @@ import { z } from "zod";
 const FormSchema = z.object({
 	jenis_kemitraan: z.string().nonempty("Jenis kemitraan harus diisi."),
 	ukuran: z.string().nonempty("Ukuran harus diisi."),
+	deskripsi: z.string().nonempty("Deskripsi harus diisi."),
 	gambar: z
 		.array(
 			z
@@ -69,6 +71,7 @@ const UpdatePaketKemitraan = ({ fetchData, id, rowData }) => {
 		defaultValues: {
 			jenis_kemitraan: rowData.jenis_kemitraan,
 			ukuran: rowData.ukuran,
+			deskripsi: rowData.deskripsi,
 			gambar: undefined,
 			harga: rowData.harga,
 		},
@@ -81,6 +84,7 @@ const UpdatePaketKemitraan = ({ fetchData, id, rowData }) => {
 			formData.append("jenis_kemitraan", data.jenis_kemitraan);
 			formData.append("ukuran", data.ukuran);
 			formData.append("harga", data.harga);
+			formData.append("deskripsi", data.deskripsi);
 
 			if (data.gambar) {
 				data.gambar.forEach((file) => {
@@ -138,6 +142,23 @@ const UpdatePaketKemitraan = ({ fetchData, id, rowData }) => {
 											placeholder="masukkan jenis kemitraan..."
 											{...field}
 											type="text"
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="deskripsi"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Deskripsi Paket</FormLabel>
+									<FormControl>
+										<Textarea
+											className="shadow-none"
+											placeholder="masukkan deskripsi..."
+											{...field}
 										/>
 									</FormControl>
 									<FormMessage />

@@ -27,6 +27,13 @@ const PagePaketKemitraan = () => {
 			),
 		},
 		{
+			accessorKey: "deskripsi",
+			header: "Deskripsi Paket",
+			cell: ({ row }) => (
+				<div className="capitalize">{row.getValue("deskripsi") || "-"}</div>
+			),
+		},
+		{
 			accessorKey: "ukuran",
 			header: "Ukuran",
 			cell: ({ row }) => (

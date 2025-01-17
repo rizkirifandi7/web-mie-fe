@@ -6,7 +6,7 @@ import axios from "axios";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
-const Kontak = () => {
+const Kontak = ({ dataBeranda }) => {
 	const [cabang, setCabang] = React.useState([]);
 
 	const fetchCabang = async () => {
@@ -59,7 +59,7 @@ const Kontak = () => {
 							<div className="border-y py-4">
 								<h1 className="text-lg font-semibold">Telepon</h1>
 								<a href="https://wa.link/dben6b" className="text-base">
-									+62 898-7201-555
+									{dataBeranda.nomor}
 								</a>
 							</div>
 							<div className="border-b pb-4">

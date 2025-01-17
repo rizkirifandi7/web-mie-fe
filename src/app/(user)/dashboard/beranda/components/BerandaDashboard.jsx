@@ -26,6 +26,7 @@ import {
 const FormSchema = z.object({
 	judul: z.string().nonempty("Judul harus diisi."),
 	deskripsi: z.string().nonempty("Deskripsi harus diisi."),
+	nomor: z.string().nonempty("Nomor harus diisi."),
 	gambar: z
 		.any()
 		.optional()
@@ -59,6 +60,7 @@ const BerandaDashboard = () => {
 		defaultValues: {
 			judul: "",
 			deskripsi: "",
+			nomor: "",
 			gambar: undefined,
 			background: undefined,
 		},
@@ -74,10 +76,10 @@ const BerandaDashboard = () => {
 			form.reset({
 				judul: result.data.judul,
 				deskripsi: result.data.deskripsi,
+				nomor: result.data.nomor,
 				gambar: undefined,
 				background: undefined,
 			});
-
 		} catch (error) {
 			console.error("Error fetching data:", error);
 		}
@@ -99,6 +101,7 @@ const BerandaDashboard = () => {
 			if (data.background) {
 				formData.append("background", data.background);
 			}
+			formData.append("nomor", data.nomor);
 
 			const response = await fetch(
 				`${process.env.NEXT_PUBLIC_BASE_URL}/beranda/1`,
@@ -136,6 +139,24 @@ const BerandaDashboard = () => {
 									placeholder="masukkan judul..."
 									{...field}
 									type="text"
+								/>
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="nomor"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Nomor Telepon</FormLabel>
+							<FormControl>
+								<Input
+									className="shadow-none"
+									placeholder="masukkan nomor..."
+									{...field}
+									type="number"
 								/>
 							</FormControl>
 							<FormMessage />

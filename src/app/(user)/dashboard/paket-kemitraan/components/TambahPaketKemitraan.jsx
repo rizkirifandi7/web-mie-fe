@@ -17,7 +17,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
 	ACCEPTED_IMAGE_MIME_TYPES,
 	MAX_FILE_SIZE_10MB,
@@ -33,6 +33,7 @@ import { z } from "zod";
 const FormSchema = z.object({
 	jenis_kemitraan: z.string().nonempty("Jenis kemitraan harus diisi."),
 	ukuran: z.string().nonempty("Ukuran harus diisi."),
+	deskripsi: z.string().nonempty("Deskripsi harus diisi."),
 	gambar: z
 		.array(
 			z
@@ -70,6 +71,7 @@ const TambahPaketKemitraan = ({ fetchData }) => {
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
 			jenis_kemitraan: "",
+			deskripsi: "",
 			ukuran: "",
 			gambar: null,
 			harga: "",
@@ -83,6 +85,7 @@ const TambahPaketKemitraan = ({ fetchData }) => {
 			formData.append("jenis_kemitraan", data.jenis_kemitraan);
 			formData.append("ukuran", data.ukuran);
 			formData.append("harga", data.harga);
+			formData.append("deskripsi", data.deskripsi);
 
 			data.gambar.forEach((file) => {
 				formData.append("gambar", file);
@@ -143,6 +146,23 @@ const TambahPaketKemitraan = ({ fetchData }) => {
 											placeholder="masukkan jenis kemitraan..."
 											{...field}
 											type="text"
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="deskripsi"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Deskripsi Paket</FormLabel>
+									<FormControl>
+										<Textarea
+											className="shadow-none"
+											placeholder="masukkan deskripsi..."
+											{...field}
 										/>
 									</FormControl>
 									<FormMessage />
