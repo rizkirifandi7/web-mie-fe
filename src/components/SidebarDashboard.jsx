@@ -207,11 +207,11 @@ export function AppSidebar({ children }) {
 					<div className="flex items-center h-16 gap-2">
 						<SidebarTrigger className="-ml-1" />
 						<Separator orientation="vertical" className="mr-2 h-4" />
-						<div className="">
+						<>
 							<Breadcrumb>
 								<BreadcrumbList>
 									<BreadcrumbItem>
-										<BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
+										<BreadcrumbPage>Dashboard</BreadcrumbPage>
 									</BreadcrumbItem>
 									<BreadcrumbSeparator />
 									<BreadcrumbItem>
@@ -219,7 +219,7 @@ export function AppSidebar({ children }) {
 									</BreadcrumbItem>
 								</BreadcrumbList>
 							</Breadcrumb>
-						</div>
+						</>
 					</div>
 					<div className="flex items-center gap-2">
 						<DropdownMenu>

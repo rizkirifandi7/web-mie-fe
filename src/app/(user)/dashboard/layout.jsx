@@ -6,8 +6,8 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-	title: "Dashboard | Bakso Dono Reborn",
-	description: "Bakso Dono Reborn",
+	title: "Dashboard | Demiehan",
+	description: "Demiehan",
 	icons: {
 		icon: "/favicon.ico",
 	},

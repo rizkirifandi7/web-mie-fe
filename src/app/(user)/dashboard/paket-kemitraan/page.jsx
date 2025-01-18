@@ -30,11 +30,10 @@ const PagePaketKemitraan = () => {
 		{
 			accessorKey: "deskripsi",
 			header: "Deskripsi Paket",
-			cell: ({ row }) => (
-				<div className="w-[300px] truncate">
-					{parse(row.getValue("deskripsi")) || "-"}
-				</div>
-			),
+			cell: ({ row }) => {
+				const deskripsi = row.getValue("deskripsi") || "<p>-</p>";
+				return <div className="w-[300px] truncate">{parse(deskripsi)}</div>;
+			},
 		},
 		{
 			accessorKey: "ukuran",
