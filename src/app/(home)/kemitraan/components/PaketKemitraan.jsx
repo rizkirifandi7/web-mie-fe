@@ -36,19 +36,26 @@ const PaketKemitraan = ({ data }) => {
 								);
 							})}
 						</CarouselContent>
-						<CarouselPrevious />
-						<CarouselNext />
 					</Carousel>
 					<div className="flex flex-col w-full">
 						<h1 className="text-2xl font-bold mb-6 text-blue-500 capitalize">
 							{item.jenis_kemitraan}
 						</h1>
 						<div className="flex flex-col gap-y-4">
-							<div>{parse(item.deskripsi)}</div>
+							<div
+								className="text-wrap"
+								style={{
+									maxWidth: "100%",
+									wordWrap: "break-word",
+									overflowWrap: "break-word",
+								}}
+							>
+								{parse(item.deskripsi)}
+							</div>
 							<p className="text-gray-500 text-base">Ukuran : {item.ukuran}</p>
 							<p className="text-xl font-bold">{formatRupiah(item.harga)}</p>
 						</div>
-						<div className="flex items-center gap-4">
+						<div className="flex flex-col md:flex-row items-center gap-4">
 							<Button
 								className="w-fit bg-blue-500 py-5 mt-8 text-sm font-semibold capitalize"
 								asChild
@@ -56,7 +63,7 @@ const PaketKemitraan = ({ data }) => {
 								<Link href="/registrasi">Daftar Jadi Mitra Sekarang</Link>
 							</Button>
 							<Button
-								className="w-fit bg-green-500 py-5 mt-8 text-sm font-semibold capitalize"
+								className="w-fit bg-green-500 py-5 md:mt-8 text-sm font-semibold capitalize"
 								asChild
 							>
 								<Link href="https://wa.link/dben6b">WhatsApp</Link>

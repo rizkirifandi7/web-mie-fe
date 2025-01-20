@@ -4,7 +4,7 @@ import React from "react";
 import PaketKemitraan from "./components/PaketKemitraan";
 import axios from "axios";
 import BackgroundBox from "@/components/BackgroundBox";
-import Testimoni from "./components/Testimoni";
+import Testimoni from "../../../components/homepage/Testimoni";
 
 const PageTemukanKami = () => {
 	const [data, setData] = React.useState([]);

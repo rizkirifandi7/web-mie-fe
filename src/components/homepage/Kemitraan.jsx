@@ -78,19 +78,19 @@ const Kemitraan = () => {
 									delay: 2000,
 								}),
 							]}
-							className="w-full md:w-[500px] mt-10 md:mt-0"
+							className="w-full md:w-[450px] mt-10 md:mt-0"
 						>
 							<CarouselContent>
 								{data.flatMap((item) =>
 									item.gambar.map((img, index) => (
 										<CarouselItem key={`${item.id}-${index}`}>
-											<Card className="flex justify-center overflow-hidden items-center rounded-md w-full object-cover">
+											<Card className="flex justify-center overflow-hidden items-center rounded-md w-full">
 												<Image
 													src={img.path}
-													width={450}
-													height={450}
+													width={400}
+													height={400}
 													alt="logo"
-													className="object-cover p-6"
+													className="flex justify-center items-center object-cover w-full"
 												/>
 											</Card>
 										</CarouselItem>

@@ -4,21 +4,30 @@ import Judul from "@/components/Judul";
 import HeroVideoDialog from "@/components/ui/hero-video-dialog";
 import axios from "axios";
 import { ArrowUpRight } from "lucide-react";
-import Link from "next/link";
 
-const Kontak = ({ dataBeranda }) => {
+const Kontak = () => {
+	const [kontak, setKontak] = React.useState({});
 	const [cabang, setCabang] = React.useState([]);
 
-	const fetchCabang = async () => {
-		const response = await axios.get(
-			`${process.env.NEXT_PUBLIC_BASE_URL}/cabang`
-		);
-		const data = await response.data;
-		setCabang(data);
+	const fetchData = async () => {
+		try {
+			const [cabangResponse, kontakResponse] = await Promise.all([
+				axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/cabang`),
+				axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/beranda/1`),
+			]);
+
+			const cabangData = await cabangResponse.data;
+			const kontakData = await kontakResponse.data;	
+
+			setCabang(cabangData);
+			setKontak(kontakData.data);
+		} catch (error) {
+			console.error("Error fetching data:", error);
+		}
 	};
 
 	React.useEffect(() => {
-		fetchCabang();
+		fetchData();
 	}, []);
 
 	return (
@@ -58,7 +67,7 @@ const Kontak = ({ dataBeranda }) => {
 							</div>
 							<div className="border-y py-4">
 								<h1 className="text-lg font-semibold">Telepon</h1>
-								<p className="text-base">{dataBeranda.nomor}</p>
+								<p className="text-base">{kontak.nomor}</p>
 							</div>
 							<div className="border-b pb-4">
 								<h1 className="text-lg font-semibold">Alamat</h1>

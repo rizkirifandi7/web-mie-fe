@@ -29,12 +29,12 @@ const Testimoni = ({ data }) => {
 				opts={{
 					align: "start",
 				}}
-				className="w-full max-w-screen-sm md:max-w-screen-xl mx-auto"
+				className="w-full max-w-xs md:max-w-screen-xl mx-auto"
 			>
 				<CarouselContent>
 					{data.map((item, index) => (
 						<CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-							<Card className="flex flex-col justify-center items-center aspect-square">
+							<Card className="flex flex-col justify-center items-center md:aspect-square">
 								<CardHeader className="flex flex-col items-center">
 									<div className="w-[70px] h-[70px] overflow-hidden">
 										<Image
@@ -57,8 +57,6 @@ const Testimoni = ({ data }) => {
 						</CarouselItem>
 					))}
 				</CarouselContent>
-				<CarouselPrevious />
-				<CarouselNext />
 			</Carousel>
 		</div>
 	);

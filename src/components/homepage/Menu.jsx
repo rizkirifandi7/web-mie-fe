@@ -37,7 +37,7 @@ const Menu = () => {
 
 	return (
 		<section className="md:w-full h-full" id="menu">
-			<div className="max-w-screen-sm md:max-w-screen-xl mx-auto px-8 md:px-20 w-full h-full">
+			<div className="max-w-screen-sm md:max-w-screen-xl mx-auto px-8 py-24 md:px-20 w-full h-full">
 				<div className="flex flex-col justify-center items-center w-full">
 					<Judul mainText="D'EMIEHAN" subText="Produk Kami" />
 
@@ -56,7 +56,7 @@ const Menu = () => {
 										{menuData.map((menu) => (
 											<CarouselItem
 												key={menu.id}
-												className="w-full md:basis-1/3  h-full"
+												className="w-full md:basis-1/3 h-full"
 											>
 												<Card className="w-full h-full p-2">
 													<div className="flex justify-center items-center bg-blue-50 overflow-hidden w-full h-[300px] object-cover rounded-t-md">
