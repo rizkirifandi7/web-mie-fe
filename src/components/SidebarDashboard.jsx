@@ -60,22 +60,22 @@ const data = {
 			items: [
 				{
 					title: "Menu",
-					url: "/dashboard/menu",
+					url: "/dashboard-home/menu",
 					icon: <SquareMenu size={20} />,
 				},
 				{
 					title: "Kemitraan",
-					url: "/dashboard/kemitraan",
+					url: "/dashboard-home/kemitraan",
 					icon: <Handshake size={20} />,
 				},
 				{
 					title: "Cabang",
-					url: "/dashboard/cabang",
+					url: "/dashboard-home/cabang",
 					icon: <MapPinned size={20} />,
 				},
 				{
 					title: "Paket Kemitraan",
-					url: "/dashboard/paket-kemitraan",
+					url: "/dashboard-home/paket-kemitraan",
 					icon: <BriefcaseBusiness size={20} />,
 				},
 			],
@@ -86,42 +86,42 @@ const data = {
 			items: [
 				{
 					title: "Beranda",
-					url: "/dashboard/beranda",
+					url: "/dashboard-home/beranda",
 					icon: <Store size={20} />,
 				},
 				{
 					title: "Berita & Artikel",
-					url: "/dashboard/berita-artikel",
+					url: "/dashboard-home/berita-artikel",
 					icon: <Newspaper size={20} />,
 				},
 				{
 					title: "Galeri",
-					url: "/dashboard/galeri",
+					url: "/dashboard-home/galeri",
 					icon: <Images size={20} />,
 				},
 				{
 					title: "Banner",
-					url: "/dashboard/banner",
+					url: "/dashboard-home/banner",
 					icon: <Images size={20} />,
 				},
 				{
 					title: "Feedback",
-					url: "/dashboard/feedback",
+					url: "/dashboard-home/feedback",
 					icon: <MessageSquareTextIcon size={20} />,
 				},
 				{
 					title: "Media Sosial",
-					url: "/dashboard/media-sosial",
+					url: "/dashboard-home/media-sosial",
 					icon: <AppWindow size={20} />,
 				},
 				{
 					title: "Sertifikat",
-					url: "/dashboard/sertifikat",
+					url: "/dashboard-home/sertifikat",
 					icon: <FileText size={20} />,
 				},
 				{
 					title: "Testimoni",
-					url: "/dashboard/testimoni",
+					url: "/dashboard-home/testimoni",
 					icon: <FileText size={20} />,
 				},
 			],
@@ -132,7 +132,7 @@ const data = {
 			items: [
 				{
 					title: "User",
-					url: "/dashboard/user",
+					url: "/dashboard-home/user",
 					icon: <User size={20} />,
 				},
 			],

@@ -1,5 +1,8 @@
 import { Toaster } from "sonner";
+import { Inter } from "next/font/google";
 import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
 	title: "Dmiehan",
@@ -12,8 +15,8 @@ export const metadata = {
 const RootLayout = ({ children }) => {
 	return (
 		<html lang="en">
-			<body>
-				<Toaster position="top-center"/>
+			<body className={`${inter.className}`}>
+				<Toaster position="top-center" />
 				{children}
 			</body>
 		</html>
