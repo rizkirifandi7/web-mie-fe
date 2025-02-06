@@ -7,7 +7,7 @@ export async function middleware(request) {
 
 	if (
 		!session &&
-		(pathname.startsWith("/dashboard-order") ||
+		(pathname.startsWith("/dashboard-mitra") ||
 			pathname.startsWith("/dashboard-superadmin"))
 	) {
 		return NextResponse.redirect(new URL("/login", request.url));
