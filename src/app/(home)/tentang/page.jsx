@@ -50,7 +50,7 @@ const PageTentang = () => {
 							width={350}
 							height={350}
 							alt="logo"
-							className="object-cover w-auto h-auto"
+							className="object-cover"
 						/>
 						<p className="text-justify">{data.deskripsi}</p>
 					</div>
@@ -71,7 +71,7 @@ const PageTentang = () => {
 										width={80}
 										height={80}
 										alt="sertifikat"
-										className="flex justify-center items-center w-auto h-auto object-fit rounded-md border"
+										className="flex justify-center items-center object-fit rounded-md border"
 									/>
 									<p className="flex text-sm text-left items-start w-full">
 										{item.keterangan}

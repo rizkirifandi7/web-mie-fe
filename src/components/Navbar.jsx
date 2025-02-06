@@ -58,7 +58,6 @@ const Navbar = React.memo(function Navbar() {
 						width={32}
 						height={32}
 						alt="Dmiehan Logo"
-						className="w-auto h-auto"
 					/>
 					<span className="self-center text-2xl font-bold whitespace-nowrap font-advent">
 						D`emiehan

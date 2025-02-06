@@ -38,9 +38,8 @@ const PageBanner = () => {
 				<div>
 					<Image
 						src={row.getValue("gambar")}
-						width={50}
-						height={50}
-						className="w-auto h-auto"
+						width={70}
+						height={70}
 						alt="gambar"
 					/>
 				</div>

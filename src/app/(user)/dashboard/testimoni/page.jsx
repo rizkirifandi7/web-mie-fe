@@ -53,16 +53,15 @@ const PageTestimoni = () => {
 						{fotoUrl ? (
 							<Image
 								src={fotoUrl}
-								width={50}
-								height={50}
-								className="w-auto h-auto"
+								width={70}
+								height={70}
 								alt="foto"
 							/>
 						) : (
 							<div
 								style={{
-									width: "50px",
-									height: "50px",
+									width: "70px",
+									height: "70px",
 									backgroundColor: "#e0e0e0",
 								}}
 							/>
@@ -111,7 +110,7 @@ const PageTestimoni = () => {
 				columns={columns}
 				data={data}
 				TambahComponent={() => <TambahTestimoni fetchData={fetchData} />}
-				title="Dashboard Menu"
+				title="Dashboard Testimoni"
 				search="nama"
 				pageSize={5}
 			/>

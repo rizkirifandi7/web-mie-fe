@@ -85,7 +85,7 @@ const SignIn = () => {
 				<CardHeader>
 					<div className="flex flex-col gap-2 justify-center items-center mb-4">
 						<Image src="/logo.svg" width="100" height="100" alt="Logo" />
-						<h1 className="font-bold">Dmiehan</h1>
+						<h1 className="font-bold">Demiehan</h1>
 					</div>
 					<CardTitle>Login</CardTitle>
 					<CardDescription>

@@ -164,10 +164,9 @@ export function AppSidebar({ children }) {
 								width={40}
 								height={40}
 								alt="logo"
-								className="w-auto h-auto"
 							/>
 							<div className="flex flex-col gap-0.5">
-								<span className="font-bold text-base">Dmiehan</span>
+								<span className="font-bold text-base">Demiehan</span>
 								<span className="text-sm text-gray-500">Sistem Informasi</span>
 							</div>
 						</SidebarMenuButton>

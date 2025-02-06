@@ -54,9 +54,9 @@ const PageBerita = () => {
 				<div>
 					<Image
 						src={row.getValue("gambar")}
-						width={50}
-						height={50}
-						className="w-auto h-auto object-cover"
+						width={70}
+						height={70}
+						className="object-cover"
 						alt="gambar"
 					/>
 				</div>

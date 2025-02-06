@@ -43,9 +43,9 @@ const Hero = () => {
 				<div className="flex justify-center items-center mb-4">
 					<Image
 						src={data.gambar ? data.gambar : "/logobrand.png"}
-						width={150}
-						height={150}
-						className="md:w-auto md:h-auto object-fit"
+						width={300}
+						height={300}
+						className="object-fit"
 						alt="Demiehan Logo"
 					/>
 				</div>
