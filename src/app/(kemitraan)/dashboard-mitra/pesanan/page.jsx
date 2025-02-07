@@ -126,7 +126,7 @@ const PagePesanan = () => {
 			data={dataUser}
 			fetchData={fetchDataPesanan}
 			TambahComponent={() => (
-				<Link href="/dashboard-order/pesanan/laporan-pesanan">
+				<Link href="/dashboard-mitra/pesanan/laporan-pesanan">
 					<Button className="bg-blue-500">
 						<HiOutlineDocumentReport />
 						Unduh Laporan Pesanan

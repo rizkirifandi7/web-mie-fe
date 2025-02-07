@@ -190,7 +190,7 @@ const PageLaporanPesanan = () => {
 
 	return (
 		<>
-			<Link href="/dashboard-order/pesanan">
+			<Link href="/dashboard-mitra/pesanan">
 				<Button variant="ghost" className="mb-4">
 					<FaArrowLeftLong />
 					Kembali
