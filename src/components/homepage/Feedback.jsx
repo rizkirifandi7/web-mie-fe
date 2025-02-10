@@ -12,7 +12,7 @@ const Feedback = () => {
 		<section className="w-full h-full" id="feedback">
 			<div className="max-w-screen-sm md:max-w-screen-xl mx-auto py-24">
 				<div className="flex flex-col justify-center items-center w-full">
-					<Judul mainText="D'EMIEHAN" subText="Feedback & Testimoni" />
+					<Judul mainText="DEMIEHAN" subText="Feedback & Testimoni" />
 
 					<Tabs
 						defaultValue="feedback"

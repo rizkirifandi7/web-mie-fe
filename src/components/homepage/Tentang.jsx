@@ -24,7 +24,7 @@ const Tentang = () => {
 		<section className="md:w-full h-full" id="tentang">
 			<div className="max-w-screen-sm md:max-w-screen-xl mx-auto py-24">
 				<div className="flex flex-col justify-center items-center">
-					<Judul mainText="D'EMIEHAN" subText="Tentang Kami" />
+					<Judul mainText="DEMIEHAN" subText="Tentang Kami" />
 
 					<div className="flex flex-col md:flex-row justify-between items-center mt-10 px-8">
 						<div className="md:basis-1/3 w-[250px] h-[250px] md:h-[400px] bg-blue-50 rounded-custom2 md:ml-24">
@@ -45,7 +45,7 @@ const Tentang = () => {
 						</div>
 						<div className="w-full md:basis-1/2 md:px-4">
 							<h1 className="font-bold text-3xl mb-2 hidden md:block">
-								D&apos;emiehan
+								Demiehan
 							</h1>
 							<p className="md:px-0 text-center md:text-justify text-sm md:text-base mt-10 md:mt-0">
 								{data.deskripsi}

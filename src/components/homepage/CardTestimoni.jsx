@@ -26,7 +26,7 @@ const CardTestimoni = () => {
 		<section className="md:w-full h-full" id="tentang">
 			<div className="max-w-screen-sm md:max-w-screen-xl mx-auto py-24">
 				<div className="flex flex-col justify-center items-center">
-					<Judul mainText="D'EMIEHAN" subText="Testimoni" />
+					<Judul mainText="DEMIEHAN" subText="Testimoni" />
 
 					<div className="flex flex-col md:flex-row justify-between items-center mt-10 px-8">
 						<Testimoni data={data} />

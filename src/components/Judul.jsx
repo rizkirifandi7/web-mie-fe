@@ -3,10 +3,10 @@ import React from "react";
 const Judul = ({ mainText, subText }) => {
 	return (
 		<div className={`flex flex-col justify-center items-center`}>
-			<span className={`text-xl font-extrabold font-advent text-blue-500`}>
+			<h1 className={`text-xl font-extrabold font-advent text-blue-500`}>
 				{mainText}
-			</span>
-			<span className="text-4xl font-bold ">{subText}</span>
+			</h1>
+			<h2 className="text-4xl font-bold ">{subText}</h2>
 		</div>
 	);
 };

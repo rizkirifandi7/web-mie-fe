@@ -39,7 +39,7 @@ const Menu = () => {
 		<section className="md:w-full h-full" id="menu">
 			<div className="max-w-screen-sm md:max-w-screen-xl mx-auto px-8 py-24 md:px-20 w-full h-full">
 				<div className="flex flex-col justify-center items-center w-full">
-					<Judul mainText="D'EMIEHAN" subText="Produk Kami" />
+					<Judul mainText="DEMIEHAN" subText="Produk Kami" />
 
 					<div className="w-full">
 						{menuData.length > 0 ? (

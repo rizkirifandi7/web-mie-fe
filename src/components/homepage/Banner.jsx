@@ -23,7 +23,7 @@ const Banner = () => {
 		<section className="md:w-full h-full bg-repeat" id="tentang">
 			<div className="max-w-screen-sm md:max-w-screen-xl mx-auto py-24">
 				<div className="flex flex-col justify-center items-center">
-					<Judul mainText="D'EMIEHAN" subText="Informasi" />
+					<Judul mainText="DEMIEHAN" subText="Informasi" />
 				</div>
 				{data.length > 0 ? (
 					<div className="w-full h-full justify-center items-center mt-10 px-8">

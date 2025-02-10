@@ -59,9 +59,9 @@ const Navbar = React.memo(function Navbar() {
 						height={32}
 						alt="Dmiehan Logo"
 					/>
-					<span className="self-center text-2xl font-bold whitespace-nowrap font-advent">
-						D`emiehan
-					</span>
+					<h1 className="self-center text-2xl font-bold whitespace-nowrap font-advent">
+						Demiehan
+					</h1>
 				</Link>
 
 				{/* Mobile Menu Dropdown */}

@@ -54,9 +54,9 @@ const Footer = () => {
 								height="40"
 								alt="FlowBite Logo"
 							/>
-							<span className="self-center text-2xl font-bold font-advent">
-								D&apos;emiehan
-							</span>
+							<h1 className="self-center text-2xl font-bold font-advent">
+								Demiehan
+							</h1>
 						</Link>
 					</div>
 					<div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">

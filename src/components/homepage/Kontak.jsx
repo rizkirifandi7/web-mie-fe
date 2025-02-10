@@ -34,7 +34,7 @@ const Kontak = () => {
 		<section id="kontak" className="w-full h-full ">
 			<div className="md:max-w-screen-xl mx-auto py-24 px-8 md:px-14">
 				<div className="flex flex-col justify-center items-center">
-					<Judul mainText="D'EMIEHAN" subText="Kontak" />
+					<Judul mainText="DEMIEHAN" subText="Kontak" />
 				</div>
 
 				<div className="flex flex-col md:flex-row justify-between items-center mt-14 gap-x-10">
