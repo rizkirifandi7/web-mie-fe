@@ -11,7 +11,7 @@ export const metadata = {
 	title: "Home Page | Demiehan",
 	description: "Demiehan",
 	icons: {
-		icon: "logobrand.png",
+		icon: "favicon.ico",
 	},
 };
 

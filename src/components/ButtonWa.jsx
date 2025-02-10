@@ -48,7 +48,7 @@ const ButtonWa = () => {
 		<Popover>
 			<PopoverTrigger asChild>
 				<Button variant="outline" size="icon" className="shadow-sm">
-					<Image src="/wa.ico" width={32} height={32} alt="wa" />
+					<Image src="/wa.png" width={32} height={32} alt="wa" />
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="w-fit mr-4">
