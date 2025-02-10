@@ -30,7 +30,7 @@ const PageGaleri = () => {
 		<section className="w-full md:w-full min-h-screen bg-white">
 			<div className="max-w-screen-sm md:max-w-screen-xl mx-auto py-28 px-8 md:px-0">
 				<BackgroundBox>
-					<Judul mainText="D'EMIEHAN" subText="Galeri" />
+					<Judul mainText="DEMIEHAN" subText="Galeri" />
 				</BackgroundBox>
 				<div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-10">
 					{data.map((item, idx) => (

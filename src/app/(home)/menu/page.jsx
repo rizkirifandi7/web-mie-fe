@@ -36,7 +36,7 @@ const PageMenu = () => {
 		<section className="md:w-full min-h-screen " id="menu">
 			<div className="md:max-w-screen-xl mx-auto py-28 px-8 md:px-0">
 				<BackgroundBox>
-					<Judul mainText="D'EMIEHAN" subText="Produk Kami" />
+					<Judul mainText="DEMIEHAN" subText="Produk Kami" />
 				</BackgroundBox>
 
 				<div className="flex flex-col md:flex-row justify-between items-start mt-10 gap-10">

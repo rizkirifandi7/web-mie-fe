@@ -40,7 +40,7 @@ const PageTentang = () => {
 		<section className="w-full md:w-full min-h-screen bg-white">
 			<div className="max-w-screen-sm md:max-w-screen-lg mx-auto py-28 px-8 md:px-0">
 				<BackgroundBox>
-					<Judul mainText="D'EMIEHAN" subText="Tentang Kami" />
+					<Judul mainText="DEMIEHAN" subText="Tentang Kami" />
 				</BackgroundBox>
 
 				<div className="flex flex-col justify-center items-center mt-10 text-center gap-4">

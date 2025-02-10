@@ -31,7 +31,7 @@ const PageBerita = () => {
 		<section className="w-full md:w-full min-h-screen bg-white">
 			<div className="max-w-screen-sm md:max-w-screen-xl mx-auto py-28 px-8 md:px-0">
 				<BackgroundBox>
-					<Judul mainText="D'EMIEHAN" subText="Berita" />
+					<Judul mainText="DEMIEHAN" subText="Berita" />
 				</BackgroundBox>
 
 				{filterData.length > 0 && (

@@ -31,7 +31,7 @@ const PageArtikel = () => {
 		<section className="w-full md:w-full min-h-screen bg-white">
 			<div className="max-w-screen-sm md:max-w-screen-xl mx-auto py-28 px-8 md:px-0">
 				<BackgroundBox>
-					<Judul mainText="D'EMIEHAN" subText="Artikel" />
+					<Judul mainText="DEMIEHAN" subText="Artikel" />
 				</BackgroundBox>
 
 				<div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-20">

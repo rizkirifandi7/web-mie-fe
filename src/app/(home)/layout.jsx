@@ -8,8 +8,8 @@ import { Toaster } from "sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-	title: "Home Page | Dmiehan",
-	description: "Dmiehan",
+	title: "Home Page | Demiehan",
+	description: "Demiehan",
 	icons: {
 		icon: "logobrand.png",
 	},
